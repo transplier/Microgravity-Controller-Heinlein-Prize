@@ -1,0 +1,8 @@
+#define EEPROM_STATUS 0
+#define EEPROM_TIME_1 1 //LSB
+#define EEPROM_TIME_2 2
+#define EEPROM_TIME_3 3
+#define EEPROM_TIME_4 4 //MSB
+#define EEPROM_TIME_CHECK 5
+
+#define EEPROM_STATUS_TIME_VALID 0x01
