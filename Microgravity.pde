@@ -8,7 +8,8 @@
 
 unsigned long lastTime;
 
-Goldelox glox(GDLOX_RX, GDLOX_TX, GDLOX_SPEED);
+Goldelox glox(GDLOX_RX, GDLOX_TX);
+boolean gloxActive;
 
 void setup() {
   pinMode(LEDPIN, OUTPUT);
@@ -25,7 +26,16 @@ void setup() {
   Serial.println(lastTime);
   
   DEBUG("Initializing GOLDELOX-DOS...");
-
+  GoldeloxStatus ret = glox.begin(GDLOX_SPEED);
+  if(ret == OK) {
+    DEBUG("OK!\n");
+    gloxActive = true;
+  } else {
+    gloxActive = false;
+    DEBUG("ERROR ");
+    DEBUG(ret);
+    DEBUG("!\n");
+  }
 }
 
 void loop() {
