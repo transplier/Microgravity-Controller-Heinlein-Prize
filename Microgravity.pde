@@ -1,10 +1,14 @@
 #include "Pins.h"
 #include "Debug.h"
 #include "EEPROMFormat.h"
+#include "Goldelox.h"
 
 #define SAVE_INTERVAL 10000
+#define GDLOX_SPEED 9600
 
 unsigned long lastTime;
+
+Goldelox glox(GDLOX_RX, GDLOX_TX, GDLOX_SPEED);
 
 void setup() {
   pinMode(LEDPIN, OUTPUT);
@@ -19,6 +23,9 @@ void setup() {
   lastTime = GetTime();
   Serial.print("Current time is: ");
   Serial.println(lastTime);
+  
+  DEBUG("Initializing GOLDELOX-DOS...");
+
 }
 
 void loop() {
@@ -33,7 +40,7 @@ void loop() {
 }
 
 void CheckForReset() {
-  if(digitalRead(RSTPIN) == HIGH) {
+  if(digitalRead(RSTPIN) == LOW) {
     Serial.print("Resetting...");
     WriteStatus(EEPROM_STATUS_RESET_VALUE);
     Serial.println("Done.");
