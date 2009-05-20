@@ -36,6 +36,17 @@ void setup() {
     DEBUG(ret);
     DEBUG("!\n");
   }
+  DEBUG("Initializing card in GOLDELOX-DOS...");
+  ret = glox.initializeNewCard();
+  if(ret == OK) {
+    DEBUG("OK!\n");
+    gloxActive = true;
+  } else {
+    gloxActive = false;
+    DEBUG("ERROR ");
+    DEBUG(ret);
+    DEBUG("!\n");
+  }
 }
 
 void loop() {

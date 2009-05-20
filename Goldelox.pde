@@ -6,13 +6,13 @@ Goldelox::Goldelox(byte rx, byte tx) : gdlox(rx, tx) {
 }
 
 GoldeloxStatus Goldelox::begin(int speed) {
+  byte b1, b2, b3, b4, b5;
+    
   gdlox.begin(speed);
   //Wait for settle.
   delay(GDLOX_POWERUP_DELAY);
   //Auto-baud the device.
   if(!issueCommand("U", 1)) return TIMED_OUT; //Timed out!
-  
-  byte b1, b2, b3, b4, b5;
   b1 = gdlox.read();
   if(b1 == GDLOX_ACK){
     //Found device! Ask for info.
@@ -28,7 +28,9 @@ GoldeloxStatus Goldelox::begin(int speed) {
 }
 
 GoldeloxStatus Goldelox::initializeNewCard() {
-    //if(!issueCommand("V", 5)) return TIMED_OUT; //Timed out!
+    if(!issueCommand("@i", 1)) return TIMED_OUT; //Timed out!
+    if(gdlox.read() == GDLOX_ACK) return OK;
+    else return ERROR;
 }
 
 boolean Goldelox::issueCommand(const char* cmd, byte minReplyLength) {

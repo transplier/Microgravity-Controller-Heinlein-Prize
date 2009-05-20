@@ -6,7 +6,7 @@
 #define GDLOX_NAK 0x15
 
 #define GDLOX_POWERUP_DELAY 500
-#define GDLOX_CMD_DELAY 100
+#define GDLOX_CMD_DELAY 500
 
 #include <NewSoftSerial.h>
 
