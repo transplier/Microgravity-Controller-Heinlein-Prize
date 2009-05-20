@@ -1,4 +1,10 @@
+#ifndef PINS_H
+#define PINS_H
+
 //INPUTS
-#define RSTPIN 1
+#define RSTPIN 12
 
 //OUTPUTS
+#define LEDPIN 13
+
+#endif
