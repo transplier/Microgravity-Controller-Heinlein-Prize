@@ -16,8 +16,10 @@ class Goldelox
 {
 private:
   NewSoftSerial gdlox;
+  boolean issueCommand(const char*, byte minReplyLength);
 public:
   Goldelox(byte rx, byte tx);
   GoldeloxStatus begin(int speed);
+  GoldeloxStatus initializeNewCard();
 };
 #endif

@@ -10,29 +10,13 @@ GoldeloxStatus Goldelox::begin(int speed) {
   //Wait for settle.
   delay(GDLOX_POWERUP_DELAY);
   //Auto-baud the device.
-  gdlox.print('U');
-  unsigned long timer = millis();
-  while(millis()-timer <= GDLOX_CMD_DELAY) {
-    if(gdlox.available() > 0) { 
-      timer = 0;
-      break;
-    }
-  }
-  if(timer != 0) return TIMED_OUT; //Timed out!
+  if(!issueCommand("U", 1)) return TIMED_OUT; //Timed out!
   
   byte b1, b2, b3, b4, b5;
   b1 = gdlox.read();
   if(b1 == GDLOX_ACK){
     //Found device! Ask for info.
-    gdlox.print('V');
-    timer = millis();
-    while(millis()-timer <= GDLOX_CMD_DELAY) {
-      if(gdlox.available() >= 5) { 
-        timer = 0;
-        break;
-      }
-    }
-    if(timer != 0) return TIMED_OUT; //Bad reply?
+    if(!issueCommand("V" , 5)) return TIMED_OUT; //Timed out!
     b1 = gdlox.read(); //Device type
     b2 = gdlox.read(); //Silicon rev
     b3 = gdlox.read(); //pmmc rev
@@ -41,4 +25,21 @@ GoldeloxStatus Goldelox::begin(int speed) {
     if( b1 == GDLOX_DEVICE_TYPE && b4 == 0 && b5 == 0) return OK;
     else return ERROR;
   }
+}
+
+GoldeloxStatus Goldelox::initializeNewCard() {
+    //if(!issueCommand("V", 5)) return TIMED_OUT; //Timed out!
+}
+
+boolean Goldelox::issueCommand(const char* cmd, byte minReplyLength) {
+  gdlox.print(cmd);
+  unsigned long timer = millis();
+  while(millis()-timer <= GDLOX_CMD_DELAY) {
+    if(gdlox.available() >= minReplyLength) { 
+      timer = 0;
+      break;
+    }
+  }
+  if(timer != 0) return false; //Timed out!
+  else return true;
 }
