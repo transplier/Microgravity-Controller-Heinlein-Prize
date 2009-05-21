@@ -2,14 +2,21 @@
 #include "Debug.h"
 #include "EEPROMFormat.h"
 #include "Goldelox.h"
+#include "iSeries.h"
 
 #define SAVE_INTERVAL 10000
 #define GDLOX_SPEED 9600
 
 unsigned long lastTime;
 
+extern NewSoftSerial com_1;
+
 Goldelox glox(GDLOX_RX, GDLOX_TX);
 boolean gloxActive;
+
+iSeries iSeries1(&com_1);
+
+boolean FindAndResetISeries();
 
 void setup() {
   pinMode(LEDPIN, OUTPUT);
@@ -36,17 +43,17 @@ void setup() {
     DEBUG(ret);
     DEBUG("!\n");
   }
-  DEBUG("Initializing card in GOLDELOX-DOS...");
-  ret = glox.initializeNewCard();
-  if(ret == OK) {
+  
+  DEBUG("Initializing serial ports...");
+  InitComms();
+  DEBUG("OK!\n");
+  
+  DEBUG("Resetting and finding iSeries on com1...");
+  if(FindAndResetISeries())
     DEBUG("OK!\n");
-    gloxActive = true;
-  } else {
-    gloxActive = false;
-    DEBUG("ERROR ");
-    DEBUG(ret);
-    DEBUG("!\n");
-  }
+  else
+    DEBUG("FAIL!\n");
+  while(true){}
 }
 
 void loop() {
@@ -58,6 +65,12 @@ void loop() {
     lastTime = currentTime;
     digitalWrite(LEDPIN, LOW);
   }
+}
+
+boolean FindAndResetISeries() {
+  byte resp[3];
+  iSeries1.issueCommand("Z02", resp, 3, 4000);
+  return resp[0]=='Z' && resp[1]=='0' && resp[2]=='2';
 }
 
 void CheckForReset() {

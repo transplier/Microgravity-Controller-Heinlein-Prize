@@ -28,9 +28,11 @@ GoldeloxStatus Goldelox::begin(int speed) {
 }
 
 GoldeloxStatus Goldelox::initializeNewCard() {
-    if(!issueCommand("@i", 1)) return TIMED_OUT; //Timed out!
-    if(gdlox.read() == GDLOX_ACK) return OK;
-    else return ERROR;
+  if(!issueCommand("@i", 1)) return TIMED_OUT; //Timed out!
+  byte in = gdlox.read();
+  if(in == GDLOX_ACK) return OK;
+  else if(in == GDLOX_NAK) return NO_CARD;
+  else return ERROR;
 }
 
 boolean Goldelox::issueCommand(const char* cmd, byte minReplyLength) {

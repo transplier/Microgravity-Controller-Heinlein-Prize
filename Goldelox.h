@@ -10,7 +10,7 @@
 
 #include <NewSoftSerial.h>
 
-enum GoldeloxStatus{ OK, TIMED_OUT, ERROR };
+enum GoldeloxStatus{ OK, TIMED_OUT, ERROR, NO_CARD };
 
 class Goldelox
 {
