@@ -51,15 +51,50 @@ void setup() {
     DEBUG("ERROR ");
     DEBUG(ret);
     DEBUG("!\n");
-  }
+  }  
+
+  #ifdef DODEBUG
+  //GOLDELOX tests
   
+  //List dir
   glox.ls(temp, sizeof(temp));
-  Serial.println("Files on card: ");
+  DEBUG("Files on card: \n");
   for(int x=0;x<sizeof(temp);x++) {
     if(temp[x]==0) break;
-    Serial.print((char)temp[x]);
+    DEBUG((char)temp[x]);
   }
-
+  DEBUG("Sample file tests: ");
+  //Write data
+  byte abc[3] = {'a', 'b', 'c'};
+  ret = glox.write("temp", true, abc, sizeof(abc));
+  if(ret == OK) {
+    DEBUG("[OK!] ");
+  } else {
+    DEBUG("[ERROR COULDNT CREATE FILE] ");
+    DEBUG(ret);
+    DEBUG("!\n");
+  }
+  
+  //Verify contents
+  
+  //Erase
+  ret = glox.del("temp");
+  if(ret == OK) {
+    DEBUG("[OK!] ");
+  } else {
+    DEBUG("[ERROR ");
+    DEBUG(ret);
+    DEBUG(" COULDNT CREATE FILE] ");
+  }
+  
+  ret = glox.del("temp");
+  if(ret == ERROR) {
+    DEBUG("[OK!]");
+  } else if (ret == OK){
+    DEBUG("[ERROR DELETED NONEXISTENT FILE] ");
+  }
+  DEBUG(" DONE\n");
+  #endif
   
   DEBUG("Resetting and finding iSeries on com1...");
   if(iSeries1.findAndReset())

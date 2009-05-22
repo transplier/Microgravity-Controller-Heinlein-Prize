@@ -23,5 +23,8 @@ public:
   GoldeloxStatus begin(int speed);
   GoldeloxStatus initializeNewCard();
   GoldeloxStatus ls(byte* result, int len);
+  GoldeloxStatus write(const char* filename, boolean append, byte* data, int len);
+  GoldeloxStatus del(const char* filename);
+  GoldeloxStatus read(const char* filename, byte* data, int len);
 };
 #endif

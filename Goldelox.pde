@@ -65,3 +65,32 @@ GoldeloxStatus Goldelox::ls(byte* result, int len) {
   }
   return OK;
 }
+
+GoldeloxStatus Goldelox::write(const char* filename, boolean append, byte* data, int len) {
+  //TODO: this bypasses issueCommand!
+  gdlox.print("@t");
+  gdlox.print((char)(append ? 0x80 : 0x00));
+  gdlox.print(filename);
+  gdlox.print('\0');
+  //Write len (big-endian)
+  gdlox.print((char)((len>>24)&0xFF));
+  gdlox.print((char)((len>>16)&0xFF));
+  gdlox.print((char)((len>>8)&0xFF));
+  gdlox.print((char)((len)&0xFF));
+  for(int x=0; x<len; x++) {
+    gdlox.print((char)data[x]);
+  }
+  return gdlox.read()==GDLOX_ACK ? OK:ERROR;
+}
+
+GoldeloxStatus Goldelox::del(const char* filename) {
+  //TODO: this bypasses issueCommand!
+  gdlox.print("@e");
+  gdlox.print(filename);
+  gdlox.print('\0');
+  return gdlox.read()==GDLOX_ACK ? OK:ERROR;
+}
+
+GoldeloxStatus Goldelox::read(const char* filename, byte* data, int len) {
+  return ERROR;
+}
