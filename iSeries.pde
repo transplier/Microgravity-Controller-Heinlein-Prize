@@ -1,6 +1,6 @@
 #include "iSeries.h"
 
-iSeries::iSeries(SoftwareSerial* com_) {
+iSeries::iSeries(NewSoftSerial* com_) {
   com = com_;
 }
 
@@ -12,7 +12,6 @@ boolean iSeries::issueCommand(const char* cmd, byte reply[], byte replyLength, i
    com->print(ISERIES_RECOG_CHAR);
    com->print(cmd);
    com->print("\r\n");
-   /* OLD INTERRUPT DRIVEN SERIAL CODE
    delay(timeoutMillis);
    if(com->available() >= replyLength) {
      for(byte x=0; x<replyLength; x++) {
@@ -24,9 +23,5 @@ boolean iSeries::issueCommand(const char* cmd, byte reply[], byte replyLength, i
    } else {
      //something went wrong...
      return false;
-   }*/
-   /**TEMPORARY HACK FOR SOFTWARE SERIAL**/
-   for(byte x=0; x<replyLength; x++) {
-       reply[x]=com->read();
    }
 }

@@ -5,13 +5,14 @@
 #include "iSeries.h"
 
 #include <SoftwareSerial.h>
+#include <NewSoftSerial.h>
 
 #define SAVE_INTERVAL 10000
 #define GDLOX_SPEED 4800
 
 unsigned long lastTime;
 
-extern SoftwareSerial com_1;
+extern NewSoftSerial com_1;
 
 Goldelox glox(GDLOX_RX, GDLOX_TX, GDLOX_RST);
 boolean gloxActive;
