@@ -25,3 +25,22 @@ boolean iSeries::issueCommand(const char* cmd, byte reply[], byte replyLength, i
      return false;
    }
 }
+
+boolean iSeries::findAndReset() {
+  byte resp[3];
+  issueCommand("Z02", resp, 3, 3000);
+  return resp[0]=='Z' && resp[1]=='0' && resp[2]=='2';
+}
+
+double iSeries::getReading() {
+  byte resp[9]; //extra null termination
+  issueCommand("X01", resp, 8, 1000);
+  if(resp[0]=='X' && resp[1]=='0' && resp[2]=='1') {
+    //All OK
+    resp[8]=0; //null for atoi
+    return atof((char*)&(resp[3]));
+  } else {
+    //ERROR
+    return NAN;
+  }
+}

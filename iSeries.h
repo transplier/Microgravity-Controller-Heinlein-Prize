@@ -14,5 +14,7 @@ public:
   iSeries(NewSoftSerial* com);
   boolean issueCommand(const char* cmd, byte reply[], byte replyLength);
   boolean issueCommand(const char* cmd, byte reply[], byte replyLength, int timeoutMillis);
+  boolean findAndReset();
+  double getReading();
 };
 #endif

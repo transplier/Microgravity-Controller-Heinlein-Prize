@@ -52,18 +52,18 @@ void setup() {
   }
   
   DEBUG("Resetting and finding iSeries on com1...");
-  if(FindAndResetISeries())
+  if(iSeries1.findAndReset())
     DEBUG("OK!\n");
   else
     DEBUG("FAIL!\n");
     
-  byte res[1];
-  glox.ls(res, 5);
+  //byte res[1];
+  //glox.ls(res, 5);
   /*Serial.print("Result: ");
   for(int x=0;x<1;x++)
     Serial.print(res[x],HEX);
   Serial.println('|');*/
-  while(true){}
+
 }
 
 void loop() {
@@ -74,13 +74,11 @@ void loop() {
     WriteTime();
     lastTime = currentTime;
     digitalWrite(LEDPIN, LOW);
+    
+    double reading = iSeries1.getReading();
+    Serial.print("Reading: ");
+    Serial.println(reading);
   }
-}
-
-boolean FindAndResetISeries() {
-  byte resp[3];
-  iSeries1.issueCommand("Z02", resp, 3, 2000);
-  return resp[0]=='Z' && resp[1]=='0' && resp[2]=='2';
 }
 
 void CheckForReset() {
