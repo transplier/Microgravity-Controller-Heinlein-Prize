@@ -53,18 +53,15 @@ boolean Goldelox::issueCommand(const char* cmd, byte len, byte minReplyLength) {
 }
 
 GoldeloxStatus Goldelox::ls(byte* result, int len) {
-  //byte in;
-  //Serial.print("xx: ");
-  /*for(int x=0;x<len;x++) {
+  if(!issueCommand("@d*\0", 4, 5)) return TIMED_OUT; //Timed out!  
+  byte in;
+  for(int x=0;x<len;x++) {
     in=gdlox.read();
-    result[x]=0xDE;
+    if(in != GDLOX_ACK) result[x]=in;
+    else { 
+      result[x]=0;
+      break;
+    }
   }
-  Serial.println();*/
-  if(!issueCommand("V", 1, 5)) return TIMED_OUT; //Timed out!  
-  Serial.println(gdlox.read(), HEX);
-  Serial.println(gdlox.read(), HEX);
-  Serial.println(gdlox.read(), HEX);
-  Serial.println(gdlox.read(), HEX);
-  Serial.println(gdlox.read(), HEX);
   return OK;
 }

@@ -17,6 +17,8 @@ extern NewSoftSerial com_1;
 Goldelox glox(GDLOX_RX, GDLOX_TX, GDLOX_RST);
 boolean gloxActive;
 
+byte temp[256];
+
 iSeries iSeries1(&com_1);
 
 boolean FindAndResetISeries();
@@ -51,18 +53,19 @@ void setup() {
     DEBUG("!\n");
   }
   
+  glox.ls(temp, sizeof(temp));
+  Serial.println("Files on card: ");
+  for(int x=0;x<sizeof(temp);x++) {
+    if(temp[x]==0) break;
+    Serial.print((char)temp[x]);
+  }
+
+  
   DEBUG("Resetting and finding iSeries on com1...");
   if(iSeries1.findAndReset())
     DEBUG("OK!\n");
   else
     DEBUG("FAIL!\n");
-    
-  //byte res[1];
-  //glox.ls(res, 5);
-  /*Serial.print("Result: ");
-  for(int x=0;x<1;x++)
-    Serial.print(res[x],HEX);
-  Serial.println('|');*/
 
 }
 
