@@ -7,7 +7,7 @@
 #include <SoftwareSerial.h>
 #include <NewSoftSerial.h>
 
-#define SAVE_INTERVAL 2000
+#define SAVE_INTERVAL 3000
 #define GDLOX_SPEED 4800
 
 unsigned long lastTime;
@@ -106,9 +106,12 @@ void setup() {
 
   DEBUG("Experiment reset- erasing logs.\n");
   if(wasReset) ret = glox.del("iSeries1");
+  strcpy((char*)temp, "Time (msec), Temperature\n");
+  glox.write("iSeries1", true, temp, sizeof("Time (msec), Temperature\n")-1);
 
 }
 
+byte timeString[12];
 void loop() {
   unsigned long currentTime = GetTime();
   byte tempReading[6];
@@ -119,7 +122,12 @@ void loop() {
     lastTime = currentTime;
     digitalWrite(LEDPIN, LOW);
     
-    //Get and write reading.
+    //Get and write reading + time.
+    ltoa(currentTime, (char*)timeString, 10);
+    byte firstnull = strlen((char*)timeString);
+    timeString[firstnull] = ',';
+    timeString[firstnull+1] = ' ';
+    glox.write("iSeries1", true, timeString, firstnull+1);
     iSeries1.getReadingString(tempReading);
     Serial.print("Reading: ");
     tempReading[5]='\0'; //kind of a hack, but...
