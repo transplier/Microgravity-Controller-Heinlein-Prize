@@ -9,5 +9,6 @@
 //OUTPUTS
 #define LEDPIN 13
 #define GDLOX_TX 3
+#define GDLOX_RST 6
 #define COM1_TX 4
 #endif

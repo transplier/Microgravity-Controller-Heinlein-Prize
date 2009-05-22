@@ -1,7 +1,7 @@
 #ifndef ISERIES_H
 #define ISERIES_H
 
-#include <NewSoftSerial.h>
+#include <SoftwareSerial.h>
 
 #define ISERIES_RECOG_CHAR '*'
 #define ISERIES_CMD_DELAY 100
@@ -9,9 +9,9 @@
 class iSeries
 {
 private:
-  NewSoftSerial* com;
+  SoftwareSerial* com;
 public:
-  iSeries(NewSoftSerial* com);
+  iSeries(SoftwareSerial* com);
   boolean issueCommand(const char* cmd, byte reply[], byte replyLength);
   boolean issueCommand(const char* cmd, byte reply[], byte replyLength, int timeoutMillis);
 };

@@ -4,14 +4,16 @@
 #include "Goldelox.h"
 #include "iSeries.h"
 
+#include <SoftwareSerial.h>
+
 #define SAVE_INTERVAL 10000
-#define GDLOX_SPEED 9600
+#define GDLOX_SPEED 4800
 
 unsigned long lastTime;
 
-extern NewSoftSerial com_1;
+extern SoftwareSerial com_1;
 
-Goldelox glox(GDLOX_RX, GDLOX_TX);
+Goldelox glox(GDLOX_RX, GDLOX_TX, GDLOX_RST);
 boolean gloxActive;
 
 iSeries iSeries1(&com_1);
@@ -32,6 +34,10 @@ void setup() {
   Serial.print("Current time is: ");
   Serial.println(lastTime);
   
+  DEBUG("Initializing serial ports...");
+  InitComms();
+  DEBUG("OK!\n");
+  
   DEBUG("Initializing GOLDELOX-DOS...");
   GoldeloxStatus ret = glox.begin(GDLOX_SPEED);
   if(ret == OK) {
@@ -44,15 +50,18 @@ void setup() {
     DEBUG("!\n");
   }
   
-  DEBUG("Initializing serial ports...");
-  InitComms();
-  DEBUG("OK!\n");
-  
   DEBUG("Resetting and finding iSeries on com1...");
   if(FindAndResetISeries())
     DEBUG("OK!\n");
   else
     DEBUG("FAIL!\n");
+    
+  byte res[1];
+  glox.ls(res, 5);
+  /*Serial.print("Result: ");
+  for(int x=0;x<1;x++)
+    Serial.print(res[x],HEX);
+  Serial.println('|');*/
   while(true){}
 }
 
@@ -69,7 +78,7 @@ void loop() {
 
 boolean FindAndResetISeries() {
   byte resp[3];
-  iSeries1.issueCommand("Z02", resp, 3, 4000);
+  iSeries1.issueCommand("Z02", resp, 3, 2000);
   return resp[0]=='Z' && resp[1]=='0' && resp[2]=='2';
 }
 

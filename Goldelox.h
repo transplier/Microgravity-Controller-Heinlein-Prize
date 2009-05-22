@@ -8,18 +8,20 @@
 #define GDLOX_POWERUP_DELAY 500
 #define GDLOX_CMD_DELAY 500
 
-#include <NewSoftSerial.h>
+#include <SoftwareSerial.h>
 
 enum GoldeloxStatus{ OK, TIMED_OUT, ERROR, NO_CARD };
 
 class Goldelox
 {
 private:
-  NewSoftSerial gdlox;
-  boolean issueCommand(const char*, byte minReplyLength);
+  SoftwareSerial gdlox;
+  byte rxPin, txPin, rstPin;
+  boolean issueCommand(const char* cmd, byte len, byte minReplyLength);
 public:
-  Goldelox(byte rx, byte tx);
+  Goldelox(byte rx, byte tx, byte rst);
   GoldeloxStatus begin(int speed);
   GoldeloxStatus initializeNewCard();
+  GoldeloxStatus ls(byte* result, int len);
 };
 #endif
