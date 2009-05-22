@@ -7,7 +7,7 @@
 #include <SoftwareSerial.h>
 #include <NewSoftSerial.h>
 
-#define SAVE_INTERVAL 10000
+#define SAVE_INTERVAL 2000
 #define GDLOX_SPEED 4800
 
 unsigned long lastTime;
@@ -16,6 +16,8 @@ extern NewSoftSerial com_1;
 
 Goldelox glox(GDLOX_RX, GDLOX_TX, GDLOX_RST);
 boolean gloxActive;
+
+boolean wasReset;
 
 byte temp[256];
 
@@ -102,10 +104,14 @@ void setup() {
   else
     DEBUG("FAIL!\n");
 
+  DEBUG("Experiment reset- erasing logs.\n");
+  if(wasReset) ret = glox.del("iSeries1");
+
 }
 
 void loop() {
   unsigned long currentTime = GetTime();
+  byte tempReading[6];
   if(currentTime - lastTime >= SAVE_INTERVAL) {
     digitalWrite(LEDPIN, HIGH);
     DEBUG("Saving...\n");
@@ -113,16 +119,22 @@ void loop() {
     lastTime = currentTime;
     digitalWrite(LEDPIN, LOW);
     
-    double reading = iSeries1.getReading();
+    //Get and write reading.
+    iSeries1.getReadingString(tempReading);
     Serial.print("Reading: ");
-    Serial.println(reading);
+    tempReading[5]='\0'; //kind of a hack, but...
+    Serial.println((char*)tempReading);
+    tempReading[5]='\n';
+    glox.write("iSeries1", true, tempReading, sizeof(tempReading));
+    
   }
 }
 
 void CheckForReset() {
   if(digitalRead(RSTPIN) == LOW) {
+    wasReset = true;
     Serial.print("Resetting...");
     WriteStatus(EEPROM_STATUS_RESET_VALUE);
     Serial.println("Done.");
-  }
+  } else wasReset = false;
 }

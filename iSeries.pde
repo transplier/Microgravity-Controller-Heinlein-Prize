@@ -32,6 +32,20 @@ boolean iSeries::findAndReset() {
   return resp[0]=='Z' && resp[1]=='0' && resp[2]=='2';
 }
 
+boolean iSeries::getReadingString(byte* buffer) {
+  byte resp[8];
+  issueCommand("X01", resp, 8, 1000);
+  if(resp[0]=='X' && resp[1]=='0' && resp[2]=='1') {
+    //All OK
+    for(int x=3;x<8;x++)
+      buffer[x-3] = resp[x];
+    return true;
+  } else {
+    //ERROR
+    return false;
+  }
+}
+
 double iSeries::getReading() {
   byte resp[9]; //extra null termination
   issueCommand("X01", resp, 8, 1000);

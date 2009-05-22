@@ -16,5 +16,6 @@ public:
   boolean issueCommand(const char* cmd, byte reply[], byte replyLength, int timeoutMillis);
   boolean findAndReset();
   double getReading();
+  boolean getReadingString(byte* buffer);
 };
 #endif
