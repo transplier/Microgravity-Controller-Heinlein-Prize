@@ -1,3 +1,7 @@
+/**
+ * @file Main controller class for microgravity experiment.
+ * @author Giacomo Ferrari progman32@gmail.com
+ */
 #include "Pins.h"
 #include "Debug.h"
 #include "EEPROMFormat.h"
@@ -7,16 +11,28 @@
 #include <SoftwareSerial.h>
 #include <NewSoftSerial.h>
 
+/**
+ * Interval at which state is saved
+ */
 #define SAVE_INTERVAL 3000
 
+/**
+ * last time we saved state.
+ */
 unsigned long lastTime;
 
 extern NewSoftSerial com_1;
 extern SoftwareSerial com_2;
 
 Goldelox glox(&com_2, GDLOX_RST);
+/**
+ * True if the uDRIVE was found.
+ */
 boolean gloxActive;
 
+/**
+ * True if state was loaded on reset.
+ */
 boolean wasReset;
 
 byte temp[256];
@@ -77,7 +93,7 @@ void setup() {
     DEBUG("!\n");
   }
   
-  //Verify contents
+  //TODO: Verify contents
   
   //Erase
   ret = glox.del("temp");
@@ -104,6 +120,7 @@ void setup() {
   else
     DEBUG("FAIL!\n");
 
+  //TODO: Maybe copy them over to an alternate location?
   DEBUG("Experiment reset- erasing logs.\n");
   if(wasReset) ret = glox.del("iSeries1");
   strcpy((char*)temp, "Time (msec), Temperature\n");
@@ -113,6 +130,7 @@ void setup() {
 
 byte timeString[12];
 void loop() {
+  //TODO: This function is simply a placeholder that simply reads the temperature and appends it to the log. This WILL be replaced.
   unsigned long currentTime = GetTime();
   byte tempReading[6];
   if(currentTime - lastTime >= SAVE_INTERVAL) {
@@ -138,6 +156,9 @@ void loop() {
   }
 }
 
+/**
+ * If RSTPIN is low, invalidates time signature and sets wasReset.
+ */
 void CheckForReset() {
   if(digitalRead(RSTPIN) == LOW) {
     wasReset = true;

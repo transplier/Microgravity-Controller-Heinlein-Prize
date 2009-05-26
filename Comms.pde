@@ -1,6 +1,12 @@
+/**
+ * @file
+ * C functions to initialize serial comms..
+ * @author Giacomo Ferrari progman32@gmail.com
+ */
 #include "Pins.h"
 
 #include <NewSoftSerial.h>
+#include <SoftwareSerial.h>
 
 #define COM1_SPEED 4800
 #define GDLOX_SPEED 4800

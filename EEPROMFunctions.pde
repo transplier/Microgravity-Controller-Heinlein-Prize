@@ -1,6 +1,7 @@
 /**
  * @file
  * Contains C functions to abstract away EEPROM functions. See definitions in EEPROMFormat.h.
+ * @author Giacomo Ferrari progman32@gmail.com
  */
 #include "EEPROMFormat.h"
 

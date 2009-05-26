@@ -1,3 +1,9 @@
+/**
+ * @file
+ * Contains definitions for EEPROM layout.
+ * @author Giacomo Ferrari progman32@gmail.com
+ */
+
 #ifndef EEPROMFORMAT_H
 #define EEPROMFORMAT_H
 #include <WProgram.h>
