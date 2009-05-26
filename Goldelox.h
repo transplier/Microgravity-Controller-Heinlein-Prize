@@ -30,11 +30,11 @@ private:
   /**
    * SoftwareSerial instance to use for communication.
    */
-  SoftwareSerial* gdlox;
+  SoftwareSerial* mpGdlox;
   /**
    * Pin number that is connected to the uDRIVE's reset pin.
    */
-  byte rstPin;
+  byte mRstPin;
   /**
    * Holds the result of the last operation.
    */

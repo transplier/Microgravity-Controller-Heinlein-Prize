@@ -5,33 +5,33 @@
  */
 #include "iSeries.h"
 
-iSeries::iSeries(NewSoftSerial* com_) {
-  com = com_;
+iSeries::iSeries(NewSoftSerial* com) {
+  mpCom = com;
 }
 
-boolean iSeries::issueCommand(const char* cmd, byte reply[], byte replyLength) {
-  return issueCommand(cmd, reply, replyLength, ISERIES_CMD_DELAY);
+boolean iSeries::IssueCommand(const char* cmd, byte reply[], byte replyLength) {
+  return IssueCommand(cmd, reply, replyLength, ISERIES_CMD_DELAY);
 }
 
-boolean iSeries::issueCommand(const char* cmd, byte reply[], byte replyLength, int timeoutMillis) {
+boolean iSeries::IssueCommand(const char* cmd, byte reply[], byte replyLength, int timeoutMillis) {
    //Get the device's attention.
-   com->print(ISERIES_RECOG_CHAR);
+   mpCom->print(ISERIES_RECOG_CHAR);
    //Send the command
-   com->print(cmd);
+   mpCom->print(cmd);
    //End the command
-   com->print("\r\n");
+   mpCom->print("\r\n");
    
    
    //BEGIN HACK//////////////////////////////////////////
    //TODO: DON'T DO THIS! THIS IS A HACK TO MAKE THE SERIAL LIBRARIES WORK!
    //I don't really get why this delay must be here, but it stays for now.
    delay(timeoutMillis);
-   if(com->available() >= replyLength) {
+   if(mpCom->available() >= replyLength) {
      for(byte x=0; x<replyLength; x++) {
-       reply[x]=com->read();
+       reply[x]=mpCom->read();
      }
      //Drain buffer.
-     while(com->available()) com->read();
+     while(mpCom->available()) mpCom->read();
      return true;
    } else {
      //something went wrong...
@@ -40,17 +40,17 @@ boolean iSeries::issueCommand(const char* cmd, byte reply[], byte replyLength, i
    //END HACK////////////////////////////////////////////
 }
 
-boolean iSeries::findAndReset() {
+boolean iSeries::FindAndReset() {
   byte resp[3];
-  issueCommand("Z02", resp, 3, 3000);
+  IssueCommand("Z02", resp, 3, 3000);
   return resp[0]=='Z' && resp[1]=='0' && resp[2]=='2';
 }
 
-//TODO: Consolidate getReadingString and getReading implementations. They should share code.
+//TODO: Consolidate GetReadingString and GetReading implementations. They should share code.
 
-boolean iSeries::getReadingString(byte* buffer) {
+boolean iSeries::GetReadingString(byte* buffer) {
   byte resp[8];
-  issueCommand("X01", resp, 8, 1000);
+  IssueCommand("X01", resp, 8, 1000);
   if(resp[0]=='X' && resp[1]=='0' && resp[2]=='1') {
     //All OK
     for(int x=3;x<8;x++)
@@ -62,9 +62,9 @@ boolean iSeries::getReadingString(byte* buffer) {
   }
 }
 
-double iSeries::getReading() {
+double iSeries::GetReading() {
   byte resp[9]; //one extra byte for null termination 
-  issueCommand("X01", resp, 8, 1000);
+  IssueCommand("X01", resp, 8, 1000);
   if(resp[0]=='X' && resp[1]=='0' && resp[2]=='1') {
     //All OK
     resp[8]=0; //insert null termination for atof

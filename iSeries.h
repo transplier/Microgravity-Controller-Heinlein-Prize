@@ -21,7 +21,7 @@ class iSeries
 private:
   /**
    * Serial port we talk to */
-  NewSoftSerial* com;
+  NewSoftSerial* mpCom;
 public:
   /**
    * Constructor that takes in a pointer to an already-initialized serial port.
@@ -36,7 +36,7 @@ public:
    * @param replyLength Maximum length of reply (additional bytes will be left in the buffer).
    * @return True if a reply was received within the timeout.
    */
-  boolean issueCommand(const char* cmd, byte reply[], byte replyLength);
+  boolean IssueCommand(const char* cmd, byte reply[], byte replyLength);
   
   /**
    * Issues a command with a specified timeout
@@ -46,26 +46,26 @@ public:
    * @param timeoutMillis Timeout in milliseconds.
    * @return True if a reply was received within the timeout.
    */
-  boolean issueCommand(const char* cmd, byte reply[], byte replyLength, int timeoutMillis);
+  boolean IssueCommand(const char* cmd, byte reply[], byte replyLength, int timeoutMillis);
   
   /**
    * Attempts to establish communications with the device, resetting it in the process.
    * @return True if the device was found and reset successfully.
    */
-  boolean findAndReset();
+  boolean FindAndReset();
   
   /**
    * Gets a temperature/process reading from the device.
    * @return The absolute reading sent from the device. Units are device-configuration dependant. If an error occurred, returns NaN.
    */
-  double getReading();
+  double GetReading();
   
   /**
    * Gets a temperature/process reading from the device as a string.
-   * This is more efficient than getReading(), as it directly copies the response string instead of atof()'ing.
+   * This is more efficient than GetReading(), as it directly copies the response string instead of atof()'ing.
    * @param buffer The buffer to place the reading into. Should be >= 5 bytes.
    * @return True if a reading was received.
    */
-  boolean getReadingString(byte* buffer);
+  boolean GetReadingString(byte* buffer);
 };
 #endif

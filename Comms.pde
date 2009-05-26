@@ -14,7 +14,7 @@
 NewSoftSerial com_1(COM1_RX, COM1_TX);
 SoftwareSerial com_2(GDLOX_RX, GDLOX_TX);
 
-void InitComms() {
+void init_comms() {
   com_1.begin(COM1_SPEED);
   com_2.begin(GDLOX_SPEED);
 }

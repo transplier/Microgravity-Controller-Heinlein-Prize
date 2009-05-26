@@ -19,16 +19,16 @@
 /**
  * last time we saved state.
  */
-unsigned long lastTime;
+unsigned long lastTimeMillis;
 
 extern NewSoftSerial com_1;
 extern SoftwareSerial com_2;
 
-Goldelox glox(&com_2, GDLOX_RST);
+Goldelox uDrive(&com_2, GDLOX_RST);
 /**
  * True if the uDRIVE was found.
  */
-boolean gloxActive;
+boolean isUDriveActive;
 
 /**
  * True if state was loaded on reset.
@@ -39,7 +39,7 @@ byte temp[256];
 
 iSeries iSeries1(&com_1);
 
-boolean FindAndResetISeries();
+boolean find_and_reset_iseries();
 
 void setup() {
   pinMode(LEDPIN, OUTPUT);
@@ -48,24 +48,24 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Controller V.01");
 
-  CheckForReset();
+  check_for_reset();
 
-  TimeSetup();
-  lastTime = GetTime();
+  time_setup();
+  lastTimeMillis = get_time();
   Serial.print("Current time is: ");
-  Serial.println(lastTime);
+  Serial.println(lastTimeMillis);
   
   DEBUG("Initializing serial ports...");
-  InitComms();
+  init_comms();
   DEBUG("OK!\n");
   
   DEBUG("Initializing GOLDELOX-DOS...");
-  GoldeloxStatus ret = glox.status();
+  GoldeloxStatus ret = uDrive.status();
   if(ret == OK) {
     DEBUG("OK!\n");
-    gloxActive = true;
+    isUDriveActive = true;
   } else {
-    gloxActive = false;
+    isUDriveActive = false;
     DEBUG("ERROR ");
     DEBUG(ret);
     DEBUG("!\n");
@@ -75,7 +75,7 @@ void setup() {
   //GOLDELOX tests
   
   //List dir
-  glox.ls(temp, sizeof(temp));
+  uDrive.ls(temp, sizeof(temp));
   DEBUG("Files on card: \n");
   for(int x=0;x<sizeof(temp);x++) {
     if(temp[x]==0) break;
@@ -84,7 +84,7 @@ void setup() {
   DEBUG("Sample file tests: ");
   //Write data
   byte abc[3] = {'a', 'b', 'c'};
-  ret = glox.write("temp", true, abc, sizeof(abc));
+  ret = uDrive.write("temp", true, abc, sizeof(abc));
   if(ret == OK) {
     DEBUG("[OK!] ");
   } else {
@@ -96,7 +96,7 @@ void setup() {
   //TODO: Verify contents
   
   //Erase
-  ret = glox.del("temp");
+  ret = uDrive.del("temp");
   if(ret == OK) {
     DEBUG("[OK!] ");
   } else {
@@ -105,7 +105,7 @@ void setup() {
     DEBUG(" COULDNT CREATE FILE] ");
   }
   
-  ret = glox.del("temp");
+  ret = uDrive.del("temp");
   if(ret == ERROR) {
     DEBUG("[OK!]");
   } else if (ret == OK){
@@ -115,29 +115,29 @@ void setup() {
   #endif
   
   DEBUG("Resetting and finding iSeries on com1...");
-  if(iSeries1.findAndReset())
+  if(iSeries1.FindAndReset())
     DEBUG("OK!\n");
   else
     DEBUG("FAIL!\n");
 
   //TODO: Maybe copy them over to an alternate location?
   DEBUG("Experiment reset- erasing logs.\n");
-  if(wasReset) ret = glox.del("iSeries1");
+  if(wasReset) ret = uDrive.del("iSeries1");
   strcpy((char*)temp, "Time (msec), Temperature\n");
-  glox.write("iSeries1", true, temp, sizeof("Time (msec), Temperature\n")-1);
+  uDrive.write("iSeries1", true, temp, sizeof("Time (msec), Temperature\n")-1);
 
 }
 
 byte timeString[12];
 void loop() {
   //TODO: This function is simply a placeholder that simply reads the temperature and appends it to the log. This WILL be replaced.
-  unsigned long currentTime = GetTime();
+  unsigned long currentTime = get_time();
   byte tempReading[6];
-  if(currentTime - lastTime >= SAVE_INTERVAL) {
+  if(currentTime - lastTimeMillis >= SAVE_INTERVAL) {
     digitalWrite(LEDPIN, HIGH);
     DEBUG("Saving...\n");
-    WriteTime();
-    lastTime = currentTime;
+    write_time();
+    lastTimeMillis = currentTime;
     digitalWrite(LEDPIN, LOW);
     
     //Get and write reading + time.
@@ -145,13 +145,13 @@ void loop() {
     byte firstnull = strlen((char*)timeString);
     timeString[firstnull] = ',';
     timeString[firstnull+1] = ' ';
-    glox.write("iSeries1", true, timeString, firstnull+1);
-    iSeries1.getReadingString(tempReading);
+    uDrive.write("iSeries1", true, timeString, firstnull+1);
+    iSeries1.GetReadingString(tempReading);
     Serial.print("Reading: ");
     tempReading[5]='\0'; //kind of a hack, but...
     Serial.println((char*)tempReading);
     tempReading[5]='\n';
-    glox.write("iSeries1", true, tempReading, sizeof(tempReading));
+    uDrive.write("iSeries1", true, tempReading, sizeof(tempReading));
     
   }
 }
@@ -159,7 +159,7 @@ void loop() {
 /**
  * If RSTPIN is low, invalidates time signature and sets wasReset.
  */
-void CheckForReset() {
+void check_for_reset() {
   if(digitalRead(RSTPIN) == LOW) {
     wasReset = true;
     Serial.print("Resetting...");
