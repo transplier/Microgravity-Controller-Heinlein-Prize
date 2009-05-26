@@ -17,12 +17,30 @@
 #define EEPROM_TIME_4 5 //MSB
 #define EEPROM_TIME_CHECK 6
 
-
+/**
+ * Writes a byte to a memory location.
+ * @param addr Address.
+ * @param data Data byte to write.
+ */
 void WriteEEPROM(int addr, byte data);
 
+/**
+ * Reads a byte from a memory location.
+ * @param addr Address.
+ * @return Data read.
+ */
 byte ReadEEPROM(int addr);
 
-void WriteStatus(byte status);
-byte GetStatus();
+/**
+ * Shortcut to write the status byte.
+ * @param status New status byte.
+ */
+inline void WriteStatus(byte status);
+
+/**
+ * Shortcut to read the status byte.
+ * @return The status byte.
+ */
+inline byte GetStatus();
 
 #endif
