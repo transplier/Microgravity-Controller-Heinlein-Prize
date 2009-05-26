@@ -15,12 +15,12 @@ enum GoldeloxStatus{ OK, TIMED_OUT, ERROR, NO_CARD };
 class Goldelox
 {
 private:
-  SoftwareSerial gdlox;
-  byte rxPin, txPin, rstPin;
+  SoftwareSerial* gdlox;
+  byte rstPin;
   boolean issueCommand(const char* cmd, byte len, byte minReplyLength);
 public:
-  Goldelox(byte rx, byte tx, byte rst);
-  GoldeloxStatus begin(int speed);
+  Goldelox(SoftwareSerial* serial, byte rst);
+  GoldeloxStatus reinit();
   GoldeloxStatus initializeNewCard();
   GoldeloxStatus ls(byte* result, int len);
   GoldeloxStatus write(const char* filename, boolean append, byte* data, int len);
