@@ -17,10 +17,12 @@ class Goldelox
 private:
   SoftwareSerial* gdlox;
   byte rstPin;
+  GoldeloxStatus mStatus;
   boolean issueCommand(const char* cmd, byte len, byte minReplyLength);
 public:
   Goldelox(SoftwareSerial* serial, byte rst);
   GoldeloxStatus reinit();
+  GoldeloxStatus status();
   GoldeloxStatus initializeNewCard();
   GoldeloxStatus ls(byte* result, int len);
   GoldeloxStatus write(const char* filename, boolean append, byte* data, int len);

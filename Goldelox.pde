@@ -2,18 +2,16 @@
 
 #include <SoftwareSerial.h>
 
-Goldelox::Goldelox(SoftwareSerial* serial, byte rst) : gdlox(rx, tx) {
+Goldelox::Goldelox(SoftwareSerial* serial, byte rst) {
   gdlox = serial;
   rstPin = rst;
-  reinit();
+  mStatus=reinit();
 }
 
 GoldeloxStatus Goldelox::reinit() {
   byte b1, b2, b3, b4, b5;
 
   pinMode(rstPin, OUTPUT);
-  pinMode(txPin, OUTPUT);
-  digitalWrite(txPin, HIGH);
   digitalWrite(rstPin, HIGH);
   delay(100);
   digitalWrite(rstPin, LOW);
@@ -92,4 +90,8 @@ GoldeloxStatus Goldelox::del(const char* filename) {
 
 GoldeloxStatus Goldelox::read(const char* filename, byte* data, int len) {
   return ERROR;
+}
+
+GoldeloxStatus Goldelox::status() {
+  return mStatus;
 }

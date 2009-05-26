@@ -8,13 +8,13 @@
 #include <NewSoftSerial.h>
 
 #define SAVE_INTERVAL 3000
-#define GDLOX_SPEED 4800
 
 unsigned long lastTime;
 
 extern NewSoftSerial com_1;
+extern SoftwareSerial com_2;
 
-Goldelox glox(GDLOX_RX, GDLOX_TX, GDLOX_RST);
+Goldelox glox(&com_2, GDLOX_RST);
 boolean gloxActive;
 
 boolean wasReset;
@@ -44,7 +44,7 @@ void setup() {
   DEBUG("OK!\n");
   
   DEBUG("Initializing GOLDELOX-DOS...");
-  GoldeloxStatus ret = glox.begin(GDLOX_SPEED);
+  GoldeloxStatus ret = glox.status();
   if(ret == OK) {
     DEBUG("OK!\n");
     gloxActive = true;
