@@ -60,7 +60,7 @@ void setup() {
   DEBUG("OK!\n");
   
   DEBUG("Initializing GOLDELOX-DOS...");
-  GoldeloxStatus ret = uDrive.status();
+  GoldeloxStatus ret = uDrive.reinit();
   if(ret == OK) {
     DEBUG("OK!\n");
     isUDriveActive = true;

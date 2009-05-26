@@ -17,7 +17,6 @@
 Goldelox::Goldelox(SoftwareSerial* serial, byte rst) {
   mpGdlox = serial;
   mRstPin = rst;
-  mStatus=reinit();
 }
 
 GoldeloxStatus Goldelox::reinit() {

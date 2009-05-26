@@ -49,11 +49,11 @@ private:
   boolean issueCommand(const char* cmd, byte len, byte minReplyLength);
 public:
   /**
-   * Constructor that takes an already-set-up SoftwareSerial instance and a reset pin number. Will reset and initialize the uDRIVE.
+   * Constructor that takes an already-set-up SoftwareSerial instance and a reset pin number. reinit() must be called before any other method.
    */
   Goldelox(SoftwareSerial* serial, byte rst);
   /**
-   * Resets and initializes the uDRIVE. Only use in case of communications errors (constructor will do all set-up).
+   * Resets and initializes the uDRIVE. Must call once before using other methods.
    */
   GoldeloxStatus reinit();
   /**
