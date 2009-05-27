@@ -11,9 +11,9 @@
 #define GDLOX_NAK 0x15
 
 #define GDLOX_POWERUP_DELAY 500
-#define GDLOX_CMD_DELAY 500
+#define GDLOX_CMD_DELAY 5000
 
-#include <SoftwareSerial.h>
+#include <NewSoftSerial.h>
 
 /**
  * Return codes for Goldelox functions.
@@ -30,7 +30,7 @@ private:
   /**
    * SoftwareSerial instance to use for communication.
    */
-  SoftwareSerial* mpGdlox;
+  NewSoftSerial* mpGdlox;
   /**
    * Pin number that is connected to the uDRIVE's reset pin.
    */
@@ -51,7 +51,7 @@ public:
   /**
    * Constructor that takes an already-set-up SoftwareSerial instance and a reset pin number. reinit() must be called before any other method.
    */
-  Goldelox(SoftwareSerial* serial, byte rst);
+  Goldelox(NewSoftSerial* serial, byte rst);
   /**
    * Resets and initializes the uDRIVE. Must call once before using other methods.
    */

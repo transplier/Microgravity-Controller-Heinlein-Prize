@@ -22,18 +22,13 @@
 unsigned long lastTimeMillis;
 
 extern NewSoftSerial com_1;
-extern SoftwareSerial com_2;
+extern NewSoftSerial com_2;
 
 Goldelox uDrive(&com_2, GDLOX_RST);
 /**
  * True if the uDRIVE was found.
  */
 boolean isUDriveActive;
-
-/**
- * True if state was loaded on reset.
- */
-boolean wasReset;
 
 byte temp[256];
 
@@ -46,15 +41,8 @@ void setup() {
   pinMode(RSTPIN, INPUT);
   
   Serial.begin(9600);
-  Serial.println("Controller V.01");
+  Serial.println("Microgravity Logger Module V.01");
 
-  check_for_reset();
-
-  time_setup();
-  lastTimeMillis = get_time();
-  Serial.print("Current time is: ");
-  Serial.println(lastTimeMillis);
-  
   DEBUG("Initializing serial ports...");
   init_comms();
   DEBUG("OK!\n");
@@ -122,21 +110,21 @@ void setup() {
 
   //TODO: Maybe copy them over to an alternate location?
   DEBUG("Experiment reset- erasing logs.\n");
-  if(wasReset) ret = uDrive.del("iSeries1");
+  if(digitalRead(RSTPIN) == LOW) ret = uDrive.del("iSeries1");
   strcpy((char*)temp, "Time (msec), Temperature\n");
   uDrive.write("iSeries1", true, temp, sizeof("Time (msec), Temperature\n")-1);
+  
+  lastTimeMillis = millis();
 
 }
 
 byte timeString[12];
 void loop() {
-  //TODO: This function is simply a placeholder that simply reads the temperature and appends it to the log. This WILL be replaced.
-  unsigned long currentTime = get_time();
+  GoldeloxStatus ret1, ret2;
+  unsigned long currentTime = millis();
   byte tempReading[6];
   if(currentTime - lastTimeMillis >= SAVE_INTERVAL) {
     digitalWrite(LEDPIN, HIGH);
-    DEBUG("Saving...\n");
-    write_time();
     lastTimeMillis = currentTime;
     digitalWrite(LEDPIN, LOW);
     
@@ -145,25 +133,21 @@ void loop() {
     byte firstnull = strlen((char*)timeString);
     timeString[firstnull] = ',';
     timeString[firstnull+1] = ' ';
-    uDrive.write("iSeries1", true, timeString, firstnull+1);
     iSeries1.GetReadingString(tempReading);
     Serial.print("Reading: ");
     tempReading[5]='\0'; //kind of a hack, but...
-    Serial.println((char*)tempReading);
+    Serial.print((char*)tempReading);
     tempReading[5]='\n';
-    uDrive.write("iSeries1", true, tempReading, sizeof(tempReading));
-    
+    Serial.print(" [");
+    ret1 = uDrive.write("iSeries1", true, timeString, firstnull+1);
+    Serial.print(".");
+    ret2 = uDrive.write("iSeries1", true, tempReading, sizeof(tempReading));
+    Serial.print(".] ");
+    if(ret1 != OK || ret2 != OK) {
+      Serial.println("ERROR!");
+    } else {
+      Serial.println("OK!");
+    }
   }
 }
 
-/**
- * If RSTPIN is low, invalidates time signature and sets wasReset.
- */
-void check_for_reset() {
-  if(digitalRead(RSTPIN) == LOW) {
-    wasReset = true;
-    Serial.print("Resetting...");
-    WriteStatus(EEPROM_STATUS_RESET_VALUE);
-    Serial.println("Done.");
-  } else wasReset = false;
-}

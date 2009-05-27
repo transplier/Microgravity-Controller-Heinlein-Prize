@@ -12,9 +12,9 @@
 //Major TODO: Find out why the heck NewSoftSerial likes to die here, and switch to it.
 //After doing so, make issueCommand() respect minimum reply length parameter.
 
-#include <SoftwareSerial.h>
+#include <NewSoftSerial.h>
 
-Goldelox::Goldelox(SoftwareSerial* serial, byte rst) {
+Goldelox::Goldelox(NewSoftSerial* serial, byte rst) {
   mpGdlox = serial;
   mRstPin = rst;
 }
@@ -63,17 +63,30 @@ GoldeloxStatus Goldelox::initializeNewCard() {
   else return ERROR;
 }
 
-//HACK: Totally ignores minReplyLength! FIX!
 boolean Goldelox::issueCommand(const char* cmd, byte len, byte minReplyLength) {
   for(int x=0;x<len;x++)
     mpGdlox->print((byte)cmd[x]);
-  return true;
+  unsigned long timer = millis();
+  while(millis()-timer <= GDLOX_CMD_DELAY) {
+    if(mpGdlox->available() >= minReplyLength) { 
+      timer = 0;
+      break;
+    }
+  }
+  if(timer != 0) return false; //Timed out!
+  else return true;
 }
 
 GoldeloxStatus Goldelox::ls(byte* result, int len) {
-  if(!issueCommand("@d*\0", 4, 5)) return TIMED_OUT; //Timed out!  
+  long start_time = millis();
+  if(!issueCommand("@d*\0", 4, 1)) return TIMED_OUT; //Timed out!  
   byte in;
   for(int x=0;x<len;x++) {
+    if(mpGdlox->available() < 1) {
+      if((millis()-start_time) >= GDLOX_CMD_DELAY) return TIMED_OUT;
+      x--;
+      continue;
+    }
     in=mpGdlox->read();
     if(in != GDLOX_ACK) result[x]=in;
     else { 
@@ -81,7 +94,10 @@ GoldeloxStatus Goldelox::ls(byte* result, int len) {
       break;
     }
   }
-  //TODO: discard extra bytes still in buffer (when switched to NewSoftSerial).
+  
+  //Drain buffer of garbage
+  while(mpGdlox->available()) mpGdlox->read();
+  
   return OK;
 }
 
@@ -100,7 +116,14 @@ GoldeloxStatus Goldelox::write(const char* filename, boolean append, byte* data,
   for(int x=0; x<len; x++) {
     mpGdlox->print((char)data[x]);
   }
-  return mpGdlox->read()==GDLOX_ACK ? OK:ERROR;
+  //Look for trailing ACK.
+  long start_time = millis();
+  while(millis()-start_time < GDLOX_CMD_DELAY) {
+    if(mpGdlox->available()) {
+      if(mpGdlox->read() == GDLOX_ACK) return OK;
+    }
+  }
+  return ERROR;
 }
 
 GoldeloxStatus Goldelox::del(const char* filename) {
@@ -109,7 +132,15 @@ GoldeloxStatus Goldelox::del(const char* filename) {
   mpGdlox->print("@e");
   mpGdlox->print(filename);
   mpGdlox->print('\0');
-  return mpGdlox->read()==GDLOX_ACK ? OK:ERROR;
+  
+  //Look for trailing ACK.
+  long start_time = millis();
+  while(millis()-start_time < GDLOX_CMD_DELAY) {
+    if(mpGdlox->available()) {
+      if(mpGdlox->read() == GDLOX_ACK) return OK;
+    }
+  }
+  return ERROR;
 }
 
 GoldeloxStatus Goldelox::read(const char* filename, byte* data, int len) {
