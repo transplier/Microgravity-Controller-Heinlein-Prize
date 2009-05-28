@@ -7,8 +7,8 @@
 #include "EEPROMFormat.h"
 #include "Goldelox.h"
 #include "iSeries.h"
+#include "SplitComm.h"
 
-#include <SoftwareSerial.h>
 #include <NewSoftSerial.h>
 
 /**
@@ -120,9 +120,20 @@ void setup() {
 
 byte timeString[12];
 void loop() {
+  
+  if(checkForCommand(timeString)) {
+    switch(timeString[0]) {
+      case 70: Serial.println("EXPERIMENT TRIGGERED"); break;
+      case 65: iSeries1.IssueCommand("D03", timeString, 3); break;
+      case 100: Serial.print("POWER OFF TO "); Serial.println(timeString[1], HEX); break;
+      default: Serial.println("UNKNOWN COMMAND"); break;
+    }
+  }
+
   GoldeloxStatus ret1, ret2;
   unsigned long currentTime = millis();
   byte tempReading[6];
+  
   if(currentTime - lastTimeMillis >= SAVE_INTERVAL) {
     digitalWrite(LEDPIN, HIGH);
     lastTimeMillis = currentTime;

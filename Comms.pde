@@ -10,6 +10,7 @@
 
 #define COM1_SPEED 4800
 #define GDLOX_SPEED 4800
+#define GDLOX_SPEED 4800
 
 NewSoftSerial com_1(COM1_RX, COM1_TX);
 NewSoftSerial com_2(GDLOX_RX, GDLOX_TX);
