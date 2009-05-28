@@ -24,6 +24,9 @@
 #define EEPROM_TIME_4 5 //MSB
 #define EEPROM_TIME_CHECK 6
 
+#define EEPROM_TIME_EVENT_STATUS_BASE 7 //inclusive
+#define EEPROM_TIME_EVENT_STATUS_LIMIT 4
+
 /**
  * Writes a byte to a memory location.
  * @param addr Address.

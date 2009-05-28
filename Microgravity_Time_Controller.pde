@@ -19,7 +19,8 @@ void setup() {
 
   CheckForReset();
 
-  time_setup();
+  time_setup(wasReset);
+  
   lastTime = get_time();
   Serial.print("Current time is: ");
   Serial.println(lastTime);
@@ -34,6 +35,16 @@ void setup() {
 }
 
 void loop() {
+  digitalWrite(LEDPIN, HIGH);
+  execute_time_events();
+  digitalWrite(LEDPIN, LOW);
+  delay(10);
+}
+
+void execute_event(byte command, byte data) {
+  Serial.print("Trying to execute event of type: ");
+  Serial.print(command, HEX);
+  Serial.println();
 }
 
 void CheckForReset() {
