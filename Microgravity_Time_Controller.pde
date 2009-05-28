@@ -4,7 +4,7 @@
 
 #define SAVE_INTERVAL 3000
 
-unsigned long lastTime;
+unsigned long lastTime; //relative time only
 
 boolean wasReset;
 
@@ -39,12 +39,21 @@ void loop() {
   execute_time_events();
   digitalWrite(LEDPIN, LOW);
   delay(10);
+  if((millis() - lastTime) > SAVE_INTERVAL) {
+    write_time();
+    lastTime=millis();
+  }
 }
 
+byte msg_buffer[8];
 void execute_event(byte command, byte data) {
   Serial.print("Trying to execute event of type: ");
   Serial.print(command, HEX);
   Serial.println();
+  msg_buffer[0] = command;
+  msg_buffer[1] = data;
+  msg_buffer[3] = 'X';
+  transmitCommand(msg_buffer);
 }
 
 void CheckForReset() {

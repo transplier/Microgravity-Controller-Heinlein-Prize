@@ -14,7 +14,7 @@ typedef struct {
 } time_event_t;
 
 time_event_t time_events[] = {
-  {1,1,1}, {5000,2,2}
+  {2000,70,80}, {180000,65,75}, {200000,100,106}
 };
 
 /**
