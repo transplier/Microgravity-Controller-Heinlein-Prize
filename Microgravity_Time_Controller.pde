@@ -19,10 +19,18 @@ void setup() {
 
   CheckForReset();
 
-  TimeSetup();
-  lastTime = GetTime();
+  time_setup();
+  lastTime = get_time();
   Serial.print("Current time is: ");
   Serial.println(lastTime);
+  
+  if(!(GetStatus() & EEPROM_STATUS_TRIGGERED)) {
+    DEBUG("WAITING FOR TRIGGER...");
+    wait_for_trigger();
+    DEBUG("OK\n");
+
+    WriteStatus(GetStatus() | EEPROM_STATUS_TRIGGERED);
+  }
 }
 
 void loop() {
@@ -35,4 +43,8 @@ void CheckForReset() {
     WriteStatus(EEPROM_STATUS_RESET_VALUE);
     Serial.println("Done.");
   } else wasReset = false;
+}
+
+void wait_for_trigger() {
+  delay(100);
 }
