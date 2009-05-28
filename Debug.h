@@ -1,6 +1,12 @@
+/**
+ * @file
+ * Debug defines.
+ * @author Giacomo Ferrari progman32@gmail.com
+ */
 #ifndef DEBUG_H
 #define DEBUG_H
 
+//Comment this define to disable compilation of debug statements.
 #define DODEBUG
 
 #ifdef DODEBUG

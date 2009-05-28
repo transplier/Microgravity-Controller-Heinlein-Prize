@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Contains C functions to abstract away EEPROM functions. See definitions in EEPROMFormat.h.
+ * @author Giacomo Ferrari progman32@gmail.com
+ */
 #include "EEPROMFormat.h"
 
 #include <EEPROM.h>
@@ -12,9 +17,10 @@ byte ReadEEPROM(int addr) {
   return EEPROM.read(addr);
 }
 
-void WriteStatus(byte status) {
+inline void WriteStatus(byte status) {
   WriteEEPROM(EEPROM_STATUS, status);
 }
-byte GetStatus() {
+
+inline byte GetStatus() {
   return ReadEEPROM(EEPROM_STATUS);
 }
