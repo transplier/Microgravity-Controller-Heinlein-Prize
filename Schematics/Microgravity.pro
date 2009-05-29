@@ -1,4 +1,4 @@
-update=Fri 29 May 2009 11:22:19 AM CDT
+update=Fri 29 May 2009 04:29:11 PM CDT
 last_client=eeschema
 [general]
 version=1
@@ -39,8 +39,8 @@ UseNetN=0
 LabSize=60
 [eeschema/libraries]
 LibName1=power
-LibName2=/home/giacomo/Synchronized/Electronics/Kicad_Libs/mine
-LibName3=/home/giacomo/Synchronized/Electronics/Kicad_Libs/w_logic
+LibName2=/home/giacomo/Synchronized/Electronics/Kicad_Libs/w_logic
+LibName3=/home/giacomo/Synchronized/Electronics/Kicad_Libs/mine
 LibName4=device
 LibName5=transistors
 LibName6=conn

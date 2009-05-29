@@ -1,4 +1,4 @@
-EESchema-DOCLIB  Version 2.0  Fri 29 May 2009 04:18:39 PM CDT
+EESchema-DOCLIB  Version 2.0  Fri 29 May 2009 04:51:47 PM CDT
 #
 $CMP 40257
 D Binary counter 14 stages (asynchronous)
@@ -25,6 +25,11 @@ D Nand 8 inputs
 K TTL Nand8
 $ENDCMP
 #
+$CMP CONN_2
+D Symbole general de connecteur
+K CONN
+$ENDCMP
+#
 $CMP CONN_25
 D Symbole general de connexion
 K CONN
@@ -42,6 +47,12 @@ $ENDCMP
 $CMP DIODE
 D Diode simple
 K DEV DIODE
+$ENDCMP
+#
+$CMP HEF4067
+D Binary counter 14 stages (asynchronous)
+K CMOS CNT CNT14
+F cmos4000/MC14020.pdf
 $ENDCMP
 #
 $CMP R
