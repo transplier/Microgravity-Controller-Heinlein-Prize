@@ -1,5 +1,5 @@
-EESchema Schematic File Version 2  date Fri 29 May 2009 04:09:18 PM CDT
-LIBS:power,/home/giacomo/Synchronized/Electronics/Kicad_Libs/mine,/home/giacomo/Synchronized/Electronics/Kicad_Libs/w_logic,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves
+EESchema Schematic File Version 2  date Fri 29 May 2009 04:18:39 PM CDT
+LIBS:power,/home/giacomo/Synchronized/Electronics/Kicad_Libs/w_logic,/home/giacomo/Synchronized/Electronics/Kicad_Libs/mine,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,./Logger_Unit.cache
 EELAYER 24  0
 EELAYER END
 $Descr A4 11700 8267
