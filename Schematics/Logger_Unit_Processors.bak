@@ -1,6 +1,6 @@
-EESchema Schematic File Version 2  date Fri 29 May 2009 04:09:18 PM CDT
+EESchema Schematic File Version 2  date Fri 29 May 2009 02:53:13 PM CDT
 LIBS:power,/home/giacomo/Synchronized/Electronics/Kicad_Libs/mine,/home/giacomo/Synchronized/Electronics/Kicad_Libs/w_logic,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves
-EELAYER 24  0
+EELAYER 43  0
 EELAYER END
 $Descr A4 11700 8267
 Sheet 2 2
@@ -13,41 +13,16 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+NoConn ~ 1650 6200
+NoConn ~ 1650 6300
 Wire Wire Line
-	5950 5850 6550 5850
+	2150 2650 2150 5200
 Wire Wire Line
-	1650 5700 3000 5700
+	3600 6300 3600 5400
 Wire Wire Line
-	1650 5500 3000 5500
+	4200 3450 4200 5000
 Wire Wire Line
-	1650 3150 3000 3150
-Wire Wire Line
-	1650 2950 3000 2950
-Wire Wire Line
-	2800 1750 2800 2150
-Wire Wire Line
-	4750 3950 4650 3950
-Wire Wire Line
-	4650 3950 4650 3350
-Wire Wire Line
-	4650 3350 7100 3350
-Connection ~ 7100 2200
-Wire Wire Line
-	7100 3350 7100 2200
-Wire Wire Line
-	4000 2450 4000 2900
-Wire Wire Line
-	4000 2450 1650 2450
-Wire Wire Line
-	4300 4900 4300 2300
-Wire Wire Line
-	4300 4900 1650 4900
-Wire Wire Line
-	4100 2250 4100 2700
-Wire Wire Line
-	4100 2250 1650 2250
-Wire Wire Line
-	1650 2050 4150 2050
+	4300 2300 4300 4800
 Wire Wire Line
 	4400 2100 4400 4600
 Connection ~ 700  900 
@@ -67,12 +42,38 @@ Wire Wire Line
 Wire Wire Line
 	2050 1850 2050 1900
 Wire Wire Line
+	6550 5850 6250 5850
+Wire Wire Line
 	1150 7450 1500 7450
 Connection ~ 9250 6100
 Wire Wire Line
-	4000 2900 4750 2900
+	1650 5300 2150 5300
 Wire Wire Line
-	4100 2700 4750 2700
+	1650 5100 4150 5100
+Wire Wire Line
+	1650 4900 4250 4900
+Wire Wire Line
+	1650 4700 4350 4700
+Wire Wire Line
+	4750 4050 3900 4050
+Wire Wire Line
+	3900 4050 3900 2550
+Wire Wire Line
+	3900 2550 1650 2550
+Wire Wire Line
+	4750 3550 4150 3550
+Wire Wire Line
+	4750 2900 4000 2900
+Wire Wire Line
+	4000 2900 4000 2350
+Wire Wire Line
+	4000 2350 1650 2350
+Wire Wire Line
+	4750 2700 4100 2700
+Wire Wire Line
+	4100 2700 4100 2150
+Wire Wire Line
+	4100 2150 1650 2150
 Wire Wire Line
 	4750 2400 4250 2400
 Wire Wire Line
@@ -82,6 +83,8 @@ Wire Wire Line
 	5100 4800 4600 4800
 Wire Wire Line
 	4600 4800 4600 3050
+Wire Wire Line
+	6250 5750 6550 5750
 Wire Wire Line
 	9700 6650 10050 6650
 Wire Wire Line
@@ -124,11 +127,35 @@ Wire Wire Line
 Wire Wire Line
 	4300 2300 4750 2300
 Wire Wire Line
+	1650 2050 4150 2050
+Wire Wire Line
 	4150 2050 4150 2600
 Wire Wire Line
 	4150 2600 4750 2600
 Wire Wire Line
-	4750 2800 4050 2800
+	1650 2250 4050 2250
+Wire Wire Line
+	4050 2250 4050 2800
+Wire Wire Line
+	4050 2800 4750 2800
+Wire Wire Line
+	4200 3450 4750 3450
+Wire Wire Line
+	1650 2450 3950 2450
+Wire Wire Line
+	3950 2450 3950 3950
+Wire Wire Line
+	3950 3950 4750 3950
+Wire Wire Line
+	4400 4600 1650 4600
+Wire Wire Line
+	4300 4800 1650 4800
+Wire Wire Line
+	4200 5000 1650 5000
+Wire Wire Line
+	2150 2650 1650 2650
+Wire Wire Line
+	2150 5200 1650 5200
 Wire Wire Line
 	9250 6100 9250 6350
 Wire Wire Line
@@ -152,89 +179,17 @@ Wire Wire Line
 Wire Wire Line
 	1650 4500 2700 4500
 Wire Wire Line
+	3600 5400 1650 5400
+Wire Wire Line
 	2700 4500 2700 1650
 Wire Wire Line
+	4350 2200 4350 4700
+Wire Wire Line
+	4250 2400 4250 4900
+Wire Wire Line
+	4150 3550 4150 5100
+Wire Wire Line
 	850  600  850  700 
-Wire Wire Line
-	2800 1750 6050 1750
-Wire Wire Line
-	2800 2150 1650 2150
-Wire Wire Line
-	4400 4600 1650 4600
-Wire Wire Line
-	1650 4800 4350 4800
-Wire Wire Line
-	4350 4800 4350 2200
-Wire Wire Line
-	4050 2800 4050 2350
-Wire Wire Line
-	4050 2350 1650 2350
-Wire Wire Line
-	4250 2400 4250 5000
-Wire Wire Line
-	4250 5000 1650 5000
-Wire Wire Line
-	2150 5100 2150 2550
-Wire Wire Line
-	2150 5100 1650 5100
-Wire Wire Line
-	1650 5900 3600 5900
-Wire Wire Line
-	3600 5900 3600 6300
-Wire Wire Line
-	7350 2200 6050 2200
-Wire Wire Line
-	3950 1750 3950 3450
-Wire Wire Line
-	3950 3450 4750 3450
-Connection ~ 3950 1750
-Wire Wire Line
-	2150 2550 1650 2550
-Wire Wire Line
-	1650 3050 3000 3050
-Wire Wire Line
-	1650 5600 3000 5600
-Wire Wire Line
-	5950 5750 6550 5750
-Text Label 6050 3450 0    40   ~ 0
-A2_RXtc
-NoConn ~ 6050 3550
-NoConn ~ 4750 3550
-NoConn ~ 4750 4050
-$Comp
-L CONN_3 K?
-U 1 1 4A204C32
-P 3350 3050
-F 0 "K?" V 3300 3050 50  0000 C CNN
-F 1 "GDLOX1" V 3400 3050 40  0000 C CNN
-	1    3350 3050
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_3 K?
-U 1 1 4A204C1B
-P 3350 5600
-F 0 "K?" V 3300 5600 50  0000 C CNN
-F 1 "GDLOX2" V 3400 5600 40  0000 C CNN
-	1    3350 5600
-	1    0    0    -1  
-$EndComp
-Text Label 2550 3150 0    40   ~ 0
-GDLOX_1_RST
-Text Label 2550 3050 0    40   ~ 0
-GDLOX_1_TX
-Text Label 2550 2950 0    40   ~ 0
-GDLOX_1_RX
-Text Label 2500 5700 0    40   ~ 0
-GDLOX_2_RST
-Text Label 2500 5600 0    40   ~ 0
-GDLOX_2_TX
-Text Label 2500 5500 0    40   ~ 0
-GDLOX_2_RX
-Text HLabel 6050 1750 2    60   Input ~ 0
-RXtc
-NoConn ~ 1650 6200
-NoConn ~ 1650 6300
 NoConn ~ 1650 3900
 NoConn ~ 1650 4000
 NoConn ~ 1650 1350
@@ -271,7 +226,7 @@ L CONN_25 P14
 U 1 1 4A20365B
 P 1300 5100
 F 0 "P14" V 1250 5100 60  0000 C CNN
-F 1 "ARDUINO_2" V 1350 5100 60  0000 C CNN
+F 1 "CONN_25" V 1350 5100 60  0000 C CNN
 	1    1300 5100
 	-1   0    0    1   
 $EndComp
@@ -280,16 +235,20 @@ L CONN_25 P13
 U 1 1 4A20362F
 P 1300 2550
 F 0 "P13" V 1250 2550 60  0000 C CNN
-F 1 "ARDUINO_1" V 1350 2550 60  0000 C CNN
+F 1 "CONN_25" V 1350 2550 60  0000 C CNN
 	1    1300 2550
 	-1   0    0    1   
 $EndComp
+Text HLabel 6050 3550 2    60   Output ~ 0
+EXP_TRIGGER_OFF
+Text HLabel 6050 3450 2    60   Output ~ 0
+EXP_TRIGGER_ON
 Text HLabel 6050 2400 2    60   Output ~ 0
-TC_ADDR_SR_C
+PWR_SR_L
 Text HLabel 6050 2300 2    60   Output ~ 0
-TC_ADDR_SR_D
-Text HLabel 7350 2200 2    60   Output ~ 0
-TXtc
+PWR_SR_C
+Text HLabel 6050 2200 2    60   Output ~ 0
+PWR_SR_D
 Text HLabel 6050 2100 2    60   Output ~ 0
 TXi
 Text HLabel 6050 1650 2    60   Input ~ 0
@@ -401,11 +360,16 @@ NoConn ~ 1650 4300
 NoConn ~ 1650 4200
 NoConn ~ 1650 6100
 NoConn ~ 1650 6000
+NoConn ~ 1650 5900
 NoConn ~ 1650 5800
+NoConn ~ 1650 5700
 NoConn ~ 1650 3550
 NoConn ~ 1650 3450
 NoConn ~ 1650 3350
 NoConn ~ 1650 3250
+NoConn ~ 1650 3150
+NoConn ~ 1650 3050
+NoConn ~ 1650 2950
 NoConn ~ 1650 2850
 NoConn ~ 1650 2750
 $Comp
@@ -448,8 +412,8 @@ NoConn ~ 6050 3750
 NoConn ~ 6050 3650
 NoConn ~ 4750 4250
 NoConn ~ 4750 4150
-Text Label 5950 5850 0    40   ~ 0
-A2_CONTROL_SR_C
+Text Label 6250 5850 0    40   ~ 0
+A2_P11
 Text Label 2700 7350 0    40   ~ 0
 A1_RST
 Text Label 1150 7250 0    40   ~ 0
@@ -493,7 +457,9 @@ F 1 "7404" H 9450 6900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 1150 7450 0    40   ~ 0
-A2_RST_REQ
+RST_REQ
+Text Label 2150 5300 0    40   ~ 0
+RST_REQ
 $Comp
 L 74LS08 U3
 U 1 1 4A202F17
@@ -503,6 +469,8 @@ F 1 "74LS08" H 2100 7300 60  0000 C CNN
 	1    2100 7350
 	1    0    0    -1  
 $EndComp
+Text Label 2150 2650 0    40   ~ 0
+HEARTBEAT
 Text Label 1650 3550 0    60   ~ 0
 A1_A2
 Text Label 1650 3450 0    60   ~ 0
@@ -512,31 +480,31 @@ A1_A0
 Text Label 1650 3250 0    60   ~ 0
 A1_P13
 Text Label 1650 3150 0    60   ~ 0
-A1_GDLOX_RST
+A1_P12
 Text Label 1650 3050 0    60   ~ 0
-A1_GDLOX_TX
+A1_P11
 Text Label 1650 2950 0    60   ~ 0
-A1_GDLOX_RX
+A1_P10
 Text Label 1650 2850 0    60   ~ 0
 A1_P9
 Text Label 1650 2750 0    60   ~ 0
 A1_P8
 Text Label 1650 2650 0    60   ~ 0
-A1_RST_REQ
+A1_P7
 Text Label 1650 2550 0    60   ~ 0
-A1_HEARTBEAT
+A1_P6
 Text Label 1650 2450 0    60   ~ 0
-A1_TC_ADDR_SR_C
+A1_P5
 Text Label 1650 2350 0    60   ~ 0
-A1_TC_ADDR_SR_D
+A1_P4
 Text Label 1650 2250 0    60   ~ 0
-A1_TXtc
+A1_P3
 Text Label 1650 2150 0    60   ~ 0
-A1_RXtc
+A1_P2
 Text Label 1650 2050 0    60   ~ 0
-A1_TXi
+A1_P1
 Text Label 1650 1950 0    60   ~ 0
-A1_RXi
+A1_P0
 Text Label 1650 1850 0    60   ~ 0
 A1_GND
 Text Label 1650 1750 0    60   ~ 0
@@ -547,8 +515,8 @@ Text Label 5100 4800 0    40   ~ 0
 ~TAKEOVER
 Text Label 9250 6100 0    40   ~ 0
 ~TAKEOVER
-Text Label 5950 5750 0    40   ~ 0
-A2_CONTROL_SR_D
+Text Label 6250 5750 0    40   ~ 0
+A2_P10
 $Comp
 L +5V #PWR35
 U 1 1 4A202BC1
@@ -735,35 +703,35 @@ A2_A2
 Text Label 1650 6000 0    60   ~ 0
 A2_A1
 Text Label 1650 5900 0    60   ~ 0
-A2_TAKEOVER_CHECK
+A2_A0
 Text Label 1650 5800 0    60   ~ 0
 A2_P13
 Text Label 1650 5700 0    60   ~ 0
-A2_GDLOX_RST
+A2_P12
 Text Label 1650 5600 0    60   ~ 0
-A2_GDLOX_TX
+A2_P11
 Text Label 1650 5500 0    60   ~ 0
-A2_GDLOX_RX
+A2_P10
 Text Label 1650 5400 0    60   ~ 0
-A2_CONTROL_SR_C
+A2_P9
 Text Label 1650 5300 0    60   ~ 0
-A2_CONTROL_SR_D
+A2_P8
 Text Label 1650 5200 0    60   ~ 0
-A2_RST_REQ
+A2_P7
 Text Label 1650 5100 0    60   ~ 0
-A2_HEARTBEAT
+A2_P6
 Text Label 1650 5000 0    60   ~ 0
-A2_TC_ADDR_SR_C
+A2_P5
 Text Label 1650 4900 0    60   ~ 0
-A2_TC_ADDR_SR_D
+A2_P4
 Text Label 1650 4800 0    60   ~ 0
-A2_TXtc
+A2_P3
 Text Label 1650 4700 0    60   ~ 0
-A2_RXtc
+A2_P2
 Text Label 1650 4600 0    60   ~ 0
-A2_TXi
+A2_P1
 Text Label 1650 4500 0    60   ~ 0
-A2_RXi
+A2_P0
 Text Label 1650 4400 0    60   ~ 0
 A2_GND
 Text Label 1650 4300 0    60   ~ 0
