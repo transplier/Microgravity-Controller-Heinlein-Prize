@@ -12,9 +12,10 @@
 #define EEPROM_STATUS_RESET_VALUE 0x00 //Reset status byte to this if we're reset (with RSTPIN low).
 
 //Status byte format:
-//[Time Sig Valid|nu|nu|nu|nu|nu|nu]
+//[Time Sig Valid|Triggered|nu|nu|nu|nu|nu]
 //Bit masks for EEPROM_STATUS
-#define EEPROM_STATUS_TIME_VALID 0x01
+#define EEPROM_STATUS_TIME_VALID 0b01
+#define EEPROM_STATUS_TRIGGERED 0b10
 
 
 #define EEPROM_TIME_1 2 //LSB
@@ -22,6 +23,9 @@
 #define EEPROM_TIME_3 4
 #define EEPROM_TIME_4 5 //MSB
 #define EEPROM_TIME_CHECK 6
+
+#define EEPROM_TIME_EVENT_STATUS_BASE 7 //inclusive
+#define EEPROM_TIME_EVENT_STATUS_LIMIT 4
 
 /**
  * Writes a byte to a memory location.

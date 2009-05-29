@@ -44,7 +44,8 @@ boolean checkForCommand(byte* buffer) {
  */
 void transmitCommand(byte* buffer) {
   byte localChecksum = 0;
-  Serial.print(SPLIT_COMM_ATTN_CHAR);
+  Serial.print((char)SPLIT_COMM_ATTN_CHAR);
+  
   for(int x = 0; x<SPLIT_COMM_MSG_LENGTH; x++) {
         localChecksum ^= buffer[x];
         Serial.print(buffer[x]);
