@@ -1,0 +1,61 @@
+EESchema-DOCLIB  Version 2.0  Fri 29 May 2009 02:53:13 PM CDT
+#
+$CMP 40257
+D Binary counter 14 stages (asynchronous)
+K CMOS CNT CNT14
+F cmos4000/MC14020.pdf
+$ENDCMP
+#
+$CMP 7404
+D Hex inverter, logic symbol
+F /mnt/dati/documenti/Elettronica/DATA_SHEET/Integrati/Digitali/logiche/NXP_74HC04_74HCT04.pdf
+$ENDCMP
+#
+$CMP 74HC4094
+D 8 stage shift and store bus register
+$ENDCMP
+#
+$CMP 74LS08
+D Quad And2
+K TTL and2
+$ENDCMP
+#
+$CMP 74LS30
+D Nand 8 inputs
+K TTL Nand8
+$ENDCMP
+#
+$CMP CONN_2
+D Symbole general de connecteur
+K CONN
+$ENDCMP
+#
+$CMP CONN_25
+D Symbole general de connexion
+K CONN
+$ENDCMP
+#
+$CMP CONN_3
+D Symbole general de connecteur
+K CONN
+$ENDCMP
+#
+$CMP CP
+D Condensateur polarise
+$ENDCMP
+#
+$CMP DIODE
+D Diode simple
+K DEV DIODE
+$ENDCMP
+#
+$CMP PNP
+F transistors/bipolar/*.*
+$ENDCMP
+#
+$CMP R
+D Resistance
+K R DEV
+$ENDCMP
+#
+#End Doc Library
