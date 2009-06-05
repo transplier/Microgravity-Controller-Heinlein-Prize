@@ -12,6 +12,11 @@ byte temp[256];
 
 void setup() {
   pinMode(LEDPIN, OUTPUT);
+  
+  if(isSecondary()) {
+    enterMonitorMode();
+  }
+  
   pinMode(RSTPIN, INPUT);
   
   Serial.begin(9600);

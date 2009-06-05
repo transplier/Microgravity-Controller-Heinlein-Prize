@@ -27,6 +27,9 @@
 #define EEPROM_TIME_EVENT_STATUS_BASE 7 //inclusive
 #define EEPROM_TIME_EVENT_STATUS_LIMIT 4
 
+#define EEPROM_IS_PRIMARY 15 //inclusive
+#define EEPROM_IS_SECONDARY_VALUE 0x2A
+
 /**
  * Writes a byte to a memory location.
  * @param addr Address.
