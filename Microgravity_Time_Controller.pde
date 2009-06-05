@@ -17,6 +17,8 @@ void setup() {
     enterMonitorMode();
   }
   
+  pinMode(TC_INOUT_REDUNDANCY, OUTPUT);
+  
   pinMode(RSTPIN, INPUT);
   
   Serial.begin(9600);
@@ -39,6 +41,7 @@ void setup() {
   }
 }
 
+boolean redundancy_state = false;
 void loop() {
   digitalWrite(LEDPIN, HIGH);
   execute_time_events();
@@ -48,6 +51,8 @@ void loop() {
     write_time();
     lastTime=millis();
   }
+  digitalWrite(TC_INOUT_REDUNDANCY, redundancy_state);
+  redundancy_state = !redundancy_state;
 }
 
 byte msg_buffer[8];
