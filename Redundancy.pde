@@ -21,7 +21,7 @@ boolean isSecondary() {
 
 void enterMonitorMode() {
   DEBUG("ENTERING MONITOR MODE...\n");
-  pinMode(TC_INOUT_REDUNDANCY, INPUT);
+  //TC_INOUT_REDUNDANCY direction is set up in Microgravity_Time_Controller.pde.
   pinMode(TC_IN_REDUN_TAKEOVER_CHECK, INPUT);
   
   pinMode(TC_OUT_RST_REQ, OUTPUT);
@@ -33,8 +33,13 @@ void enterMonitorMode() {
   long lastSawChange = millis();
   boolean lastPinState = digitalRead(TC_INOUT_REDUNDANCY);
   byte resetCount = 0;
+  long lastTime = 0;
   
   while(1) {
+    if((millis() - lastTime) > SAVE_INTERVAL) {
+      write_time();
+      lastTime=millis();
+    }
     if(digitalRead(TC_INOUT_REDUNDANCY) != lastPinState) {
       //Seems to be alive
       lastPinState = !lastPinState;

@@ -11,18 +11,11 @@ boolean wasReset;
 void setup() {
   Serial.begin(9600);
   pinMode(LEDPIN, OUTPUT);
+      
+  pinMode(TC_IN_RSTPIN, INPUT);
+  digitalWrite(TC_IN_RSTPIN, HIGH); //turn on built-in pullup on TC_IN_RSTPIN.
   
-  if(isSecondary()) {
-    enterMonitorMode();
-  } else {
-    DEBUG("Determined we're primary.\n");
-  }
-  
-  pinMode(TC_INOUT_REDUNDANCY, OUTPUT);
-  
-  pinMode(RSTPIN, INPUT);
-  
-  Serial.println("Controller V.01");
+  Serial.println("Controller V0.5");
 
   CheckForReset();
 
@@ -31,6 +24,15 @@ void setup() {
   lastTime = get_time();
   Serial.print("Current time is: ");
   Serial.println(lastTime);
+  
+  if(isSecondary()) {
+    pinMode(TC_INOUT_REDUNDANCY, INPUT);
+    enterMonitorMode();
+  } else {
+    pinMode(TC_INOUT_REDUNDANCY, OUTPUT);
+    DEBUG("Determined we're primary.\n");
+  }
+
   
   if(!(GetStatus() & EEPROM_STATUS_TRIGGERED)) {
     DEBUG("WAITING FOR TRIGGER...");
@@ -67,7 +69,7 @@ void execute_event(byte command, byte data1, byte data2) {
 }
 
 void CheckForReset() {
-  if(digitalRead(RSTPIN) == LOW) {
+  if(digitalRead(TC_IN_RSTPIN) == LOW) {
     wasReset = true;
     Serial.print("Resetting...");
     WriteStatus(EEPROM_STATUS_RESET_VALUE);

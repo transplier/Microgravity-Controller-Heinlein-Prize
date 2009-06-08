@@ -2,7 +2,6 @@
 #define PINS_H
 
 //INPUTS
-#define RSTPIN 12
 #define GDLOX_RX 2
 #define COM1_RX 5
 
@@ -13,11 +12,11 @@
 #define COM1_TX 4
 
 
-
 //TIME CONTROLLER
 //INPUTS
 #define TC_IN_RXi 0
 #define TC_IN_REDUN_TAKEOVER_CHECK 9
+#define TC_IN_RSTPIN 12
 //OUTPUTS
 #define TC_OUT_TXi 1
 #define TC_OUT_POWER_SR_D 2
