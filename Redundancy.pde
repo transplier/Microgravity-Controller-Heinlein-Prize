@@ -9,7 +9,7 @@
 #include "Debug.h"
 #include "EEPROMFormat.h"
 
-#define REDUNDANCY_TIMEOUT 1500 //msec to wait for pulse before corrective action taken.
+#define REDUNDANCY_TIMEOUT 5000 //msec to wait for pulse before corrective action taken.
 #define REDUNDANCY_RESET_MAX 5 //times to try a reset of primary controller before initiating takeover.
 
 #define REDUNDANCY_UNLOCK_CODE 0b11001101
@@ -41,7 +41,7 @@ void enterMonitorMode() {
       resetCount = 0;
       lastSawChange = millis();
     } else if( (millis() - lastSawChange) > REDUNDANCY_TIMEOUT ) {
-      if(resetCount > REDUNDANCY_RESET_MAX) {
+      if(resetCount >= REDUNDANCY_RESET_MAX) {
         DEBUG("PRIMARY FAIL, TAKEOVER INITIATED... ");
         setupForTakeover();
         DEBUG("COMPETE\nEXECUTING MAIN PROGRAM.\n");

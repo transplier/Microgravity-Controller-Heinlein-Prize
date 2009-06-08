@@ -7,14 +7,16 @@
 #include "Pins.h"
 #include "EEPROMFormat.h"
 
+#define UINT_MAX_VALUE 65535
+
 typedef struct {
   long trigger_time;
-  byte command;
-  byte data;
+  byte command;      //0x00 for power SR state change, 0x0C for cooldown request
+  byte data1, data2; //for power SR state change, data1 is low byte, data2 is high byte. For cooldown, data1 is the ID of the heater to cool down.
 } time_event_t;
 
 time_event_t time_events[] = {
-  {2000,70,80}, {180000,65,75}, {200000,100,106}
+  {2000,70,80,40}, {5000,65,75,50}, {10000,100,106,60}
 };
 
 /**
@@ -43,11 +45,7 @@ void time_setup(boolean wasReset) {
     DEBUG("TimeSetup: no resume data to load\n");
   }
   if(wasReset) {
-    DEBUG("TimeSetup: Clearing time event state...");
-    for(int x=0;x<EEPROM_TIME_EVENT_STATUS_LIMIT; x++) {
-      WriteEEPROM(EEPROM_TIME_EVENT_STATUS_BASE + x, 0);
-    }
-    DEBUG("OK\n");
+    //Intentionally left blank.
   }
 }
 
@@ -124,36 +122,18 @@ void write_time() {
 }
 
 /**
- * Execute any pending time events whose trigger time has passed.
+ * Execute the most recent time event, even if it's already been executed.
  * Calls back to execute_event.
  */
-void execute_time_events() {
-  for(int x=0; x< 2; x++) {
-    if(get_executed_bit(x)) continue;
-    if(time_events[x].trigger_time <= get_time()) {
-      set_executed_bit(x);
-      execute_event(time_events[x].command, time_events[x].data);
+void execute_last_time_event() {
+  long mostRecent = 0;
+  unsigned int indexOfMostRecent = UINT_MAX_VALUE;
+  for(int x=0; x< sizeof(time_events)/sizeof(time_event_t); x++) {
+    if(time_events[x].trigger_time <= get_time() && time_events[x].trigger_time > mostRecent) {
+      indexOfMostRecent = x;
     }
   }
-}
-
-/**
- * Gets the flag representing if time event i has been executed
- */
-boolean get_executed_bit(int i) {
-  byte offset = i / 8;
-  if(offset > EEPROM_TIME_EVENT_STATUS_LIMIT) { return false; } //Bad addr.
-  byte val = ReadEEPROM(EEPROM_TIME_EVENT_STATUS_BASE + offset);
-  offset = i % 8;
-  return (val & (1 << offset)) > 0;
-}
-
-/**
- * Sets the flag representing if time event i has been executed to true.
- */
-void set_executed_bit(int i) {
-  byte offset = i / 8;
-  if(offset > EEPROM_TIME_EVENT_STATUS_LIMIT) { return; } //Bad addr.
-  byte val = ReadEEPROM(EEPROM_TIME_EVENT_STATUS_BASE + offset);
-  WriteEEPROM(EEPROM_TIME_EVENT_STATUS_BASE + offset, val | (1 << i % 8));
+  if(indexOfMostRecent < UINT_MAX_VALUE) {
+    execute_event(time_events[indexOfMostRecent].command, time_events[indexOfMostRecent].data1, time_events[indexOfMostRecent].data2);
+  }
 }

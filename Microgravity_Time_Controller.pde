@@ -44,7 +44,7 @@ void setup() {
 boolean redundancy_state = false;
 void loop() {
   digitalWrite(LEDPIN, HIGH);
-  execute_time_events();
+  execute_last_time_event();
   digitalWrite(LEDPIN, LOW);
   delay(10);
   if((millis() - lastTime) > SAVE_INTERVAL) {
@@ -56,14 +56,14 @@ void loop() {
 }
 
 byte msg_buffer[8];
-void execute_event(byte command, byte data) {
+void execute_event(byte command, byte data1, byte data2) {
   Serial.print("Trying to execute event of type: ");
   Serial.print(command, HEX);
   Serial.println();
   msg_buffer[0] = command;
-  msg_buffer[1] = data;
+  msg_buffer[1] = data1;
   msg_buffer[3] = 'X';
-  transmitCommand(msg_buffer);
+  //transmitCommand(msg_buffer);
 }
 
 void CheckForReset() {
