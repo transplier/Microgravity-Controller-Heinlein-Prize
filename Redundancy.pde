@@ -20,12 +20,15 @@ boolean isSecondary() {
 }
 
 void enterMonitorMode() {
+  DEBUG("ENTERING MONITOR MODE...\n");
   pinMode(TC_INOUT_REDUNDANCY, INPUT);
   pinMode(TC_IN_REDUN_TAKEOVER_CHECK, INPUT);
   
   pinMode(TC_OUT_RST_REQ, OUTPUT);
   pinMode(TC_OUT_REDUN_SR_D, OUTPUT);
   pinMode(TC_OUT_REDUN_SR_C, OUTPUT);
+  
+  lockRedundancy(); //The code shift register may have the code already in it if we were reset. Make sure it is cleared.
   
   long lastSawChange = millis();
   boolean lastPinState = digitalRead(TC_INOUT_REDUNDANCY);
@@ -36,7 +39,6 @@ void enterMonitorMode() {
       //Seems to be alive
       lastPinState = !lastPinState;
       resetCount = 0;
-      DEBUG(".\n");
       lastSawChange = millis();
     } else if( (millis() - lastSawChange) > REDUNDANCY_TIMEOUT ) {
       if(resetCount > REDUNDANCY_RESET_MAX) {
@@ -47,7 +49,8 @@ void enterMonitorMode() {
       }
       DEBUG("PRIMARY TIMEOUT, RESETTING\nRESET COUNT:");
       resetCount++;
-      DEBUG(resetCount);
+      lastSawChange = millis(); //cause another delay interval.
+      DEBUGF(resetCount, DEC);
       resetPrimary();
       DEBUG("\n");
     }

@@ -8,20 +8,20 @@ unsigned long lastTime; //relative time only
 
 boolean wasReset;
 
-byte temp[256];
-
 void setup() {
+  Serial.begin(9600);
   pinMode(LEDPIN, OUTPUT);
   
   if(isSecondary()) {
     enterMonitorMode();
+  } else {
+    DEBUG("Determined we're primary.\n");
   }
   
   pinMode(TC_INOUT_REDUNDANCY, OUTPUT);
   
   pinMode(RSTPIN, INPUT);
   
-  Serial.begin(9600);
   Serial.println("Controller V.01");
 
   CheckForReset();
