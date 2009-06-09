@@ -30,7 +30,8 @@ public:
   iSeries(NewSoftSerial* com);
   
   /**
-   * Issues a command with a default timeout of ISERIES_CMD_DELAY
+   * Issues a command with a default timeout of ISERIES_CMD_DELAY. Blocks until either replyLength
+   * bytes are received, or the default timeout is reached.
    * @param cmd Command to send. Null-terminated.
    * @param reply Buffer for response.
    * @param replyLength Maximum length of reply (additional bytes will be left in the buffer).
@@ -39,7 +40,8 @@ public:
   boolean IssueCommand(const char* cmd, byte reply[], byte replyLength);
   
   /**
-   * Issues a command with a specified timeout
+   * Issues a command with a specified timeout. Blocks until either replyLength
+   * bytes are received, or the given timeout is reached.
    * @param cmd Command to send. Null-terminated.
    * @param reply Buffer for response.
    * @param replyLength Maximum length of reply (additional bytes will be left in the buffer).
