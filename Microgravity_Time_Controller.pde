@@ -1,21 +1,31 @@
 #include "Pins.h"
 #include "Debug.h"
 #include "EEPROMFormat.h"
+#include "SplitComm.h"
 
 #define SAVE_INTERVAL 3000
+
+#define TIME_EVENT_COMMAND_SR_UPDATE 0x00
+#define TIME_EVENT_COMMAND_COOLDOWN 0x0C
 
 unsigned long lastTime; //relative time only
 
 boolean wasReset;
 
+void setup_pins() {
+  pinMode(TC_OUT_POWER_SR_L, OUTPUT);
+  pinMode(TC_OUT_POWER_SR_D, OUTPUT);
+  pinMode(TC_OUT_POWER_SR_C, OUTPUT);
+}
+
 void setup() {
-  Serial.begin(9600);
-  pinMode(LEDPIN, OUTPUT);
-      
+  Serial.begin(9600);        
+  Serial.println("Controller V0.5");
+
+  //Must do these before enterMonitorMode();
   pinMode(TC_IN_RSTPIN, INPUT);
   digitalWrite(TC_IN_RSTPIN, HIGH); //turn on built-in pullup on TC_IN_RSTPIN.
-  
-  Serial.println("Controller V0.5");
+  pinMode(LEDPIN, OUTPUT);
 
   CheckForReset();
 
@@ -33,6 +43,7 @@ void setup() {
     DEBUG("Determined we're primary.\n");
   }
 
+  setup_pins();
   
   if(!(GetStatus() & EEPROM_STATUS_TRIGGERED)) {
     DEBUG("WAITING FOR TRIGGER...");
@@ -57,15 +68,34 @@ void loop() {
   redundancy_state = !redundancy_state;
 }
 
-byte msg_buffer[8];
 void execute_event(byte command, byte data1, byte data2) {
-  Serial.print("Trying to execute event of type: ");
-  Serial.print(command, HEX);
-  Serial.println();
-  msg_buffer[0] = command;
-  msg_buffer[1] = data1;
-  msg_buffer[3] = 'X';
-  //transmitCommand(msg_buffer);
+  DEBUG("Trying to execute event of type: ");
+  DEBUGF(command, HEX);
+  DEBUG("\n");
+  switch(command) {
+    case TIME_EVENT_COMMAND_SR_UPDATE:
+      update_power_sr(data1, data2);
+    break;
+    case TIME_EVENT_COMMAND_COOLDOWN:
+      send_cooldown_request(data1);
+    break;
+    default:
+      DEBUG("Invalid command.\n");
+  }
+}
+
+void update_power_sr(byte lowbyte, byte highbyte) {
+  digitalWrite(TC_OUT_POWER_SR_L, LOW);
+  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, LSBFIRST, highbyte);
+  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, LSBFIRST, lowbyte);
+  digitalWrite(TC_OUT_POWER_SR_L, HIGH);
+}
+
+void send_cooldown_request(byte tc_id) {
+  byte msg_buffer[8];
+  msg_buffer[0] = SPLIT_COMM_COMMAND_COOLDOWN;
+  msg_buffer[1] = tc_id;
+  transmitCommand(msg_buffer);  
 }
 
 void CheckForReset() {
