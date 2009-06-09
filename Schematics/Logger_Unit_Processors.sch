@@ -1,5 +1,5 @@
-EESchema Schematic File Version 2  date Fri 29 May 2009 04:51:47 PM CDT
-LIBS:power,/home/giacomo/Synchronized/Electronics/Kicad_Libs/w_logic,/home/giacomo/Synchronized/Electronics/Kicad_Libs/mine,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,./Logger_Unit.cache
+EESchema Schematic File Version 2  date Tue 09 Jun 2009 10:19:47 AM CDT
+LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,./Logger_Unit.cache
 EELAYER 24  0
 EELAYER END
 $Descr A4 11700 8267
@@ -13,6 +13,15 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L 7404 U?
+U 5 1 4A2E7CD9
+P 2950 7350
+F 0 "U?" H 3050 7550 60  0000 C CNN
+F 1 "7404" H 3150 7450 60  0000 C CNN
+	5    2950 7350
+	1    0    0    -1  
+$EndComp
 NoConn ~ 1650 2650
 $Comp
 L +12V_trig #PWR012
@@ -451,7 +460,7 @@ NoConn ~ 4750 4250
 NoConn ~ 4750 4150
 Text Label 5950 5850 0    40   ~ 0
 A2_CONTROL_SR_C
-Text Label 2700 7350 0    40   ~ 0
+Text Label 3200 7350 0    40   ~ 0
 A1_RST
 Text Label 1150 7250 0    40   ~ 0
 TAKEOVER
@@ -579,60 +588,6 @@ F 1 "GND" H 6950 6580 30  0001 C CNN
 	1    6950 6650
 	1    0    0    -1  
 $EndComp
-$Comp
-L GND #PWR030
-U 1 1 4A202B1F
-P 10300 6850
-F 0 "#PWR030" H 10300 6850 30  0001 C CNN
-F 1 "GND" H 10300 6780 30  0001 C CNN
-	1    10300 6850
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR031
-U 1 1 4A202B1E
-P 10300 6250
-F 0 "#PWR031" H 10300 6250 30  0001 C CNN
-F 1 "GND" H 10300 6180 30  0001 C CNN
-	1    10300 6250
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR032
-U 1 1 4A202B12
-P 10300 5650
-F 0 "#PWR032" H 10300 5650 30  0001 C CNN
-F 1 "GND" H 10300 5580 30  0001 C CNN
-	1    10300 5650
-	1    0    0    -1  
-$EndComp
-$Comp
-L +5V #PWR033
-U 1 1 4A202B02
-P 10300 6450
-F 0 "#PWR033" H 10300 6540 20  0001 C CNN
-F 1 "+5V" H 10300 6540 30  0000 C CNN
-	1    10300 6450
-	1    0    0    -1  
-$EndComp
-$Comp
-L +5V #PWR034
-U 1 1 4A202B00
-P 10300 5850
-F 0 "#PWR034" H 10300 5940 20  0001 C CNN
-F 1 "+5V" H 10300 5940 30  0000 C CNN
-	1    10300 5850
-	1    0    0    -1  
-$EndComp
-$Comp
-L +5V #PWR035
-U 1 1 4A202AFC
-P 10300 5250
-F 0 "#PWR035" H 10300 5340 20  0001 C CNN
-F 1 "+5V" H 10300 5340 30  0000 C CNN
-	1    10300 5250
-	1    0    0    -1  
-$EndComp
 Text Label 10550 6650 0    40   ~ 0
 CODE_O_7
 Text Label 9700 6650 0    40   ~ 0
@@ -705,10 +660,10 @@ CODE_I_1
 Text Label 7350 5750 0    40   ~ 0
 CODE_I_0
 $Comp
-L 74HC4094 #U036
+L 74HC4094 #U030
 U 1 1 4A202901
 P 6950 6100
-F 0 "#U036" H 6700 6600 60  0000 C CNN
+F 0 "#U030" H 6700 6600 60  0001 C CNN
 F 1 "74HC4094" H 7250 5600 60  0000 C CNN
 	1    6950 6100
 	1    0    0    -1  
