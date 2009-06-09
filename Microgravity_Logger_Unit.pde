@@ -24,7 +24,7 @@ unsigned long lastTimeMillis;
 extern NewSoftSerial com_1;
 extern NewSoftSerial com_2;
 
-Goldelox uDrive(&com_2, GDLOX_RST);
+Goldelox uDrive(&com_2, LU_OUT_GDLOX_RST);
 /**
  * True if the uDRIVE was found.
  */
@@ -32,10 +32,20 @@ boolean isUDriveActive;
 
 iSeries iSeries1(&com_1);
 
+void setup_pins() {
+  pinMode(LEDPIN, OUTPUT);
+  pinMode(LU_IN_COM1_RX, INPUT);
+  pinMode(LU_IN_GDLOX_RX, INPUT);
+  pinMode(LU_OUT_GDLOX_TX, OUTPUT);
+  pinMode(LU_OUT_GDLOX_RST, OUTPUT);
+  pinMode(LU_OUT_COM1_TX, OUTPUT);
+}
+
 void setup() {
   Serial.begin(9600);
   Serial.println("Microgravity Logger Module V.01");
-  pinMode(LEDPIN, OUTPUT);
+
+  setup_pins();
 
   DEBUG("Initializing serial ports...");
   init_comms();

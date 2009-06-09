@@ -1,15 +1,17 @@
 #ifndef PINS_H
 #define PINS_H
 
-//INPUTS
-#define GDLOX_RX 2
-#define COM1_RX 5
-
-//OUTPUTS
 #define LEDPIN 13
-#define GDLOX_TX 3
-#define GDLOX_RST 6
-#define COM1_TX 4
+
+
+//LOGGER UNIT
+//INPUTS
+#define LU_IN_GDLOX_RX 2
+#define LU_IN_COM1_RX 5
+//OUTPUTS
+#define LU_OUT_GDLOX_TX 3
+#define LU_OUT_GDLOX_RST 6
+#define LU_OUT_COM1_TX 4
 
 
 //TIME CONTROLLER
