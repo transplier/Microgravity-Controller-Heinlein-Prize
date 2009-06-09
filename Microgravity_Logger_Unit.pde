@@ -13,6 +13,10 @@
 
 #include <NewSoftSerial.h>
 
+char log_temp[5];
+#define LOG(x) {DEBUG(x); uDrive.append("DEBUG.LOG", (byte*)x, strlen(x));}
+#define LOG_INT(x) {DEBUGF(x, DEC); snprintf(log_temp, sizeof(log_temp), "%d", x); uDrive.append("DEBUG.LOG", (byte*)log_temp, strlen(log_temp));}
+  
 /**
  * Format of log file name in printf format. First argument is temp controller id.
  */
@@ -26,7 +30,7 @@
 /**
  * Number of temperature controllers (addresses assumed to start from zero and end at this value minus one.
  */
-#define NUMBER_OF_TEMP_CONTROLLERS 10
+#define NUMBER_OF_TEMP_CONTROLLERS 1
 
 /**
  * Interval at which state is saved
@@ -47,7 +51,7 @@ Goldelox uDrive(&com_2, LU_OUT_GDLOX_RST);
  */
 boolean isUDriveActive;
 
-iSeries iSeries1(&com_1);
+iSeries iSeries(&com_1);
 
 void setup_pins() {
   pinMode(LEDPIN, OUTPUT);
@@ -68,17 +72,17 @@ void setup() {
   init_comms();
   DEBUG("OK!\n");
 
-  DEBUG("Initializing GOLDELOX-DOS...");
+  LOG("Initializing GOLDELOX-DOS...");
   GoldeloxStatus ret = uDrive.reinit();
   if(ret == OK) {
-    DEBUG("OK!\n");
+    LOG("OK!\n");
     isUDriveActive = true;
   } 
   else {
     isUDriveActive = false;
-    DEBUG("ERROR ");
-    DEBUG(ret);
-    DEBUG("!\n");
+    LOG("ERROR ");
+    LOG_INT(ret);
+    LOG("!\n");
   }  
 
 #ifdef DODEBUG
@@ -87,23 +91,20 @@ void setup() {
   //List dir
   byte temp[255];
   uDrive.ls(temp, sizeof(temp));
-  DEBUG("Files on card: \n");
-  for(int x=0;x<sizeof(temp);x++) {
-    if(temp[x]==0) break;
-    DEBUG((char)temp[x]);
-  }
-  DEBUG("Sample file tests: ");
+  LOG("Files on card: \n");
+  LOG((char*)temp);
+  LOG("Sample file tests: ");
   //Write data
   byte abc[3] = {
     'a', 'b', 'c'  };
   ret = uDrive.append("temp", abc, sizeof(abc));
   if(ret == OK) {
-    DEBUG("[OK!] ");
+    LOG("[OK!] ");
   } 
   else {
-    DEBUG("[ERROR COULDNT CREATE FILE] ");
-    DEBUG(ret);
-    DEBUG("!\n");
+    LOG("[ERROR COULDNT CREATE FILE] ");
+    LOG_INT(ret);
+    LOG("!\n");
   }
 
   //TODO: Verify contents
@@ -111,29 +112,37 @@ void setup() {
   //Erase
   ret = uDrive.del("temp");
   if(ret == OK) {
-    DEBUG("[OK!] ");
+    LOG("[OK!] ");
   } 
   else {
-    DEBUG("[ERROR ");
-    DEBUG(ret);
-    DEBUG(" COULDNT CREATE FILE] ");
+    LOG("[ERROR ");
+    LOG_INT(ret);
+    LOG(" COULDNT CREATE FILE] ");
   }
 
   ret = uDrive.del("temp");
   if(ret == ERROR) {
-    DEBUG("[OK!]");
+    LOG("[OK!]");
   } 
   else if (ret == OK){
-    DEBUG("[ERROR DELETED NONEXISTENT FILE] ");
+    LOG("[ERROR DELETED NONEXISTENT FILE] ");
   }
-  DEBUG(" DONE\n");
+  LOG(" DONE\n");
 #endif
 
-  DEBUG("Resetting and finding iSeries on com1...");
-  if(iSeries1.FindAndReset())
-    DEBUG("OK!\n");
-  else
-    DEBUG("FAIL!\n");
+  LOG("Resetting and finding ");
+  LOG_INT(NUMBER_OF_TEMP_CONTROLLERS);
+  LOG(" iSeries on com1... [");
+  for(byte id=0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
+    set_active_thermostat(id);
+    LOG_INT(id);
+    if(iSeries.FindAndReset()) {
+        LOG(":OK ");
+    } else {
+        LOG(":XX ");
+    }
+  }
+  LOG("] Done\n");
 
   init_logfiles();
 
@@ -144,15 +153,15 @@ void setup() {
 void init_logfiles() {
   char filename[12];
   char header[100];
-  DEBUG("Initializing logfiles...\n");
+  LOG("Initializing logfiles...\n");
   strcpy(header, LOG_FILE_HEADER);
   for(byte id = 0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
     snprintf(filename, sizeof(filename), LOG_FILE_NAME_FMT, id);
-    DEBUG(filename);
-    DEBUG("\n");
+    LOG(filename);
+    LOG("\n");
     uDrive.append(filename, (byte*)header, strlen(header));
   }
-  DEBUG("Done\n");
+  LOG("Done\n");
 }
 
 byte timeString[12];
@@ -168,7 +177,7 @@ void loop() {
       issue_cooldown_command(temp[1]); 
       break;
     default: 
-      DEBUG("UNKNOWN COMMAND\n"); 
+      LOG("UNKNOWN COMMAND\n"); 
       break;
     }
   }
@@ -192,29 +201,29 @@ void loop() {
       timeString[firstnull] = ',';
       timeString[firstnull+1] = ' ';
 
-      iSeries1.GetReadingString(tempReading);      //Place the temperature reported by the temp. controller into tempReading.
+      iSeries.GetReadingString(tempReading);      //Place the temperature reported by the temp. controller into tempReading.
       //Will be 5 chars (tempReading is 6 chars, so 1 extra).
       tempReading[5]='\0';                         //Null-terminate the temp reading using extra space at end of tempReading, so we can print it.
-      DEBUG("Reading: ");
-      DEBUG((char*)tempReading);
+      LOG("Reading: ");
+      LOG((char*)tempReading);
 
       tempReading[5]='\n';                         //Replace null with newline
 
       //Get filename
       snprintf(filename, sizeof(filename), LOG_FILE_NAME_FMT, id);
 
-      DEBUG(" [");
+      LOG(" [");
       ret1 = uDrive.append(filename, timeString, firstnull+1);            //Write timestamp (of form "<timestamp>, ").
-      DEBUG(".");
+      LOG(".");
       ret2 = uDrive.append(filename, tempReading, sizeof(tempReading));   //Write temperature reading (of form <reading>\n).
-      DEBUG(".] ");
+      LOG(".] ");
 
       if(ret1 != OK || ret2 != OK) {
         DEBUG("ERROR WRITING TO GOLDILOX!\n");
         uDrive.reinit();
       } 
       else {
-        DEBUG("OK!\n");
+        LOG("OK!\n");
       }
     }
   }
@@ -230,9 +239,9 @@ void set_active_thermostat(byte ts_id) {
 void issue_cooldown_command(byte ts_id) {
   set_active_thermostat(ts_id);
   byte reply[3];
-  iSeries1.IssueCommand("D03", reply, 3);
+  iSeries.IssueCommand("D03", reply, 3);
 }
 
 void exp_triggered() {
-  DEBUG("EXPERIMENT TRIGGERED");
+  LOG("EXPERIMENT TRIGGERED");
 }
