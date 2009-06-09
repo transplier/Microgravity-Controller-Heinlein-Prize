@@ -36,10 +36,6 @@ private:
    */
   byte mRstPin;
   /**
-   * Holds the result of the last operation.
-   */
-  GoldeloxStatus mStatus;
-  /**
    * Issues a command to the uDRIVE. Does not read any input.
    * @param cmd Command to send.
    * @param len The length of the command to send.
@@ -47,6 +43,14 @@ private:
    * @return True if the command was sent OK.
    */
   boolean issueCommand(const char* cmd, byte len, byte minReplyLength);
+  /**
+    * Writes into a file.
+    * @param filename The null-terminated filename.
+    * @param append True to append instead of overwrite. File will be created either way.
+    * @param data Data buffer to write from.
+    * @param len Number of bytes to write.
+    */
+  GoldeloxStatus _write(const char* filename, boolean append, byte* data, int len);
 public:
   /**
    * Constructor that takes an already-set-up SoftwareSerial instance and a reset pin number. reinit() must be called before any other method.
@@ -56,10 +60,6 @@ public:
    * Resets and initializes the uDRIVE. Must call once before using other methods.
    */
   GoldeloxStatus reinit();
-  /**
-   * Gets the status of the last command (usually the same as the return value of the last method called).
-   */
-  GoldeloxStatus status();
   /**
    * If a card was inserted while the power was on, call this to initialize the card.
    */
@@ -73,11 +73,18 @@ public:
   /**
    * Writes into a file.
    * @param filename The null-terminated filename.
-   * @param append True to append instead of overwrite. File will be created either way.
    * @param data Data buffer to write from.
    * @param len Number of bytes to write.
    */
-  GoldeloxStatus write(const char* filename, boolean append, byte* data, int len);
+  GoldeloxStatus write(const char* filename, byte* data, int len);
+   /**
+   * Appends to the end of a file.
+   * @param filename The null-terminated filename.
+   * @param data Data buffer to write from.
+   * @param len Number of bytes to write.
+   */  
+  GoldeloxStatus append(const char* filename, byte* data, int len);
+  
   /**
    * Deletes a file.
    * @param filename The null-terminated filename.

@@ -67,7 +67,7 @@ void setup() {
   DEBUG("Sample file tests: ");
   //Write data
   byte abc[3] = {'a', 'b', 'c'};
-  ret = uDrive.write("temp", true, abc, sizeof(abc));
+  ret = uDrive.append("temp", abc, sizeof(abc));
   if(ret == OK) {
     DEBUG("[OK!] ");
   } else {
@@ -104,7 +104,7 @@ void setup() {
     DEBUG("FAIL!\n");
 
   strcpy((char*)temp, "Time (msec), Temperature\n");
-  uDrive.write("iSeries1", true, temp, sizeof("Time (msec), Temperature\n")-1);
+  uDrive.append("iSeries1", temp, sizeof("Time (msec), Temperature\n")-1);
   
   lastTimeMillis = millis();
 
@@ -144,9 +144,9 @@ void loop() {
     
     tempReading[5]='\n';                         //Replace null with newline
     DEBUG(" [");
-    ret1 = uDrive.write("iSeries1", true, timeString, firstnull+1);            //Write timestamp (of form "<timestamp>, ").
+    ret1 = uDrive.append("iSeries1", timeString, firstnull+1);            //Write timestamp (of form "<timestamp>, ").
     DEBUG(".");
-    ret2 = uDrive.write("iSeries1", true, tempReading, sizeof(tempReading));   //Write temperature reading (of form <reading>\n).
+    ret2 = uDrive.append("iSeries1", tempReading, sizeof(tempReading));   //Write temperature reading (of form <reading>\n).
     DEBUG(".] ");
     
     if(ret1 != OK || ret2 != OK) {

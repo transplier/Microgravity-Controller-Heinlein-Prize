@@ -101,7 +101,7 @@ GoldeloxStatus Goldelox::ls(byte* result, int len) {
   return OK;
 }
 
-GoldeloxStatus Goldelox::write(const char* filename, boolean append, byte* data, int len) {
+GoldeloxStatus Goldelox::_write(const char* filename, boolean append, byte* data, int len) {
   //HACK: this bypasses issueCommand in the name of efficiency (don't want to build a new string).
   //Rethink the API and fix it.
   mpGdlox->print("@t");
@@ -126,6 +126,13 @@ GoldeloxStatus Goldelox::write(const char* filename, boolean append, byte* data,
   return ERROR;
 }
 
+GoldeloxStatus Goldelox::write(const char* filename, byte* data, int len) {
+  return _write(filename, false, data, len);
+}  
+GoldeloxStatus Goldelox::append(const char* filename, byte* data, int len) {
+  return _write(filename, true, data, len);
+}
+
 GoldeloxStatus Goldelox::del(const char* filename) {
   //HACK: this bypasses issueCommand in the name of efficiency (don't want to build a new string).
   //Rethink the API and fix it.
@@ -148,6 +155,3 @@ GoldeloxStatus Goldelox::read(const char* filename, byte* data, int len) {
   return ERROR;
 }
 
-GoldeloxStatus Goldelox::status() {
-  return mStatus;
-}
