@@ -10,6 +10,8 @@
 
 #define SPLIT_COMM_COMMAND_COOLDOWN    0x0C //first data byte is ID of temp. controller to cool down.
 
+#define SPLIT_COMM_COMMAND_RESET       0xFC //first data byte is ID of temp. controller to reset.
+
 boolean checkForCommand(byte* buffer);
 
 void transmitCommand(byte* buffer);

@@ -8,7 +8,11 @@
 #define TIME_EVENT_COMMAND_SR_UPDATE 0x00
 #define TIME_EVENT_COMMAND_COOLDOWN 0x0C
 
+#define TC_RESET_TIME 50 //msec to hold power off to temperature controllers during reset.
+
 unsigned long lastTime; //relative time only
+
+byte power_sr_highbyte, power_sr_lowbyte;
 
 boolean wasReset;
 
@@ -64,6 +68,20 @@ void loop() {
     write_time();
     lastTime=millis();
   }
+
+  byte temp[16];
+
+  if(checkForCommand(temp)) { //temp contains reply
+    switch(temp[0]) {
+    case SPLIT_COMM_COMMAND_RESET: 
+      reset_tc(temp[1]);
+      break;
+    default: 
+      DEBUG("UNKNOWN COMMAND\n"); 
+      break;
+    }
+  }
+
   digitalWrite(TC_INOUT_REDUNDANCY, redundancy_state);
   redundancy_state = !redundancy_state;
 }
@@ -85,10 +103,32 @@ void execute_event(byte command, byte data1, byte data2) {
 }
 
 void update_power_sr(byte lowbyte, byte highbyte) {
+  power_sr_lowbyte = lowbyte;
+  power_sr_highbyte = highbyte;
+  write_power_sr();
+}
+
+void write_power_sr() {
   digitalWrite(TC_OUT_POWER_SR_L, LOW);
-  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, LSBFIRST, highbyte);
-  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, LSBFIRST, lowbyte);
+  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, MSBFIRST, power_sr_highbyte);
+  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, MSBFIRST, power_sr_lowbyte);
   digitalWrite(TC_OUT_POWER_SR_L, HIGH);
+}
+
+void reset_tc(byte tc_id) {
+  byte mask = ~(1 << (tc_id % 8));
+  byte oldValue;
+  if(tc_id >= 8) {
+    oldValue = power_sr_highbyte;
+    update_power_sr(power_sr_lowbyte, power_sr_highbyte & mask);
+    delay(TC_RESET_TIME);
+    update_power_sr(power_sr_lowbyte, oldValue);
+  } else {
+    oldValue = power_sr_lowbyte;
+    update_power_sr(power_sr_lowbyte & mask, power_sr_highbyte);
+    delay(TC_RESET_TIME);
+    update_power_sr(oldValue, power_sr_highbyte);
+  }
 }
 
 void send_cooldown_request(byte tc_id) {

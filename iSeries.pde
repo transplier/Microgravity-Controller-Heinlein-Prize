@@ -50,8 +50,8 @@ boolean iSeries::FindAndReset() {
 
 boolean iSeries::GetReadingString(byte* buffer) {
   byte resp[8];
-  IssueCommand("X01", resp, 8, 1000);
-  if(resp[0]=='X' && resp[1]=='0' && resp[2]=='1') {
+  boolean rv = IssueCommand("X01", resp, 8, 1000);
+  if(rv && resp[0]=='X' && resp[1]=='0' && resp[2]=='1') {
     //All OK
     for(int x=3;x<8;x++)
       buffer[x-3] = resp[x];
@@ -64,8 +64,8 @@ boolean iSeries::GetReadingString(byte* buffer) {
 
 double iSeries::GetReading() {
   byte resp[9]; //one extra byte for null termination 
-  IssueCommand("X01", resp, 8, 1000);
-  if(resp[0]=='X' && resp[1]=='0' && resp[2]=='1') {
+  boolean rv = IssueCommand("X01", resp, 8, 1000);
+  if(rv && resp[0]=='X' && resp[1]=='0' && resp[2]=='1') {
     //All OK
     resp[8]=0; //insert null termination for atof
     return atof((char*)&(resp[3]));

@@ -33,6 +33,11 @@ char log_temp[5];
 #define NUMBER_OF_TEMP_CONTROLLERS 1
 
 /**
+ * After a Temperature Controller fails to respond this many times, it is reset.
+ */
+#define ISERIES_MAX_MISSED_COMMANDS 4
+
+/**
  * Interval at which state is saved
  */
 #define SAVE_INTERVAL 3000
@@ -52,6 +57,8 @@ Goldelox uDrive(&com_2, LU_OUT_GDLOX_RST);
 boolean isUDriveActive;
 
 iSeries iSeries(&com_1);
+
+byte iSeriesMissedCommandCount[NUMBER_OF_TEMP_CONTROLLERS];
 
 void setup_pins() {
   pinMode(LEDPIN, OUTPUT);
@@ -201,7 +208,21 @@ void loop() {
       timeString[firstnull] = ',';
       timeString[firstnull+1] = ' ';
 
-      iSeries.GetReadingString(tempReading);      //Place the temperature reported by the temp. controller into tempReading.
+      boolean isOK = iSeries.GetReadingString(tempReading);      //Place the temperature reported by the temp. controller into tempReading.
+      if(!isOK) {
+        LOG("ERROR READING iSERIES ");
+        LOG_INT(id);
+        LOG("! MISSED COMMANDS: ");
+        LOG_INT(iSeriesMissedCommandCount[id]);
+        LOG("\n");
+        iSeriesMissedCommandCount[id]++;
+        if(iSeriesMissedCommandCount[id] > ISERIES_MAX_MISSED_COMMANDS) {
+          issue_reset_command(id);
+          iSeriesMissedCommandCount[id] = 0; //give TC a little more time to reboot.
+        }
+      } else {
+        iSeriesMissedCommandCount[id] = 0;
+      }
       //Will be 5 chars (tempReading is 6 chars, so 1 extra).
       tempReading[5]='\0';                         //Null-terminate the temp reading using extra space at end of tempReading, so we can print it.
       LOG("Reading: ");
@@ -229,17 +250,30 @@ void loop() {
   }
 }
 
-void set_active_thermostat(byte ts_id) {
+void set_active_thermostat(byte tc_id) {
   DEBUG("Setting active thermostat: ");
-  DEBUGF(ts_id, DEC);
+  DEBUGF(tc_id, DEC);
   DEBUG("\n");
   //TODO implement
 }
 
-void issue_cooldown_command(byte ts_id) {
-  set_active_thermostat(ts_id);
+void issue_cooldown_command(byte tc_id) {
+  LOG("Cooldown request to ");
+  LOG_INT(tc_id);
+  LOG("\n");
+  set_active_thermostat(tc_id);
   byte reply[3];
   iSeries.IssueCommand("D03", reply, 3);
+}
+
+void issue_reset_command(byte tc_id) {
+  LOG("Reset request to ");
+  LOG_INT(tc_id);
+  LOG("\n");
+  byte msg_buffer[8];
+  msg_buffer[0] = SPLIT_COMM_COMMAND_RESET;
+  msg_buffer[1] = tc_id;
+  transmitCommand(msg_buffer);  
 }
 
 void exp_triggered() {
