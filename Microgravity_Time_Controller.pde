@@ -110,8 +110,8 @@ void update_power_sr(byte lowbyte, byte highbyte) {
 
 void write_power_sr() {
   digitalWrite(TC_OUT_POWER_SR_L, LOW);
-  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, MSBFIRST, ~power_sr_highbyte);
-  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, MSBFIRST, ~power_sr_lowbyte);
+  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, MSBFIRST, power_sr_highbyte);
+  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, MSBFIRST, power_sr_lowbyte);
   digitalWrite(TC_OUT_POWER_SR_L, HIGH);
 }
 
