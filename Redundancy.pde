@@ -2,7 +2,7 @@
  * @file
  * Contains C functions related to redundancy functions.
  * @author Giacomo Ferrari progman32@gmail.com
- * @author Kevin Plane kdplant@gmail.com
+ * @author Kevin Plant kdplant@gmail.com
  */
 
 #include "Pins.h"

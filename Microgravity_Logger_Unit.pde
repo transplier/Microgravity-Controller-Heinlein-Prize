@@ -67,6 +67,9 @@ void setup_pins() {
   pinMode(LU_OUT_GDLOX_TX, OUTPUT);
   pinMode(LU_OUT_GDLOX_RST, OUTPUT);
   pinMode(LU_OUT_COM1_TX, OUTPUT);
+  pinMode(LU_OUT_SADDR_D, OUTPUT);
+  pinMode(LU_OUT_SADDR_C, OUTPUT);
+ 
 }
 
 void setup() {
@@ -149,6 +152,7 @@ void setup() {
         LOG(":XX ");
     }
   }
+  
   LOG("] Done\n");
 
   init_logfiles();
@@ -254,7 +258,7 @@ void set_active_thermostat(byte tc_id) {
   DEBUG("Setting active thermostat: ");
   DEBUGF(tc_id, DEC);
   DEBUG("\n");
-  //TODO implement
+  shiftOut(LU_OUT_SADDR_D, LU_OUT_SADDR_C, MSBFIRST, tc_id);
 }
 
 void issue_cooldown_command(byte tc_id) {

@@ -6,12 +6,14 @@
 
 //LOGGER UNIT
 //INPUTS
-#define LU_IN_GDLOX_RX 2
-#define LU_IN_COM1_RX 5
+#define LU_IN_GDLOX_RX 10
+#define LU_IN_COM1_RX 2
 //OUTPUTS
-#define LU_OUT_GDLOX_TX 3
-#define LU_OUT_GDLOX_RST 6
-#define LU_OUT_COM1_TX 4
+#define LU_OUT_GDLOX_TX 11
+#define LU_OUT_GDLOX_RST 12
+#define LU_OUT_COM1_TX 3
+#define LU_OUT_SADDR_D 4
+#define LU_OUT_SADDR_C 5
 
 
 //TIME CONTROLLER
