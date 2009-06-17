@@ -76,7 +76,16 @@ void unlockRedundancy() {
 }
 
 void lockRedundancy() {
-  shiftOut(TC_OUT_REDUN_SR_D, TC_OUT_REDUN_SR_C, LSBFIRST, 0);
+  byte attempts = 0;
+  do {
+    shiftOut(TC_OUT_REDUN_SR_D, TC_OUT_REDUN_SR_C, LSBFIRST, 0);
+    attempts++;
+    if(attempts > 200) {
+      DEBUG("UNABLE TO RELEASE CONTROL! CONTINUING :(\n");
+      return;
+    }
+    delay(10);
+  } while(digitalRead(TC_IN_REDUN_TAKEOVER_CHECK) == LOW);
 }
 
 void resetPrimary() {
