@@ -7,6 +7,7 @@
 
 #define TIME_EVENT_COMMAND_SR_UPDATE 0x00
 #define TIME_EVENT_COMMAND_COOLDOWN 0x0C
+#define TIME_EVENT_COMMAND_EXP_OFF 0xDE
 
 #define TC_RESET_TIME 50 //msec to hold power off to temperature controllers during reset.
 
@@ -20,6 +21,9 @@ void setup_pins() {
   pinMode(TC_OUT_POWER_SR_L, OUTPUT);
   pinMode(TC_OUT_POWER_SR_D, OUTPUT);
   pinMode(TC_OUT_POWER_SR_C, OUTPUT);
+  pinMode(TC_OUT_EXP_TRIGGER_RELAY_ON, OUTPUT);
+  pinMode(TC_OUT_EXP_TRIGGER_RELAY_OFF, OUTPUT);
+
 }
 
 void setup() {
@@ -49,12 +53,14 @@ void setup() {
 
   setup_pins();
   
+  set_exp_power_on(false);
+  
   if(!(GetStatus() & EEPROM_STATUS_TRIGGERED)) {
     DEBUG("WAITING FOR TRIGGER...");
     wait_for_trigger();
     DEBUG("OK\n");
-
     WriteStatus(GetStatus() | EEPROM_STATUS_TRIGGERED);
+    set_exp_power_on(true);
   }
 }
 
@@ -86,6 +92,14 @@ void loop() {
   redundancy_state = !redundancy_state;
 }
 
+void set_exp_power_on(boolean isOn) {
+  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_ON, isOn);
+  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_OFF, !isOn);
+  delay(100);
+  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_ON, LOW);
+  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_OFF, LOW);
+}
+
 void execute_event(byte command, byte data1, byte data2) {
   DEBUG("Trying to execute event of type: ");
   DEBUGF(command, HEX);
@@ -97,6 +111,8 @@ void execute_event(byte command, byte data1, byte data2) {
     case TIME_EVENT_COMMAND_COOLDOWN:
       send_cooldown_request(data1);
     break;
+    case TIME_EVENT_COMMAND_EXP_OFF:
+      set_exp_power_on(false);
     default:
       DEBUG("Invalid command.\n");
   }
