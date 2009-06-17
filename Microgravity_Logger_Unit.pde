@@ -14,8 +14,8 @@
 #include <NewSoftSerial.h>
 
 char log_temp[5];
-#define LOG(x) {DEBUG(x); uDrive.append("DEBUG.LOG", (byte*)x, strlen(x));}
-#define LOG_INT(x) {DEBUGF(x, DEC); snprintf(log_temp, sizeof(log_temp), "%d", x); uDrive.append("DEBUG.LOG", (byte*)log_temp, strlen(log_temp));}
+#define LOG(x) {DEBUG(x); if(isUDriveActive) {uDrive.append("DEBUG.LOG", (byte*)x, strlen(x));}}
+#define LOG_INT(x) {DEBUGF(x, DEC); if(isUDriveActive) { snprintf(log_temp, sizeof(log_temp), "%d", x); uDrive.append("DEBUG.LOG", (byte*)log_temp, strlen(log_temp));}}
   
 /**
  * Format of log file name in printf format. First argument is temp controller id.
@@ -69,11 +69,9 @@ void setup_pins() {
   pinMode(LU_OUT_COM1_TX, OUTPUT);
   pinMode(LU_OUT_SADDR_D, OUTPUT);
   pinMode(LU_OUT_SADDR_C, OUTPUT);
-
-  //Must do these before enterMonitorMode();
-  pinMode(TC_IN_RSTPIN, INPUT);
-  digitalWrite(TC_IN_RSTPIN, HIGH); //turn on built-in pullup on TC_IN_RSTPIN.
- 
+  pinMode(LU_OUT_RST_REQ, OUTPUT);
+  pinMode(LU_OUT_REDUN_SR_D, OUTPUT);
+  pinMode(LU_OUT_REDUN_SR_C, OUTPUT);
 }
 
 void setup() {
@@ -81,6 +79,10 @@ void setup() {
   Serial.println("Microgravity Logger Module V.01");
 
   setup_pins();
+
+  if(isSecondary()) {
+    lockRedundancy();
+  }
 
   DEBUG("Initializing serial ports...");
   init_comms();
@@ -101,47 +103,48 @@ void setup() {
 
 #ifdef DODEBUG
   //GOLDELOX tests
+  if(isUDriveActive) {
+    //List dir
+    byte temp[255];
+    uDrive.ls(temp, sizeof(temp));
+    LOG("Files on card: \n");
+    LOG((char*)temp);
+    LOG("Sample file tests: ");
+    //Write data
+    byte abc[3] = {
+      'a', 'b', 'c'  };
+    ret = uDrive.append("temp", abc, sizeof(abc));
+    if(ret == OK) {
+      LOG("[OK!] ");
+    } 
+    else {
+      LOG("[ERROR COULDNT CREATE FILE] ");
+      LOG_INT(ret);
+      LOG("!\n");
+    }
 
-  //List dir
-  byte temp[255];
-  uDrive.ls(temp, sizeof(temp));
-  LOG("Files on card: \n");
-  LOG((char*)temp);
-  LOG("Sample file tests: ");
-  //Write data
-  byte abc[3] = {
-    'a', 'b', 'c'  };
-  ret = uDrive.append("temp", abc, sizeof(abc));
-  if(ret == OK) {
-    LOG("[OK!] ");
-  } 
-  else {
-    LOG("[ERROR COULDNT CREATE FILE] ");
-    LOG_INT(ret);
-    LOG("!\n");
+    //TODO: Verify contents
+
+    //Erase
+    ret = uDrive.del("temp");
+    if(ret == OK) {
+      LOG("[OK!] ");
+    } 
+    else {
+      LOG("[ERROR ");
+      LOG_INT(ret);
+      LOG(" COULDNT CREATE FILE] ");
+    }
+
+    ret = uDrive.del("temp");
+    if(ret == ERROR) {
+      LOG("[OK!]");
+    } 
+    else if (ret == OK){
+      LOG("[ERROR DELETED NONEXISTENT FILE] ");
+    }
+    LOG(" DONE\n");
   }
-
-  //TODO: Verify contents
-
-  //Erase
-  ret = uDrive.del("temp");
-  if(ret == OK) {
-    LOG("[OK!] ");
-  } 
-  else {
-    LOG("[ERROR ");
-    LOG_INT(ret);
-    LOG(" COULDNT CREATE FILE] ");
-  }
-
-  ret = uDrive.del("temp");
-  if(ret == ERROR) {
-    LOG("[OK!]");
-  } 
-  else if (ret == OK){
-    LOG("[ERROR DELETED NONEXISTENT FILE] ");
-  }
-  LOG(" DONE\n");
 #endif
 
   if(isSecondary()) {

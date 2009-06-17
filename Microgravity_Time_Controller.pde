@@ -28,7 +28,7 @@ void setup() {
 
   //Must do these before enterMonitorMode();
   pinMode(TC_IN_RSTPIN, INPUT);
-  digitalWrite(TC_IN_RSTPIN, HIGH); //turn on built-in pullup on TC_IN_RSTPIN.
+  digitalWrite(TC_IN_RSTPIN, HIGH); //turn on built-in pullup on TC_IN_RSTPIN so we default to not resetting.
   pinMode(LEDPIN, OUTPUT);
 
   CheckForReset();

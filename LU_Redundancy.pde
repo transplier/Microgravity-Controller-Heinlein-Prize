@@ -9,7 +9,7 @@
 #include "Debug.h"
 #include "EEPROMFormat.h"
 
-#define REDUNDANCY_TIMEOUT 5000 //msec to wait for pulse before corrective action taken.
+#define REDUNDANCY_TIMEOUT 20000 //msec to wait for pulse before corrective action taken.
 #define REDUNDANCY_RESET_MAX 5 //times to try a reset of primary controller before initiating takeover.
 
 #define REDUNDANCY_UNLOCK_CODE 0b11001101
@@ -44,17 +44,17 @@ void enterMonitorMode() {
       lastSawChange = millis();
     } else if( (millis() - lastSawChange) > REDUNDANCY_TIMEOUT ) {
       if(resetCount >= REDUNDANCY_RESET_MAX) {
-        DEBUG("PRIMARY FAIL, TAKEOVER INITIATED... ");
+        LOG("PRIMARY FAIL, TAKEOVER INITIATED...\n");
         setupForTakeover();
-        DEBUG("COMPETE\nEXECUTING MAIN PROGRAM.\n");
+        LOG("COMPETE\nEXECUTING MAIN PROGRAM.\n");
         return;
       }
-      DEBUG("PRIMARY TIMEOUT, RESETTING\nRESET COUNT:");
+      LOG("PRIMARY TIMEOUT, RESETTING\nRESET COUNT:");
       resetCount++;
       lastSawChange = millis(); //cause another delay interval.
-      DEBUGF(resetCount, DEC);
+      LOG_INT(resetCount);
       resetPrimary();
-      DEBUG("\n");
+      LOG("\n");
     }
   }
 }
@@ -65,11 +65,12 @@ void do_idle_logging() {
 
 void unlockRedundancy() {
   byte attempts = 0;
+  LOG("GETTING CONTROL\n");
   do {
     shiftOut(LU_OUT_REDUN_SR_D, LU_OUT_REDUN_SR_C, LSBFIRST, REDUNDANCY_UNLOCK_CODE);
     attempts++;
     if(attempts > 200) {
-      DEBUG("UNABLE TO GET CONTROL! CONTINUING :(\n");
+      LOG("UNABLE TO GET CONTROL! CONTINUING :(\n");
       return;
     }
     delay(10);
@@ -77,7 +78,17 @@ void unlockRedundancy() {
 }
 
 void lockRedundancy() {
-  shiftOut(LU_OUT_REDUN_SR_D, LU_OUT_REDUN_SR_C, LSBFIRST, 0);
+  byte attempts = 0;
+  LOG("RELEASING CONTROL\n");
+  do {
+    shiftOut(LU_OUT_REDUN_SR_D, LU_OUT_REDUN_SR_C, LSBFIRST, 0);
+    attempts++;
+    if(attempts > 200) {
+      LOG("UNABLE TO RELEASE CONTROL! CONTINUING :(\n");
+      return;
+    }
+    delay(10);
+  } while(analogRead(LU_ANALOG_REDUN_TAKEOVER_CHECK) <= 400);
 }
 
 void resetPrimary() {
