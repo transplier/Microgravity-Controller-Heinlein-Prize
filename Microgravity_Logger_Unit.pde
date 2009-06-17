@@ -69,6 +69,10 @@ void setup_pins() {
   pinMode(LU_OUT_COM1_TX, OUTPUT);
   pinMode(LU_OUT_SADDR_D, OUTPUT);
   pinMode(LU_OUT_SADDR_C, OUTPUT);
+
+  //Must do these before enterMonitorMode();
+  pinMode(TC_IN_RSTPIN, INPUT);
+  digitalWrite(TC_IN_RSTPIN, HIGH); //turn on built-in pullup on TC_IN_RSTPIN.
  
 }
 
@@ -140,6 +144,15 @@ void setup() {
   LOG(" DONE\n");
 #endif
 
+  if(isSecondary()) {
+    pinMode(LU_INOUT_REDUNDANCY, INPUT);
+    enterMonitorMode();
+  } else {
+    pinMode(LU_INOUT_REDUNDANCY, OUTPUT);
+    DEBUG("Determined we're primary.\n");
+  }
+
+
   LOG("Resetting and finding ");
   LOG_INT(NUMBER_OF_TEMP_CONTROLLERS);
   LOG(" iSeries on com1... [");
@@ -175,6 +188,7 @@ void init_logfiles() {
   LOG("Done\n");
 }
 
+boolean redundancy_state = false;
 byte timeString[12];
 void loop() {
   byte temp[16];
@@ -252,6 +266,10 @@ void loop() {
       }
     }
   }
+  
+  digitalWrite(LU_INOUT_REDUNDANCY, redundancy_state);
+  redundancy_state = !redundancy_state;
+
 }
 
 void set_active_thermostat(byte tc_id) {
