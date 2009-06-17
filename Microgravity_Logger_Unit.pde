@@ -76,7 +76,7 @@ void setup_pins() {
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("Microgravity Logger Module V.01");
+  Serial.println("Microgravity Logger Module V1.0");
 
   setup_pins();
 

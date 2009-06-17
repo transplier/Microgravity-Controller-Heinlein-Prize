@@ -28,7 +28,7 @@ void setup_pins() {
 
 void setup() {
   Serial.begin(9600);        
-  Serial.println("Controller V0.5");
+  Serial.println("Controller V1.0");
 
   //Must do these before enterMonitorMode();
   pinMode(TC_IN_RSTPIN, INPUT);
