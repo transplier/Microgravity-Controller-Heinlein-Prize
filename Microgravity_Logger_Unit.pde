@@ -12,10 +12,6 @@
 #include "SplitComm.h"
 
 #include <NewSoftSerial.h>
-
-char log_temp[5];
-#define LOG(x) {DEBUG(x); if(isUDriveActive) {uDrive.append("DEBUG.LOG", (byte*)x, strlen(x));}}
-#define LOG_INT(x) {DEBUGF(x, DEC); if(isUDriveActive) { snprintf(log_temp, sizeof(log_temp), "%d", x); uDrive.append("DEBUG.LOG", (byte*)log_temp, strlen(log_temp));}}
   
 /**
  * Format of log file name in printf format. First argument is temp controller id.
@@ -38,9 +34,9 @@ char log_temp[5];
 #define ISERIES_MAX_MISSED_COMMANDS 4
 
 /**
- * Interval at which state is saved
+ * Period at which to write log data.
  */
-#define SAVE_INTERVAL 3000
+#define SAVE_INTERVAL_MSEC 3000
 
 /**
  * last time we saved state.
@@ -54,10 +50,14 @@ Goldelox uDrive(&com_2, LU_OUT_GDLOX_RST);
 /**
  * True if the uDRIVE was found.
  */
-boolean isUDriveActive;
+boolean isUDriveActive = false;
 
 iSeries iSeries(&com_1);
 
+/**
+ * Contains the total number of commands missed in a row by each
+ * iSeries.
+ */
 byte iSeriesMissedCommandCount[NUMBER_OF_TEMP_CONTROLLERS];
 
 void setup_pins() {
@@ -80,6 +80,10 @@ void setup() {
 
   setup_pins();
 
+  /* If we're the secondary, make sure the primary
+   * has control in case the processors were reset
+   * without the redundancy code SR losing power.
+   */
   if(isSecondary()) {
     lockRedundancy();
   }
@@ -88,17 +92,18 @@ void setup() {
   init_comms();
   DEBUG("OK!\n");
 
-  LOG("Initializing GOLDELOX-DOS...");
+  log("Initializing GOLDELOX-DOS UDrive...");
   GoldeloxStatus ret = uDrive.reinit();
   if(ret == OK) {
-    LOG("OK!\n");
+    DEBUG("OK!\n");
     isUDriveActive = true;
+    log("GOLDELOX-DOS UDrive up.\n");
   } 
   else {
     isUDriveActive = false;
-    LOG("ERROR ");
-    LOG_INT(ret);
-    LOG("!\n");
+    log("ERROR ");
+    log_int(ret);
+    log("!\n");
   }  
 
 #ifdef DODEBUG
@@ -107,20 +112,20 @@ void setup() {
     //List dir
     byte temp[255];
     uDrive.ls(temp, sizeof(temp));
-    LOG("Files on card: \n");
-    LOG((char*)temp);
-    LOG("Sample file tests: ");
+    log("Files on card: \n");
+    log((char*)temp);
+    log("Sample file tests: ");
     //Write data
     byte abc[3] = {
       'a', 'b', 'c'  };
     ret = uDrive.append("temp", abc, sizeof(abc));
     if(ret == OK) {
-      LOG("[OK!] ");
+      log("[OK!] ");
     } 
     else {
-      LOG("[ERROR COULDNT CREATE FILE] ");
-      LOG_INT(ret);
-      LOG("!\n");
+      log("[ERROR COULDNT CREATE FILE] ");
+      log_int(ret);
+      log("!\n");
     }
 
     //TODO: Verify contents
@@ -128,48 +133,50 @@ void setup() {
     //Erase
     ret = uDrive.del("temp");
     if(ret == OK) {
-      LOG("[OK!] ");
+      log("[OK!] ");
     } 
     else {
-      LOG("[ERROR ");
-      LOG_INT(ret);
-      LOG(" COULDNT CREATE FILE] ");
+      log("[ERROR ");
+      log_int(ret);
+      log(" COULDNT CREATE FILE] ");
     }
 
     ret = uDrive.del("temp");
     if(ret == ERROR) {
-      LOG("[OK!]");
+      log("[OK!]");
     } 
     else if (ret == OK){
-      LOG("[ERROR DELETED NONEXISTENT FILE] ");
+      log("[ERROR DELETED NONEXISTENT FILE] ");
     }
-    LOG(" DONE\n");
+    log(" DONE\n");
   }
 #endif
 
+  log("Checking redundancy role...");
   if(isSecondary()) {
+    log("secondary.\n");
     pinMode(LU_INOUT_REDUNDANCY, INPUT);
     enterMonitorMode();
   } else {
+    log("primary.\n");
     pinMode(LU_INOUT_REDUNDANCY, OUTPUT);
-    DEBUG("Determined we're primary.\n");
   }
 
 
-  LOG("Resetting and finding ");
-  LOG_INT(NUMBER_OF_TEMP_CONTROLLERS);
-  LOG(" iSeries on com1... [");
+  log("Resetting and finding ");
+  log_int(NUMBER_OF_TEMP_CONTROLLERS);
+  log(" iSeries on com1... [");
   for(byte id=0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
     set_active_thermostat(id);
-    LOG_INT(id);
+    log_int(id);
     if(iSeries.FindAndReset()) {
-        LOG(":OK ");
+        log(": OK ");
     } else {
-        LOG(":XX ");
+        log(":ERR ");
     }
   }
   
-  LOG("] Done\n");
+  log("] Done\n");
 
   init_logfiles();
 
@@ -177,22 +184,25 @@ void setup() {
 
 }
 
+/**
+ * Writes the header (LOG_FILE_HEADER) to the top of NUMBER_OF_TEMP_CONTROLLERS
+ * log files. Names are formatted according to LOG_FILE_NAME_FMT.
+ */
 void init_logfiles() {
   char filename[12];
   char header[100];
-  LOG("Initializing logfiles...\n");
+  log("Initializing logfiles...\n");
   strcpy(header, LOG_FILE_HEADER);
   for(byte id = 0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
     snprintf(filename, sizeof(filename), LOG_FILE_NAME_FMT, id);
-    LOG(filename);
-    LOG("\n");
+    log(filename);
+    log("\n");
     uDrive.append(filename, (byte*)header, strlen(header));
   }
-  LOG("Done\n");
+  log("Done\n");
 }
 
 boolean redundancy_state = false;
-byte timeString[12];
 void loop() {
   byte temp[16];
 
@@ -205,7 +215,7 @@ void loop() {
       issue_cooldown_command(temp[1]); 
       break;
     default: 
-      LOG("UNKNOWN COMMAND\n"); 
+      log("UNKNOWN COMMAND\n"); 
       break;
     }
   }
@@ -214,10 +224,13 @@ void loop() {
   unsigned long currentTime = millis();
   byte tempReading[6];
   char filename[12];
+  byte timeString[12];
 
-  if(currentTime - lastTimeMillis >= SAVE_INTERVAL) {
+  //Is it time to write the log entries?
+  if(currentTime - lastTimeMillis >= SAVE_INTERVAL_MSEC) {
     lastTimeMillis = currentTime;
 
+    //Loop through all temperature controllers, logging their temperature data to their respective log files.
     for(byte id = 0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
       //Activate the temp controller we're interested in.
       set_active_thermostat(id);
@@ -230,51 +243,59 @@ void loop() {
       timeString[firstnull+1] = ' ';
 
       boolean isOK = iSeries.GetReadingString(tempReading);      //Place the temperature reported by the temp. controller into tempReading.
+      
+      //Did the iSeries fail to reply?
       if(!isOK) {
-        LOG("ERROR READING iSERIES ");
-        LOG_INT(id);
-        LOG("! MISSED COMMANDS: ");
-        LOG_INT(iSeriesMissedCommandCount[id]);
-        LOG("\n");
+        log("iSERIES ");
+        log_int(id);
+        log(": NO REPY! MISSED COMMANDS: ");
+        log_int(iSeriesMissedCommandCount[id]);
+        log("\n");
         iSeriesMissedCommandCount[id]++;
+        
+        //Did we miss too many commands?
         if(iSeriesMissedCommandCount[id] > ISERIES_MAX_MISSED_COMMANDS) {
           issue_reset_command(id);
           iSeriesMissedCommandCount[id] = 0; //give TC a little more time to reboot.
         }
       } else {
+        if(iSeriesMissedCommandCount[id] > 0) {
+          log("iSERIES ");
+          log_int(id);
+          log(": Back!\n");
+        }
         iSeriesMissedCommandCount[id] = 0;
       }
-      //Will be 5 chars (tempReading is 6 chars, so 1 extra).
-      tempReading[5]='\0';                         //Null-terminate the temp reading using extra space at end of tempReading, so we can print it.
-      LOG("Reading: ");
-      LOG((char*)tempReading);
-
-      tempReading[5]='\n';                         //Replace null with newline
+      
+      //Temp. reading will be 5 chars (tempReading itself is 6 chars, so we have 1 extra byte).
+      tempReading[5]='\n';    //Put a newline at the end, for prettiness purposes.
 
       //Get filename
       snprintf(filename, sizeof(filename), LOG_FILE_NAME_FMT, id);
 
-      LOG(" [");
+      //Write the log point.
       ret1 = uDrive.append(filename, timeString, firstnull+1);            //Write timestamp (of form "<timestamp>, ").
-      LOG(".");
       ret2 = uDrive.append(filename, tempReading, sizeof(tempReading));   //Write temperature reading (of form <reading>\n).
-      LOG(".] ");
 
       if(ret1 != OK || ret2 != OK) {
         DEBUG("ERROR WRITING TO GOLDILOX!\n");
         uDrive.reinit();
+        log("uDRIVE: Had to reset!\n");
       } 
       else {
-        LOG("OK!\n");
+        log("OK!\n");
       }
     }
   }
   
+  //Toggle the redundancy pin to let secondary know we're still alive (heartbeat).
   digitalWrite(LU_INOUT_REDUNDANCY, redundancy_state);
   redundancy_state = !redundancy_state;
-
 }
 
+/**
+ * Selects the active thermostat by writing tc_id into the serial port selector SR.
+ */
 void set_active_thermostat(byte tc_id) {
   DEBUG("Setting active thermostat: ");
   DEBUGF(tc_id, DEC);
@@ -282,25 +303,59 @@ void set_active_thermostat(byte tc_id) {
   shiftOut(LU_OUT_SADDR_D, LU_OUT_SADDR_C, MSBFIRST, tc_id);
 }
 
+/**
+ * Sends a standby command to a thermostat.
+ */
 void issue_cooldown_command(byte tc_id) {
-  LOG("Cooldown request to ");
-  LOG_INT(tc_id);
-  LOG("\n");
+  log("Cooldown request to ");
+  log_int(tc_id);
+  log("\n");
   set_active_thermostat(tc_id);
   byte reply[3];
   iSeries.IssueCommand("D03", reply, 3);
 }
 
+/**
+ * Sends a reset thermostat request to the time controller.
+ */
 void issue_reset_command(byte tc_id) {
-  LOG("Reset request to ");
-  LOG_INT(tc_id);
-  LOG("\n");
+  log("Reset request to ");
+  log_int(tc_id);
+  log("\n");
   byte msg_buffer[8];
   msg_buffer[0] = SPLIT_COMM_COMMAND_RESET;
   msg_buffer[1] = tc_id;
   transmitCommand(msg_buffer);  
 }
 
+/*
+ * Hook that will be called when the experiment is triggered.
+ */
 void exp_triggered() {
-  LOG("EXPERIMENT TRIGGERED");
+  log("EXPERIMENT TRIGGERED");
 }
+
+/*
+ * Logs a null-terminated string to the debug console, and, if
+ * the uDrive is active, DEBUG.LOG.
+ */
+void log(char* x) {
+  DEBUG(x);
+	if(isUDriveActive) {
+	  uDrive.append("DEBUG.LOG", (byte*)x, strlen(x));
+	}
+}
+
+/*
+ * Logs an integer to the debug console, and, if
+ * the uDrive is active, DEBUG.LOG.
+ */
+void log_int(int x) {
+  char log_temp[5];
+  DEBUGF(x, DEC);
+  if(isUDriveActive) {
+    snprintf(log_temp, sizeof(log_temp), "%d", x);
+    uDrive.append("DEBUG.LOG", (byte*)log_temp, strlen(log_temp));
+  }
+}
+
