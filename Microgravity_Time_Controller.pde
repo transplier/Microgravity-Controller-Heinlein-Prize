@@ -113,6 +113,7 @@ void execute_event(byte command, byte data1, byte data2) {
     break;
     case TIME_EVENT_COMMAND_EXP_OFF:
       set_exp_power_on(false);
+    break;
     default:
       DEBUG("Invalid command.\n");
   }
