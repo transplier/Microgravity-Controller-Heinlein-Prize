@@ -1,102 +1,148 @@
 /**
  * @file
  * Contains C functions related to redundancy functions.
+ * Common to both units. Expects these functions to be defined:
+ * void log(char*)
+ * void log_int(int)
+ * void initRedundancyPins()
+ * boolean getHeartbeatState()
+ * boolean queryHardwareTakeoverEnabled()
+ * void setPrimaryResetState(boolean resetOn)
+ * void writeToControlSR(byte value)
+ * void doDuringMonitorMode()
+ *
  * @author Giacomo Ferrari progman32@gmail.com
  * @author Kevin Plant kdplant@gmail.com
  */
 
-#include "Pins.h"
 #include "Debug.h"
 #include "EEPROMFormat.h"
 
-#define REDUNDANCY_TIMEOUT 5000 //msec to wait for pulse before corrective action taken.
+#define REDUNDANCY_TIMEOUT 20000 //msec to wait for pulse before corrective action taken.
 #define REDUNDANCY_RESET_MAX 5 //times to try a reset of primary controller before initiating takeover.
 
 #define REDUNDANCY_UNLOCK_CODE 0b11001101
 
+extern void log(char* x);
+extern void log_int(int x);
+extern void initRedundancyPins();
+extern boolean getHeartbeatState();
+extern boolean queryHardwareTakeoverEnabled();
+extern void setPrimaryResetState(boolean resetOn);
+extern void doDuringMonitorMode();
+
+/*
+ * Determines if the Arduino we're running on has been configured as a primary or secondary unit.
+ * This is determined by looking for a certain value previously burned in EEPROM.
+ */
 boolean isSecondary() {
   byte val = ReadEEPROM(EEPROM_IS_PRIMARY);
   return val == EEPROM_IS_SECONDARY_VALUE; //Would rather both be primary!
 }
 
 void enterMonitorMode() {
-  DEBUG("ENTERING MONITOR MODE...\n");
-  //TC_INOUT_REDUNDANCY direction is set up in Microgravity_Time_Controller.pde.
-  pinMode(TC_IN_REDUN_TAKEOVER_CHECK, INPUT);
+  log("ENTERING MONITOR MODE...\n");
+
+  initRedundancyPins();
   
-  pinMode(TC_OUT_RST_REQ, OUTPUT);
-  pinMode(TC_OUT_REDUN_SR_D, OUTPUT);
-  pinMode(TC_OUT_REDUN_SR_C, OUTPUT);
+  //The code shift register may have the code already in it if we were reset. Make sure it is cleared.
+  lockRedundancy();
   
-  lockRedundancy(); //The code shift register may have the code already in it if we were reset. Make sure it is cleared.
-  
+  /* last relative time we saw a change in the primary's heartbeat line. */
   long lastSawChange = millis();
-  boolean lastPinState = digitalRead(TC_INOUT_REDUNDANCY);
-  byte resetCount = 0;
-  long lastTime = 0;
   
+  /* ... and the last known state of the heartbeat line. */
+  boolean lastPinState = getHeartbeatState();
+
+  /* Number of times we've tried to reset the primary unit without success. */
+  byte resetCount = 0;
+    
   while(1) {
-    if((millis() - lastTime) > SAVE_INTERVAL) {
-      write_time();
-      lastTime=millis();
-    }
-    if(digitalRead(TC_INOUT_REDUNDANCY) != lastPinState) {
-      //Seems to be alive
+    doDuringMonitorMode();
+    
+    if(getHeartbeatState() != lastPinState) {
+      //Yes, seems to be alive
       lastPinState = !lastPinState;
-      resetCount = 0;
-      lastSawChange = millis();
-    } else if( (millis() - lastSawChange) > REDUNDANCY_TIMEOUT ) {
-      if(resetCount >= REDUNDANCY_RESET_MAX) {
-        DEBUG("PRIMARY FAIL, TAKEOVER INITIATED... ");
-        setupForTakeover();
-        DEBUG("COMPETE\nEXECUTING MAIN PROGRAM.\n");
-        return;
+      if(resetCount != 0) {
+        log("PRIMARY BACK UP!\n");
+        resetCount = 0;
       }
-      DEBUG("PRIMARY TIMEOUT, RESETTING\nRESET COUNT:");
-      resetCount++;
-      lastSawChange = millis(); //cause another delay interval.
-      DEBUGF(resetCount, DEC);
-      resetPrimary();
-      DEBUG("\n");
+      
+      lastSawChange = millis();
+      
+    } else if( (millis() - lastSawChange) > REDUNDANCY_TIMEOUT ) {
+      //Oh no! We have no pulse!
+      
+      //Have we tried the paddles (reset) too many times?
+      if(resetCount >= REDUNDANCY_RESET_MAX) {
+        //He's dead, doctor.
+        log("PRIMARY FAIL, TAKEOVER INITIATED...\n");
+        log("TIME OF DEATH: ");
+        log_int(lastSawChange);
+        log(" :(\n");
+        setupForTakeover();
+        log("EXECUTING MAIN PROGRAM.\n");
+        return;
+      } else {
+        //Administer a reset.
+        resetCount++;
+        lastSawChange = millis(); //cause another delay interval.
+        log("PRIMARY TIMEOUT, RESETTING\nRESET COUNT:");
+        log_int(resetCount);
+        log("\n");
+        resetPrimary();
+        log("\n");
+      }
     }
   }
 }
 
 void unlockRedundancy() {
   byte attempts = 0;
+  log("GETTING CONTROL...");
   do {
-    shiftOut(TC_OUT_REDUN_SR_D, TC_OUT_REDUN_SR_C, LSBFIRST, REDUNDANCY_UNLOCK_CODE);
+    writeToControlSR(REDUNDANCY_UNLOCK_CODE);
     attempts++;
     if(attempts > 200) {
-      DEBUG("UNABLE TO GET CONTROL! CONTINUING :(\n");
+      log("UNABLE TO GET CONTROL! CONTINUING :(\n");
       return;
     }
     delay(10);
-  } while(digitalRead(TC_IN_REDUN_TAKEOVER_CHECK) == HIGH);
+  } while(!queryHardwareTakeoverEnabled());
+  log("GOT IT\n");
 }
 
 void lockRedundancy() {
   byte attempts = 0;
+  log("RELEASING CONTROL...");
   do {
-    shiftOut(TC_OUT_REDUN_SR_D, TC_OUT_REDUN_SR_C, LSBFIRST, 0);
+    writeToControlSR(0);
     attempts++;
     if(attempts > 200) {
       DEBUG("UNABLE TO RELEASE CONTROL! CONTINUING :(\n");
       return;
     }
     delay(10);
-  } while(digitalRead(TC_IN_REDUN_TAKEOVER_CHECK) == LOW);
+  } while(queryHardwareTakeoverEnabled());
+  log("RELEASED IT\n");
 }
 
+/**
+ * Resets the primary processor by holding its reset line low for a bit.
+ */
 void resetPrimary() {
   unlockRedundancy();
-  digitalWrite(TC_OUT_RST_REQ, HIGH);
+  setPrimaryResetState(true);
   delay(100);
-  digitalWrite(TC_OUT_RST_REQ, LOW);
+  setPrimaryResetState(false);
   lockRedundancy();
 }
 
+/**
+ * Takes the steps necessary to perform a full takeover in case of primary unit failure.
+ * THIS COMPLETELY DISABLES THE PRIMARY UNIT AND HOLDS IT IN PERMANENT RESET!
+ */
 void setupForTakeover() {
   unlockRedundancy();
-  digitalWrite(TC_OUT_RST_REQ, HIGH);
+  setPrimaryResetState(true);
 }

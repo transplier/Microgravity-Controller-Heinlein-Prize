@@ -166,3 +166,17 @@ void CheckForReset() {
 void wait_for_trigger() {
   delay(100);
 }
+
+/*
+ * Logs a null-terminated string to the debug console.
+ */
+inline void log(char* x) {
+  DEBUG(x);
+}
+
+/*
+ * Logs an integer to the debug console.
+ */
+inline void log_int(int x) {
+  DEBUGF(x, DEC);
+}
