@@ -34,7 +34,8 @@ void writeToControlSR(byte value) {
 
 long lastTimeSavedTime = 0;
 void doDuringMonitorMode() {
-  if((millis() - lastTimeSavedTime) > SAVE_INTERVAL) {
+  /* If it's time we wrote the experiment time to nonvolatile memory, do it. */
+  if((millis() - lastTimeSavedTime) > SAVE_INTERVAL_MSEC) {
       write_time();
       lastTimeSavedTime=millis();
     }
