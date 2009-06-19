@@ -6,7 +6,7 @@
 /**
  * Period at which to save current time to non-volatile memory.
  */
-#define SAVE_INTERVAL_MSEC 3000
+#define SAVE_INTERVAL_MSEC 1800000
 
 #define TIME_EVENT_COMMAND_SR_UPDATE 0x00
 #define TIME_EVENT_COMMAND_COOLDOWN 0x0C
