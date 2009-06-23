@@ -1,0 +1,381 @@
+Cmp-Mod V01 Created by CVpcb (20090216-final) date = Mon 22 Jun 2009 02:41:55 PM CDT
+
+BeginCmp
+TimeStamp = /4A2014E2/4A203123;
+Reference = C1;
+ValeurCmp = 10uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A203201;
+Reference = D1;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A3FCFAC;
+Reference = K1;
+ValeurCmp = DATA_C;
+IdModule  = 4P4C_SMD;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A200BE6;
+Reference = K2;
+ValeurCmp = RELAY_BISTABLE;
+IdModule  = RELAY_BISTABLE;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A3FC15C;
+Reference = P1;
+ValeurCmp = BATT_C;
+IdModule  = CONN_4_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A3FC134;
+Reference = P2;
+ValeurCmp = EXP_PWR_C;
+IdModule  = CONN_4_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A200C35;
+Reference = P3;
+ValeurCmp = TS_1;
+IdModule  = CONN_2_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A200C36;
+Reference = P4;
+ValeurCmp = TS_2;
+IdModule  = CONN_2_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A200C2A;
+Reference = P5;
+ValeurCmp = TS_3;
+IdModule  = CONN_2_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A200C2B;
+Reference = P6;
+ValeurCmp = TS_4;
+IdModule  = CONN_2_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A200C00;
+Reference = P7;
+ValeurCmp = TS_5;
+IdModule  = CONN_2_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A200C24;
+Reference = P8;
+ValeurCmp = TS_6;
+IdModule  = CONN_2_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A200C31;
+Reference = P9;
+ValeurCmp = TS_7;
+IdModule  = CONN_2_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A200C32;
+Reference = P10;
+ValeurCmp = TS_8;
+IdModule  = CONN_2_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A200C2F;
+Reference = P11;
+ValeurCmp = TS_9;
+IdModule  = CONN_2_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A200C30;
+Reference = P12;
+ValeurCmp = TS_10;
+IdModule  = CONN_2_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A20362F;
+Reference = P13;
+ValeurCmp = CONN_25;
+IdModule  = pin_array_13x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A20365B;
+Reference = P14;
+ValeurCmp = CONN_25;
+IdModule  = pin_array_13x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A29267A;
+Reference = Q1;
+ValeurCmp = MOSFET_P;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C1C4;
+Reference = Q2;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3B8;
+Reference = Q3;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3BF;
+Reference = Q4;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3C4;
+Reference = Q5;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3C9;
+Reference = Q6;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3CE;
+Reference = Q7;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3D3;
+Reference = Q8;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3D8;
+Reference = Q9;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3DD;
+Reference = Q10;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3E2;
+Reference = Q11;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3BA;
+Reference = Q12;
+ValeurCmp = MOSFET_P;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3C1;
+Reference = Q13;
+ValeurCmp = MOSFET_P;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3C6;
+Reference = Q14;
+ValeurCmp = MOSFET_P;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3CB;
+Reference = Q15;
+ValeurCmp = MOSFET_P;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3D0;
+Reference = Q16;
+ValeurCmp = MOSFET_P;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3D5;
+Reference = Q17;
+ValeurCmp = MOSFET_P;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3DA;
+Reference = Q18;
+ValeurCmp = MOSFET_P;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3DF;
+Reference = Q19;
+ValeurCmp = MOSFET_P;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3E4;
+Reference = Q20;
+ValeurCmp = MOSFET_P;
+IdModule  = SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A203241;
+Reference = R11;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C1DC;
+Reference = R12;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3B9;
+Reference = R13;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3C0;
+Reference = R14;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3C5;
+Reference = R15;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3CA;
+Reference = R16;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3CF;
+Reference = R17;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3D4;
+Reference = R18;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3D9;
+Reference = R19;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3DE;
+Reference = R20;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A32C3E3;
+Reference = R21;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A202F17;
+Reference = U3;
+ValeurCmp = 74HC08DB;
+IdModule  = SSOP14;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A20187A;
+Reference = U4;
+ValeurCmp = CD40257BMG4;
+IdModule  = SO16N;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A201893;
+Reference = U5;
+ValeurCmp = CD40257BMG4;
+IdModule  = SO16N;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A2028AF;
+Reference = U7;
+ValeurCmp = CD74HC30M;
+IdModule  = SO14N;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A27E13A;
+Reference = U8;
+ValeurCmp = MM74HC04M;
+IdModule  = SO14N;
+EndCmp
+
+EndListe

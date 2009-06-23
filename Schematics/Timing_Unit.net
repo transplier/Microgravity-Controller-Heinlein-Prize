@@ -1,0 +1,412 @@
+# EESchema Netlist Version 1.1 created  Mon 22 Jun 2009 02:41:55 PM CDT
+(
+ ( /4A2014E2/4A203123 SM0805 C1 10uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A2014E2/4A203201 SM0603 D1 DIODE
+  ( 1 /Timing_1 )
+  ( 2 /Timing_2 )
+ )
+ ( /4A3FCFAC 4P4C_SMD K1 DATA_C
+  ( 1 GND )
+  ( 2 /Timing_3 )
+  ( 3 /Timing_4 )
+  ( 4 GND )
+ )
+ ( /4A200BE6 RELAY_BISTABLE K2 RELAY_BISTABLE
+  ( 1 +12V_trig )
+  ( 2 +BATT )
+  ( 3 ? )
+  ( 6 /Timing_5 )
+  ( 7 +BATT )
+  ( 8 /Timing_6 )
+ )
+ ( /4A3FC15C CONN_4_3mm P1 BATT_C
+  ( 1 GND )
+  ( 2 GND )
+  ( 3 +BATT )
+  ( 4 +BATT )
+ )
+ ( /4A3FC134 CONN_4_3mm P2 EXP_PWR_C
+  ( 1 GND )
+  ( 2 GND )
+  ( 3 +12V_trig )
+  ( 4 +12V_trig )
+ )
+ ( /4A200C35 CONN_2_3mm P3 TS_1
+  ( 1 N-000025 )
+  ( 2 GND )
+ )
+ ( /4A200C36 CONN_2_3mm P4 TS_2
+  ( 1 N-000006 )
+  ( 2 GND )
+ )
+ ( /4A200C2A CONN_2_3mm P5 TS_3
+  ( 1 N-000026 )
+  ( 2 GND )
+ )
+ ( /4A200C2B CONN_2_3mm P6 TS_4
+  ( 1 N-000027 )
+  ( 2 GND )
+ )
+ ( /4A200C00 CONN_2_3mm P7 TS_5
+  ( 1 N-000005 )
+  ( 2 GND )
+ )
+ ( /4A200C24 CONN_2_3mm P8 TS_6
+  ( 1 N-000028 )
+  ( 2 GND )
+ )
+ ( /4A200C31 CONN_2_3mm P9 TS_7
+  ( 1 N-000002 )
+  ( 2 GND )
+ )
+ ( /4A200C32 CONN_2_3mm P10 TS_8
+  ( 1 N-000029 )
+  ( 2 GND )
+ )
+ ( /4A200C2F CONN_2_3mm P11 TS_9
+  ( 1 N-000001 )
+  ( 2 GND )
+ )
+ ( /4A200C30 CONN_2_3mm P12 TS_10
+  ( 1 N-000030 )
+  ( 2 GND )
+ )
+ ( /4A2014E2/4A20362F pin_array_13x2 P13 CONN_25
+  ( 1 ? )
+  ( 2 ? )
+  ( 3 ? )
+  ( 4 ? )
+  ( 5 ? )
+  ( 6 ? )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 ? )
+  ( 10 ? )
+  ( 11 ? )
+  ( 12 /Timing_7 )
+  ( 13 /Timing_8 )
+  ( 14 /Timing_9 )
+  ( 15 /Timing_10 )
+  ( 16 /Timing_11 )
+  ( 17 /Timing_12 )
+  ( 18 /Timing_13 )
+  ( 19 /Timing_3 )
+  ( 20 GND )
+  ( 21 /Timing_14 )
+  ( 22 VCC )
+  ( 23 +BATT )
+  ( 24 ? )
+  ( 25 ? )
+ )
+ ( /4A2014E2/4A20365B pin_array_13x2 P14 CONN_25
+  ( 1 ? )
+  ( 2 ? )
+  ( 3 ? )
+  ( 4 ? )
+  ( 5 ? )
+  ( 6 ? )
+  ( 7 ? )
+  ( 8 /Timing_15 )
+  ( 9 /Timing_16 )
+  ( 10 /Timing_2 )
+  ( 11 /Timing_17 )
+  ( 12 /Timing_7 )
+  ( 13 /Timing_18 )
+  ( 14 /Timing_19 )
+  ( 15 /Timing_20 )
+  ( 16 /Timing_21 )
+  ( 17 /Timing_22 )
+  ( 18 /Timing_23 )
+  ( 19 /Timing_3 )
+  ( 20 GND )
+  ( 21 ? )
+  ( 22 ? )
+  ( 23 +BATT )
+  ( 24 ? )
+  ( 25 ? )
+ )
+ ( /4A29267A SOT223 Q1 MOSFET_P
+  ( D N-000025 )
+  ( G N-000003 )
+  ( S +12V_trig )
+ )
+ ( /4A32C1C4 SOT223 Q2 MOSFET_N
+  ( D N-000003 )
+  ( G N-000021 )
+  ( S GND )
+ )
+ ( /4A32C3B8 SOT223 Q3 MOSFET_N
+  ( D N-000031 )
+  ( G N-000011 )
+  ( S GND )
+ )
+ ( /4A32C3BF SOT223 Q4 MOSFET_N
+  ( D N-000032 )
+  ( G N-000022 )
+  ( S GND )
+ )
+ ( /4A32C3C4 SOT223 Q5 MOSFET_N
+  ( D N-000033 )
+  ( G N-000010 )
+  ( S GND )
+ )
+ ( /4A32C3C9 SOT223 Q6 MOSFET_N
+  ( D N-000034 )
+  ( G N-000023 )
+  ( S GND )
+ )
+ ( /4A32C3CE SOT223 Q7 MOSFET_N
+  ( D N-000035 )
+  ( G N-000009 )
+  ( S GND )
+ )
+ ( /4A32C3D3 SOT223 Q8 MOSFET_N
+  ( D N-000036 )
+  ( G N-000024 )
+  ( S GND )
+ )
+ ( /4A32C3D8 SOT223 Q9 MOSFET_N
+  ( D N-000037 )
+  ( G N-000008 )
+  ( S GND )
+ )
+ ( /4A32C3DD SOT223 Q10 MOSFET_N
+  ( D N-000038 )
+  ( G N-000004 )
+  ( S GND )
+ )
+ ( /4A32C3E2 SOT223 Q11 MOSFET_N
+  ( D N-000039 )
+  ( G N-000007 )
+  ( S GND )
+ )
+ ( /4A32C3BA SOT223 Q12 MOSFET_P
+  ( D N-000006 )
+  ( G N-000031 )
+  ( S +12V_trig )
+ )
+ ( /4A32C3C1 SOT223 Q13 MOSFET_P
+  ( D N-000026 )
+  ( G N-000032 )
+  ( S +12V_trig )
+ )
+ ( /4A32C3C6 SOT223 Q14 MOSFET_P
+  ( D N-000027 )
+  ( G N-000033 )
+  ( S +12V_trig )
+ )
+ ( /4A32C3CB SOT223 Q15 MOSFET_P
+  ( D N-000005 )
+  ( G N-000034 )
+  ( S +12V_trig )
+ )
+ ( /4A32C3D0 SOT223 Q16 MOSFET_P
+  ( D N-000028 )
+  ( G N-000035 )
+  ( S +12V_trig )
+ )
+ ( /4A32C3D5 SOT223 Q17 MOSFET_P
+  ( D N-000002 )
+  ( G N-000036 )
+  ( S +12V_trig )
+ )
+ ( /4A32C3DA SOT223 Q18 MOSFET_P
+  ( D N-000029 )
+  ( G N-000037 )
+  ( S +12V_trig )
+ )
+ ( /4A32C3DF SOT223 Q19 MOSFET_P
+  ( D N-000001 )
+  ( G N-000038 )
+  ( S +12V_trig )
+ )
+ ( /4A32C3E4 SOT223 Q20 MOSFET_P
+  ( D N-000030 )
+  ( G N-000039 )
+  ( S +12V_trig )
+ )
+ ( /4A2014E2/4A203241 SM0805 R11 20k
+  ( 1 /Timing_2 )
+  ( 2 GND )
+ )
+ ( /4A32C1DC SM0805 R12 20k
+  ( 1 +12V_trig )
+  ( 2 N-000003 )
+ )
+ ( /4A32C3B9 SM0805 R13 20k
+  ( 1 +12V_trig )
+  ( 2 N-000031 )
+ )
+ ( /4A32C3C0 SM0805 R14 20k
+  ( 1 +12V_trig )
+  ( 2 N-000032 )
+ )
+ ( /4A32C3C5 SM0805 R15 20k
+  ( 1 +12V_trig )
+  ( 2 N-000033 )
+ )
+ ( /4A32C3CA SM0805 R16 20k
+  ( 1 +12V_trig )
+  ( 2 N-000034 )
+ )
+ ( /4A32C3CF SM0805 R17 20k
+  ( 1 +12V_trig )
+  ( 2 N-000035 )
+ )
+ ( /4A32C3D4 SM0805 R18 20k
+  ( 1 +12V_trig )
+  ( 2 N-000036 )
+ )
+ ( /4A32C3D9 SM0805 R19 20k
+  ( 1 +12V_trig )
+  ( 2 N-000037 )
+ )
+ ( /4A32C3DE SM0805 R20 20k
+  ( 1 +12V_trig )
+  ( 2 N-000038 )
+ )
+ ( /4A32C3E3 SM0805 R21 20k
+  ( 1 +12V_trig )
+  ( 2 N-000039 )
+ )
+ ( /4A2014E2/4A202F17 SSOP14 U3 74HC08DB
+  ( 1 /Timing_24 )
+  ( 2 /Timing_17 )
+  ( 3 N-000055 )
+  ( 7 GND )
+  ( 14 VCC )
+ )
+ ( /4A2014E2/4A20187A SO16N U4 CD40257BMG4
+  ( 1 /Timing_1 )
+  ( 2 /Timing_23 )
+  ( 3 /Timing_13 )
+  ( 4 /Timing_4 )
+  ( 5 /Timing_22 )
+  ( 6 /Timing_12 )
+  ( 7 /Timing_25 )
+  ( 8 GND )
+  ( 9 /Timing_26 )
+  ( 10 /Timing_11 )
+  ( 11 /Timing_21 )
+  ( 12 /Timing_27 )
+  ( 13 /Timing_10 )
+  ( 14 /Timing_20 )
+  ( 15 GND )
+  ( 16 VCC )
+ )
+ ( /4A2014E2/4A201893 SO16N U5 CD40257BMG4
+  ( 1 /Timing_1 )
+  ( 2 /Timing_19 )
+  ( 3 /Timing_9 )
+  ( 4 /Timing_6 )
+  ( 5 /Timing_18 )
+  ( 6 /Timing_8 )
+  ( 7 /Timing_5 )
+  ( 8 GND )
+  ( 9 ? )
+  ( 10 ? )
+  ( 11 ? )
+  ( 12 ? )
+  ( 13 ? )
+  ( 14 ? )
+  ( 15 GND )
+  ( 16 VCC )
+ )
+ ( /4A2014E2/4A2028AF SO14N U7 CD74HC30M
+  ( 1 /Timing_28 )
+  ( 2 /Timing_29 )
+  ( 3 /Timing_30 )
+  ( 4 /Timing_31 )
+  ( 5 /Timing_32 )
+  ( 6 /Timing_33 )
+  ( 7 GND )
+  ( 8 /Timing_1 )
+  ( 11 /Timing_34 )
+  ( 12 /Timing_35 )
+  ( 14 VCC )
+ )
+ ( /4A2014E2/4A27E13A SO14N U8 MM74HC04M
+  ( 1 /Timing_1 )
+  ( 2 /Timing_24 )
+  ( 3 /Timing_36 )
+  ( 4 /Timing_30 )
+  ( 5 /Timing_37 )
+  ( 6 /Timing_31 )
+  ( 7 GND )
+  ( 8 /Timing_34 )
+  ( 9 /Timing_38 )
+  ( 10 /Timing_14 )
+  ( 11 N-000055 )
+  ( 14 VCC )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C1
+ CP*
+ SM*
+$endlist
+$component D1
+ D?
+ S*
+$endlist
+$component R11
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R12
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R13
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R14
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R15
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R16
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R17
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R18
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R19
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R20
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R21
+ R?
+ SM0603
+ SM0805
+$endlist
+$endfootprintlist
+}
