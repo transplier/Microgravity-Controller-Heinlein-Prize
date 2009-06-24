@@ -1,4 +1,4 @@
-EESchema-DOCLIB  Version 2.0  Tue 23 Jun 2009 09:20:08 PM CDT
+EESchema-DOCLIB  Version 2.0  Date: Tue 23 Jun 2009 04:30:02 PM CDT
 #
 $CMP 40257
 D Binary counter 14 stages (asynchronous)
@@ -23,16 +23,6 @@ $ENDCMP
 $CMP 74LS30
 D Nand 8 inputs
 K TTL Nand8
-$ENDCMP
-#
-$CMP 7805
-D Linear Regulator +5V
-K POWER REGUL
-F regulator/lm78*.*
-$ENDCMP
-#
-$CMP C
-D Condensateur non polarise
 $ENDCMP
 #
 $CMP CONN_2

@@ -1,7 +1,12 @@
-update=Mon 22 Jun 2009 02:05:07 PM CDT
-last_client=cvpcb
+update=Tue 23 Jun 2009 12:56:06 PM CDT
+last_client=pcbnew
 [common]
 NetDir=
+[cvpcb]
+version=1
+NetIExt=.net
+[cvpcb/libraries]
+EquName1=devcms
 [pcbnew]
 version=1
 PadDrlX=320
@@ -40,19 +45,15 @@ WpenSer=10
 [pcbnew/libraries]
 LibDir=
 LibName1=/home/giacomo/Synchronized/Electronics/Kicad_Libs/giacomo_misc
-LibName2=sockets
-LibName3=/home/giacomo/Synchronized/Electronics/Kicad_Libs/giacomo_connectors
-LibName4=connect
-LibName5=discret
-LibName6=pin_array
-LibName7=divers
-LibName8=libcms
-LibName9=display
-LibName10=valves
-LibName11=led
-LibName12=dip_sockets
-[cvpcb]
-version=1
-NetIExt=.net
-[cvpcb/libraries]
-EquName1=devcms
+LibName2=/home/giacomo/Synchronized/Electronics/Kicad_Libs/w_smd
+LibName3=sockets
+LibName4=/home/giacomo/Synchronized/Electronics/Kicad_Libs/giacomo_connectors
+LibName5=connect
+LibName6=discret
+LibName7=pin_array
+LibName8=divers
+LibName9=libcms
+LibName10=display
+LibName11=valves
+LibName12=led
+LibName13=dip_sockets

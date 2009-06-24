@@ -1,0 +1,44 @@
+### Module positions - created on Tue 23 Jun 2009 08:41:45 AM CDT ###
+### Printed by PcbNew version PCBnew (20090216-final)
+## Unit = inches, Angle = deg.
+## Side : Component
+# Ref    Val                  PosX       PosY        Rot     Side
+C1       10uF                13.3000     5.7000       0.0    Component
+D1       DIODE                9.5500     6.1500       0.0    Component
+Q1       MOSFET_P            10.6500     5.8500       0.0    Component
+Q2       MOSFET_N            10.3000     5.8500       0.0    Component
+Q3       MOSFET_N            10.0000     5.8500       0.0    Component
+Q4       MOSFET_N             9.6500     5.8500       0.0    Component
+Q5       MOSFET_N            13.3500     5.4000       0.0    Component
+Q6       MOSFET_N            13.0000     5.4000       0.0    Component
+Q7       MOSFET_N            12.7000     5.4000       0.0    Component
+Q8       MOSFET_N            12.3500     5.4000       0.0    Component
+Q9       MOSFET_N            12.0000     5.4000       0.0    Component
+Q10      MOSFET_N            11.6500     5.4000       0.0    Component
+Q11      MOSFET_N            11.3500     5.4000       0.0    Component
+Q12      MOSFET_P            11.0000     5.4000       0.0    Component
+Q13      MOSFET_P            10.6500     5.4000       0.0    Component
+Q14      MOSFET_P            10.3000     5.4000       0.0    Component
+Q15      MOSFET_P            10.0000     5.4000       0.0    Component
+Q16      MOSFET_P             9.6500     5.4000       0.0    Component
+Q17      MOSFET_P            13.2000     4.9000       0.0    Component
+Q18      MOSFET_P            12.8500     4.9000       0.0    Component
+Q19      MOSFET_P            12.5000     4.9000       0.0    Component
+Q20      MOSFET_P            12.1500     4.9000       0.0    Component
+R11      20k                 13.1000     5.7000       0.0    Component
+R12      20k                 12.9000     5.7000       0.0    Component
+R13      20k                 12.7500     5.7000       0.0    Component
+R14      20k                 12.5500     5.7000       0.0    Component
+R15      20k                 12.3500     5.7000       0.0    Component
+R16      20k                 12.1500     5.7000       0.0    Component
+R17      20k                 11.9500     5.7000       0.0    Component
+R18      20k                 11.7500     5.7000       0.0    Component
+R19      20k                 11.5500     5.7000       0.0    Component
+R20      20k                 11.4000     5.7000       0.0    Component
+R21      20k                 11.2000     5.7000       0.0    Component
+U3       74HC08DB            10.9500     5.8000       0.0    Component
+U4       CD40257BMG4          4.4500     4.6000     270.0    Component
+U5       CD40257BMG4          4.4500     3.9500     270.0    Component
+U7       CD74HC30M           11.7500     4.8500       0.0    Component
+U8       MM74HC04M           11.3000     4.8500       0.0    Component
+## End
