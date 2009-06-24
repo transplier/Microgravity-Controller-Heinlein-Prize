@@ -6,7 +6,7 @@
 /**
  * Period at which to save current time to non-volatile memory.
  */
-#define SAVE_INTERVAL_MSEC 1800000
+#define SAVE_INTERVAL_MSEC 20000
 
 #define TIME_EVENT_COMMAND_SR_UPDATE 0x00
 #define TIME_EVENT_COMMAND_COOLDOWN 0x0C
@@ -117,16 +117,17 @@ void setup() {
 void loop() {
 
   /* Execute the most recent time event (even if it's already run before). */
-  digitalWrite(LEDPIN, HIGH);
   execute_last_time_event();
-  digitalWrite(LEDPIN, LOW);
   
   delay(10);
   
   /* If it's time we wrote the time down in non-volatile memory, do it. */
   if((millis() - timeWroteTime) > SAVE_INTERVAL_MSEC) {
+    digitalWrite(LEDPIN, HIGH);
     write_time();
     timeWroteTime=millis();
+    delay(10);
+    digitalWrite(LEDPIN, LOW);
   }
 
   /* Check for incoming commands and act upon them. */

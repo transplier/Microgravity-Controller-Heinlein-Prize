@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  Wed 24 Jun 2009 10:49:24 AM CDT
+# EESchema Netlist Version 1.1 created  Wed 24 Jun 2009 02:19:54 PM CDT
 (
  ( /4A418C9E $noname  U12 74HC4094 {Lib=74HC4094}
   (    1 /Timing_Unit_Processors/PWR_SR_L )
@@ -408,12 +408,12 @@
   (    6 /Timing_Unit_Processors/A1_POWER_SR_D )
   (    7 /Timing_Unit_Processors/PWR_SR_D )
   (    8 VSS )
-  (    9 /Timing_Unit_Processors/PWR_SR_C )
-  (   10 /Timing_Unit_Processors/A1_POWER_SR_C )
-  (   11 /Timing_Unit_Processors/A2_POWER_SR_C )
-  (   12 /Timing_Unit_Processors/PWR_SR_L )
-  (   13 /Timing_Unit_Processors/A1_POWER_SR_L )
-  (   14 /Timing_Unit_Processors/A2_POWER_SR_L )
+  (    9 /Timing_Unit_Processors/PWR_SR_L )
+  (   10 /Timing_Unit_Processors/A1_POWER_SR_L )
+  (   11 /Timing_Unit_Processors/A2_POWER_SR_L )
+  (   12 /Timing_Unit_Processors/PWR_SR_C )
+  (   13 /Timing_Unit_Processors/A1_POWER_SR_C )
+  (   14 /Timing_Unit_Processors/A2_POWER_SR_C )
   (   15 VSS )
   (   16 VCC )
  )
@@ -586,7 +586,7 @@ Net 27 "/Timing Unit Processors/TXi" "TXi"
 Net 28 "/Timing Unit Processors/PWR_SR_C" "PWR_SR_C"
  U12 3
  U11 3
- U4 9
+ U4 12
 Net 29 "" ""
  U12 15
  U11 15
@@ -596,7 +596,7 @@ Net 30 "" ""
 Net 31 "/Timing Unit Processors/PWR_SR_L" "PWR_SR_L"
  U12 1
  U11 1
- U4 12
+ U4 9
 Net 32 "/Timing Unit Processors/PWR_SR_D" "PWR_SR_D"
  U11 2
  U4 7
@@ -707,57 +707,57 @@ Net 54 "+12V_trig" "+12V_trig"
  Q1 S
  R12 1
  K2 1
-Net 56 "/Timing Unit Processors/A2_CONTROL_SR_D" "A2_CONTROL_SR_D"
+Net 56 "/Timing Unit Processors/A1_POWER_SR_L" "A1_POWER_SR_L"
+ P13 15
+ U4 10
+Net 57 "/Timing Unit Processors/A2_CONTROL_SR_D" "A2_CONTROL_SR_D"
  P14 9
  U10 2
-Net 57 "/Timing Unit Processors/A2_EXP_TRIGGER_OFF" "A2_EXP_TRIGGER_OFF"
+Net 58 "/Timing Unit Processors/A2_EXP_TRIGGER_OFF" "A2_EXP_TRIGGER_OFF"
  U5 5
  P14 13
-Net 58 "/Timing Unit Processors/A2_POWER_SR_L" "A2_POWER_SR_L"
+Net 59 "/Timing Unit Processors/A2_POWER_SR_L" "A2_POWER_SR_L"
  P14 15
- U4 14
-Net 59 "/Timing Unit Processors/A2_POWER_SR_D" "A2_POWER_SR_D"
+ U4 11
+Net 60 "/Timing Unit Processors/A2_POWER_SR_D" "A2_POWER_SR_D"
  P14 17
  U4 5
-Net 60 "/Timing Unit Processors/TAKEOVER" "TAKEOVER"
+Net 61 "/Timing Unit Processors/TAKEOVER" "TAKEOVER"
  U8 2
  U3 1
-Net 61 "/Timing Unit Processors/A1_HEARTBEAT" "A1_HEARTBEAT"
+Net 62 "/Timing Unit Processors/A1_HEARTBEAT" "A1_HEARTBEAT"
  P14 12
  P13 12
-Net 62 "/Timing Unit Processors/A1_EXP_TRIGGER_ON" "A1_EXP_TRIGGER_ON"
+Net 63 "/Timing Unit Processors/A2_POWER_SR_C" "A2_POWER_SR_C"
+ P14 16
+ U4 14
+Net 64 "/Timing Unit Processors/A1_EXP_TRIGGER_ON" "A1_EXP_TRIGGER_ON"
  U5 3
  P13 14
-Net 63 "/Timing Unit Processors/A2_EXP_TRIGGER_ON" "A2_EXP_TRIGGER_ON"
+Net 65 "/Timing Unit Processors/A2_EXP_TRIGGER_ON" "A2_EXP_TRIGGER_ON"
  U5 2
  P14 14
-Net 64 "/Timing Unit Processors/A1_POWER_SR_C" "A1_POWER_SR_C"
+Net 66 "/Timing Unit Processors/A1_POWER_SR_C" "A1_POWER_SR_C"
  P13 16
- U4 10
-Net 65 "/Timing Unit Processors/A1_TXi" "A1_TXi"
+ U4 13
+Net 67 "/Timing Unit Processors/A1_TXi" "A1_TXi"
  P13 18
  U4 3
-Net 66 "/Timing Unit Processors/A2_POWER_SR_C" "A2_POWER_SR_C"
- P14 16
- U4 11
-Net 67 "/Timing Unit Processors/A2_TXi" "A2_TXi"
+Net 68 "/Timing Unit Processors/A2_TXi" "A2_TXi"
  P14 18
  U4 2
-Net 68 "/Timing Unit Processors/CODE_I_3" "CODE_I_3"
+Net 69 "/Timing Unit Processors/CODE_I_3" "CODE_I_3"
  U8 3
  U10 6
-Net 69 "/Timing Unit Processors/CODE_I_4" "CODE_I_4"
+Net 70 "/Timing Unit Processors/CODE_I_4" "CODE_I_4"
  U8 5
  U10 7
-Net 70 "/Timing Unit Processors/CODE_I_7" "CODE_I_7"
+Net 71 "/Timing Unit Processors/CODE_I_7" "CODE_I_7"
  U8 9
  U10 12
-Net 71 "/Timing Unit Processors/A1_POWER_SR_D" "A1_POWER_SR_D"
+Net 72 "/Timing Unit Processors/A1_POWER_SR_D" "A1_POWER_SR_D"
  P13 17
  U4 6
-Net 72 "/Timing Unit Processors/A1_POWER_SR_L" "A1_POWER_SR_L"
- P13 15
- U4 13
 Net 73 "/Timing Unit Processors/A1_EXP_TRIGGER_OFF" "A1_EXP_TRIGGER_OFF"
  U5 6
  P13 13
