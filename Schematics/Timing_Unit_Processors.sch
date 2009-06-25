@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 23 Jun 2009 09:20:08 PM CDT
+EESchema Schematic File Version 2  date Thu 25 Jun 2009 08:46:43 AM CDT
 LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,./Timing_Unit.cache
 EELAYER 24  0
 EELAYER END
@@ -13,6 +13,22 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	4750 2800 4150 2800
+Wire Wire Line
+	4150 2800 4150 2950
+Wire Wire Line
+	4150 2950 4000 2950
+Wire Wire Line
+	4000 2950 4000 2350
+Wire Wire Line
+	4750 2400 4750 2450
+Wire Wire Line
+	4750 2450 4500 2450
+Wire Wire Line
+	4500 2450 4500 2300
+Wire Wire Line
+	4500 2300 4300 2300
 Connection ~ 1950 800 
 Connection ~ 2750 800 
 Connection ~ 2750 1200
@@ -31,7 +47,7 @@ Wire Wire Line
 Wire Wire Line
 	4150 3550 4150 5100
 Wire Wire Line
-	4250 2400 4250 4900
+	4250 4900 4250 2400
 Wire Wire Line
 	4350 2200 4350 4700
 Wire Wire Line
@@ -76,19 +92,13 @@ Wire Wire Line
 Wire Wire Line
 	4750 3450 4200 3450
 Wire Wire Line
-	4750 2800 4050 2800
-Wire Wire Line
-	4050 2800 4050 2250
-Wire Wire Line
-	4050 2250 1650 2250
+	1650 2250 4050 2250
 Wire Wire Line
 	4750 2600 4150 2600
 Wire Wire Line
 	4150 2600 4150 2050
 Wire Wire Line
 	4150 2050 1650 2050
-Wire Wire Line
-	4750 2300 4300 2300
 Wire Wire Line
 	4750 2100 4400 2100
 Connection ~ 6450 6050
@@ -136,19 +146,13 @@ Connection ~ 4600 4400
 Wire Wire Line
 	4350 2200 4750 2200
 Wire Wire Line
-	4250 2400 4750 2400
-Wire Wire Line
 	1650 2150 4100 2150
 Wire Wire Line
 	4100 2150 4100 2700
 Wire Wire Line
 	4100 2700 4750 2700
 Wire Wire Line
-	1650 2350 4000 2350
-Wire Wire Line
-	4000 2350 4000 2900
-Wire Wire Line
-	4000 2900 4750 2900
+	4000 2350 1650 2350
 Wire Wire Line
 	4150 3550 4750 3550
 Wire Wire Line
@@ -183,7 +187,7 @@ Connection ~ 3200 800
 Wire Wire Line
 	4400 2100 4400 4600
 Wire Wire Line
-	4300 2300 4300 4800
+	4300 4800 4300 2300
 Wire Wire Line
 	4200 3450 4200 5000
 Wire Wire Line
@@ -198,6 +202,16 @@ Connection ~ 4750 4250
 Wire Wire Line
 	3350 1200 1950 1200
 Connection ~ 3250 1200
+Wire Wire Line
+	4250 2400 4550 2400
+Wire Wire Line
+	4550 2400 4550 2300
+Wire Wire Line
+	4550 2300 4750 2300
+Wire Wire Line
+	4050 2250 4050 2900
+Wire Wire Line
+	4050 2900 4750 2900
 $Comp
 L CAPAPOL C2
 U 1 1 4A411586
@@ -339,9 +353,9 @@ Text HLabel 6050 3550 2    60   Output ~ 0
 EXP_TRIGGER_OFF
 Text HLabel 6050 3450 2    60   Output ~ 0
 EXP_TRIGGER_ON
-Text HLabel 6050 2400 2    60   Output ~ 0
-PWR_SR_L
 Text HLabel 6050 2300 2    60   Output ~ 0
+PWR_SR_L
+Text HLabel 6050 2400 2    60   Output ~ 0
 PWR_SR_C
 Text HLabel 6050 2200 2    60   Output ~ 0
 PWR_SR_D
