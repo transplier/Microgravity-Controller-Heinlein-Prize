@@ -77,8 +77,8 @@ void enterMonitorMode() {
       if(resetCount >= REDUNDANCY_RESET_MAX) {
         //He's dead, doctor.
         log("PRIMARY FAIL, TAKEOVER INITIATED...\n");
-        log("TIME OF DEATH: ");
-        log_int(lastSawChange);
+        log("TIME OF DEATH (min): ");
+        log_int(lastSawChange/60000l);
         log(" :(\n");
         setupForTakeover();
         log("EXECUTING MAIN PROGRAM.\n");

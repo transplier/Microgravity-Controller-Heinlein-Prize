@@ -167,9 +167,6 @@ void set_exp_power_on(boolean isOn) {
  * @data2 The second byte of data in the time event.
  */
 void execute_event(byte command, byte data1, byte data2) {
-  DEBUG("Trying to execute event of type: ");
-  DEBUGF(command, HEX);
-  DEBUG("\n");
   switch(command) {
     case TIME_EVENT_COMMAND_SR_UPDATE:
       update_power_sr(data1, data2);
@@ -181,6 +178,9 @@ void execute_event(byte command, byte data1, byte data2) {
       set_exp_power_on(false);
     break;
     default:
+    DEBUG("Trying to execute event of type: ");
+      DEBUGF(command, HEX);
+      DEBUG("\n");
       DEBUG("Invalid command.\n");
   }
 }
