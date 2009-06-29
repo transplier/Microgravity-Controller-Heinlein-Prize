@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 25 Jun 2009 08:46:43 AM CDT
+EESchema Schematic File Version 2  date Mon 29 Jun 2009 04:10:32 PM CDT
 LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,./Timing_Unit.cache
 EELAYER 24  0
 EELAYER END
@@ -334,7 +334,7 @@ L CONN_25 P14
 U 1 1 4A20365B
 P 1300 5100
 F 0 "P14" V 1250 5100 60  0000 C CNN
-F 1 "CONN_25" V 1350 5100 60  0000 C CNN
+F 1 "ARDUINO_2" V 1350 5100 60  0000 C CNN
 	1    1300 5100
 	-1   0    0    1   
 $EndComp
@@ -343,7 +343,7 @@ L CONN_25 P13
 U 1 1 4A20362F
 P 1300 2550
 F 0 "P13" V 1250 2550 60  0000 C CNN
-F 1 "CONN_25" V 1350 2550 60  0000 C CNN
+F 1 "ARDUINO_1" V 1350 2550 60  0000 C CNN
 F 4 "MSH26ECT-ND" H 1300 2550 60  0001 C CNN "Digikey Part"
 F 5 "3M9104-ND" H 1300 2550 60  0001 C CNN "Digikey Part 2"
 	1    1300 2550
