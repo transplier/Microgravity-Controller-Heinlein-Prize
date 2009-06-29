@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 29 Jun 2009 12:09:52 PM CDT
+EESchema Schematic File Version 2  date Mon 29 Jun 2009 02:53:01 PM CDT
 LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,./Logger_Unit.cache
 EELAYER 24  0
 EELAYER END

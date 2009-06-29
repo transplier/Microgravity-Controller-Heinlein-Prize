@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  Mon 29 Jun 2009 12:33:55 PM CDT
+# EESchema Netlist Version 1.1 created  Mon 29 Jun 2009 02:53:05 PM CDT
 (
  ( /4A20585D $noname  P25 PWR {Lib=CONN_2}
   (    1 VSS )
@@ -66,6 +66,7 @@
   (    9 N-000007 )
   (   10 /TC_ADDR_0 )
   (   11 /TC_ADDR_1 )
+  (   12 VSS )
   (   13 /TC_ADDR_3 )
   (   14 /TC_ADDR_2 )
   (   15 VSS )
@@ -77,6 +78,7 @@
   (   21 ? )
   (   22 N-000031 )
   (   23 N-000003 )
+  (   24 VDD )
  )
  ( /4A205569 $noname  U11 HEF4067BT,652 {Lib=HEF4067}
   (    1 /Logger_Unit_Processors/RXtc )
@@ -90,6 +92,7 @@
   (    9 N-000012 )
   (   10 /TC_ADDR_0 )
   (   11 /TC_ADDR_1 )
+  (   12 VSS )
   (   13 /TC_ADDR_3 )
   (   14 /TC_ADDR_2 )
   (   15 VSS )
@@ -101,6 +104,7 @@
   (   21 ? )
   (   22 N-000026 )
   (   23 N-000008 )
+  (   24 VDD )
  )
  ( /4A205318 $noname  K1 DATA_C {Lib=CONN_4}
   (    1 ? )
@@ -413,9 +417,9 @@ Net 32 "VSS" "VSS"
  P16 2
  P15 2
  U10 15
- U10 8
+ U10 12
  U11 15
- U11 8
+ U11 12
  K1 4
  C1 2
  C2 2
@@ -440,8 +444,8 @@ Net 32 "VSS" "VSS"
  U4 15
  U4 8
 Net 52 "VDD" "VDD"
- U10 16
- U11 16
+ U10 24
+ U11 24
  C1 1
  U12 3
  K2 1

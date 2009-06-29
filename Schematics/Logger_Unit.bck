@@ -1,4 +1,4 @@
-EESchema-DOCLIB  Version 2.0  Date: Mon 15 Jun 2009 06:04:15 PM CDT
+EESchema-DOCLIB  Version 2.0  Date: Mon 29 Jun 2009 11:57:59 AM CDT
 #
 $CMP 40257
 D Binary counter 14 stages (asynchronous)
@@ -25,6 +25,16 @@ D Nand 8 inputs
 K TTL Nand8
 $ENDCMP
 #
+$CMP 7805
+D Linear Regulator +5V
+K POWER REGUL
+F regulator/lm78*.*
+$ENDCMP
+#
+$CMP C
+D Condensateur non polarise
+$ENDCMP
+#
 $CMP CONN_2
 D Symbole general de connecteur
 K CONN
@@ -36,6 +46,11 @@ K CONN
 $ENDCMP
 #
 $CMP CONN_3
+D Symbole general de connecteur
+K CONN
+$ENDCMP
+#
+$CMP CONN_4
 D Symbole general de connecteur
 K CONN
 $ENDCMP
