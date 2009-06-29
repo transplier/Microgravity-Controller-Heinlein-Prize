@@ -1,10 +1,10 @@
-PCBNEW-BOARD Version 1 date Mon 29 Jun 2009 12:03:11 PM CDT
+PCBNEW-BOARD Version 1 date Mon 29 Jun 2009 12:10:16 PM CDT
 
 $GENERAL
 LayerCount 2
 Ly 1FFF8001
-Links 115
-NoConn 63
+Links 119
+NoConn 67
 Di 36424 25924 107530 60576
 Ndraw 8
 Ntrack 442
@@ -81,11 +81,11 @@ Na 5 "/Logger_10"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 6 "/Logger_9"
+Na 6 "/Logger_8"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 7 "/Logger_8"
+Na 7 "/Logger_9"
 St ~
 $EndEQUIPOT
 $EQUIPOT
@@ -129,11 +129,11 @@ Na 17 "/Logger_7"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 18 "/Logger_6"
+Na 18 "/Logger_5"
 St ~
 $EndEQUIPOT
 $EQUIPOT
-Na 19 "/Logger_5"
+Na 19 "/Logger_6"
 St ~
 $EndEQUIPOT
 $EQUIPOT
@@ -442,14 +442,14 @@ $PAD
 Sh "8" C 600 600 0 0 1800
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 6 "/Logger_9"
+Ne 6 "/Logger_8"
 Po -3000 -500
 $EndPAD
 $PAD
 Sh "9" C 600 600 0 0 1800
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 7 "/Logger_8"
+Ne 7 "/Logger_9"
 Po -2000 500
 $EndPAD
 $PAD
@@ -645,14 +645,14 @@ $PAD
 Sh "8" C 600 600 0 0 1800
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 18 "/Logger_6"
+Ne 18 "/Logger_5"
 Po -3000 -500
 $EndPAD
 $PAD
 Sh "9" C 600 600 0 0 1800
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 19 "/Logger_5"
+Ne 19 "/Logger_6"
 Po -2000 500
 $EndPAD
 $PAD
@@ -2015,35 +2015,35 @@ $PAD
 Sh "1" R 600 600 0 0 0
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 7 "/Logger_8"
+Ne 26 "VDD"
 Po -2000 0
 $EndPAD
 $PAD
 Sh "2" C 600 600 0 0 0
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 6 "/Logger_9"
+Ne 6 "/Logger_8"
 Po -1000 0
 $EndPAD
 $PAD
 Sh "3" C 600 600 0 0 0
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 5 "/Logger_10"
+Ne 7 "/Logger_9"
 Po 0 0
 $EndPAD
 $PAD
 Sh "4" C 600 600 0 0 0
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 0 ""
+Ne 3 "VSS"
 Po 1000 0
 $EndPAD
 $PAD
 Sh "5" C 600 600 0 0 0
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 0 ""
+Ne 5 "/Logger_10"
 Po 2000 0
 $EndPAD
 $SHAPE3D
@@ -2071,35 +2071,35 @@ $PAD
 Sh "1" R 600 600 0 0 0
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 19 "/Logger_5"
+Ne 26 "VDD"
 Po -2000 0
 $EndPAD
 $PAD
 Sh "2" C 600 600 0 0 0
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 18 "/Logger_6"
+Ne 18 "/Logger_5"
 Po -1000 0
 $EndPAD
 $PAD
 Sh "3" C 600 600 0 0 0
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 17 "/Logger_7"
+Ne 19 "/Logger_6"
 Po 0 0
 $EndPAD
 $PAD
 Sh "4" C 600 600 0 0 0
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 0 ""
+Ne 3 "VSS"
 Po 1000 0
 $EndPAD
 $PAD
 Sh "5" C 600 600 0 0 0
 Dr 400 0 0
 At STD N 00E0FFFF
-Ne 0 ""
+Ne 17 "/Logger_7"
 Po 2000 0
 $EndPAD
 $SHAPE3D
@@ -3003,7 +3003,7 @@ De 15 1 3 0 C00
 Po 0 54000 35100 55425 35100 170 -1
 De 0 0 4 0 C00
 Po 0 55200 37100 55450 37100 170 -1
-De 15 0 8 0 C00
+De 15 0 8 0 800
 Po 0 56184 38466 56184 38998 170 -1
 De 15 0 8 0 400
 Po 0 56400 38250 56184 38466 170 -1
@@ -3015,7 +3015,7 @@ De 15 0 8 0 0
 Po 0 56000 37650 56150 37650 170 -1
 De 15 0 8 0 0
 Po 0 55450 37100 56000 37650 170 -1
-De 15 0 8 0 800
+De 15 0 8 0 0
 Po 0 56440 38998 56440 38610 170 -1
 De 15 0 9 0 800
 Po 0 54650 36550 54200 36100 170 -1

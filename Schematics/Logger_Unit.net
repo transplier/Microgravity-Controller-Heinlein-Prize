@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  Mon 29 Jun 2009 11:59:35 AM CDT
+# EESchema Netlist Version 1.1 created  Mon 29 Jun 2009 12:10:04 PM CDT
 (
  ( /4A2048D8/4A43814E SM0805 C1 0.1uF
   ( 1 VDD )
@@ -19,14 +19,18 @@
   ( 4 VSS )
  )
  ( /4A2048D8/4A204C32 PIN_ARRAY_5x1 K2 GDLOX1
-  ( 1 /Logger_5 )
-  ( 2 /Logger_6 )
-  ( 3 /Logger_7 )
+  ( 1 VDD )
+  ( 2 /Logger_5 )
+  ( 3 /Logger_6 )
+  ( 4 VSS )
+  ( 5 /Logger_7 )
  )
  ( /4A2048D8/4A204C1B PIN_ARRAY_5x1 K3 GDLOX2
-  ( 1 /Logger_8 )
-  ( 2 /Logger_9 )
-  ( 3 /Logger_10 )
+  ( 1 VDD )
+  ( 2 /Logger_8 )
+  ( 3 /Logger_9 )
+  ( 4 VSS )
+  ( 5 /Logger_10 )
  )
  ( /4A2048D8/4A20362F pin_array_13x2 P13 ARDUINO_1
   ( 1 ? )
@@ -36,8 +40,8 @@
   ( 5 ? )
   ( 6 ? )
   ( 7 /Logger_7 )
-  ( 8 /Logger_6 )
-  ( 9 /Logger_5 )
+  ( 8 /Logger_5 )
+  ( 9 /Logger_6 )
   ( 10 ? )
   ( 11 ? )
   ( 12 ? )
@@ -63,8 +67,8 @@
   ( 5 /Logger_2 )
   ( 6 ? )
   ( 7 /Logger_10 )
-  ( 8 /Logger_9 )
-  ( 9 /Logger_8 )
+  ( 8 /Logger_8 )
+  ( 9 /Logger_9 )
   ( 10 /Logger_18 )
   ( 11 /Logger_19 )
   ( 12 /Logger_20 )

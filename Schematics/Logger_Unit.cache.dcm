@@ -1,4 +1,4 @@
-EESchema-DOCLIB  Version 2.0  Thu 25 Jun 2009 09:46:43 AM CDT
+EESchema-DOCLIB  Version 2.0  Mon 29 Jun 2009 12:09:52 PM CDT
 #
 $CMP 40257
 D Binary counter 14 stages (asynchronous)
@@ -51,6 +51,11 @@ K CONN
 $ENDCMP
 #
 $CMP CONN_4
+D Symbole general de connecteur
+K CONN
+$ENDCMP
+#
+$CMP CONN_5
 D Symbole general de connecteur
 K CONN
 $ENDCMP
