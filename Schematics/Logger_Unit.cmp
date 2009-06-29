@@ -1,0 +1,206 @@
+Cmp-Mod V01 Created by CVpcb (20090216-final) date = Mon 29 Jun 2009 11:59:35 AM CDT
+
+BeginCmp
+TimeStamp = /4A2048D8/4A43814E;
+Reference = C1;
+ValeurCmp = 0.1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A43812D;
+Reference = C2;
+ValeurCmp = 0.33uF;
+IdModule  = SM1206POL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A203201;
+Reference = D1;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A205318;
+Reference = K1;
+ValeurCmp = DATA_C;
+IdModule  = 4P4C_SMD;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A204C32;
+Reference = K2;
+ValeurCmp = GDLOX1;
+IdModule  = PIN_ARRAY_5x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A204C1B;
+Reference = K3;
+ValeurCmp = GDLOX2;
+IdModule  = PIN_ARRAY_5x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A20362F;
+Reference = P13;
+ValeurCmp = ARDUINO_1;
+IdModule  = pin_array_13x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A20365B;
+Reference = P14;
+ValeurCmp = ARDUINO_2;
+IdModule  = pin_array_13x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A205681;
+Reference = P15;
+ValeurCmp = TC_1;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A20568F;
+Reference = P16;
+ValeurCmp = TC_2;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A205692;
+Reference = P17;
+ValeurCmp = TC_3;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A205693;
+Reference = P18;
+ValeurCmp = TC_4;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A205697;
+Reference = P19;
+ValeurCmp = TC_5;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A205698;
+Reference = P20;
+ValeurCmp = TC_6;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A205699;
+Reference = P21;
+ValeurCmp = TC_7;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A20569A;
+Reference = P22;
+ValeurCmp = TC_8;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A20569B;
+Reference = P23;
+ValeurCmp = TC_9;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A20569C;
+Reference = P24;
+ValeurCmp = TC_10;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A20585D;
+Reference = P25;
+ValeurCmp = PWR;
+IdModule  = CONN_2_3mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A203241;
+Reference = R11;
+ValeurCmp = 20k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A202F17;
+Reference = U3;
+ValeurCmp = 74HC08DB;
+IdModule  = SSOP14;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A20187A;
+Reference = U4;
+ValeurCmp = CD40257BMG4;
+IdModule  = SO16N;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A201893;
+Reference = U5;
+ValeurCmp = CD40257BMG4;
+IdModule  = SO16N;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A2028AF;
+Reference = U7;
+ValeurCmp = 74HC30M;
+IdModule  = SO14N;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A2E7CD9;
+Reference = U8;
+ValeurCmp = MM74HC04M;
+IdModule  = SO14N;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2055FA;
+Reference = U10;
+ValeurCmp = HEF4067BT;
+IdModule  = SOIC24;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A205569;
+Reference = U11;
+ValeurCmp = HEF4067BT,652;
+IdModule  = SOIC24;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A43810D;
+Reference = U12;
+ValeurCmp = L7805ABD2T-TR;
+IdModule  = d2-pak;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A202901;
+Reference = U13;
+ValeurCmp = 74HC4094;
+IdModule  = TSSOP-16;
+EndCmp
+
+EndListe
