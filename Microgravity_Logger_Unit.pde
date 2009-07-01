@@ -34,6 +34,11 @@
 #define ISERIES_MAX_MISSED_COMMANDS 4
 
 /**
+ * After the UDrive misses these many commands, we give up.
+ */
+#define UDRIVE_MAX_MISSED_COMMANDS 10
+
+/**
  * Period at which to write log data.
  */
 #define SAVE_INTERVAL_MSEC 3000
@@ -51,6 +56,8 @@ Goldelox uDrive(&com_2, LU_OUT_GDLOX_RST);
  * True if the uDRIVE was found.
  */
 boolean isUDriveActive = false;
+
+byte udriveResets = 0;
 
 iSeries iSeries(&com_1);
 
@@ -87,24 +94,27 @@ void setup() {
   if(isSecondary()) {
     lockRedundancy();
   }
-
+  
   DEBUG("Initializing serial ports...");
   init_comms();
   DEBUG("OK!\n");
 
   log("Initializing GOLDELOX-DOS UDrive...");
-  GoldeloxStatus ret = uDrive.reinit();
-  if(ret == OK) {
-    DEBUG("OK!\n");
-    isUDriveActive = true;
-    log("GOLDELOX-DOS UDrive up.\n");
-  } 
-  else {
-    isUDriveActive = false;
-    log("ERROR ");
-    log_int(ret);
-    log("!\n");
-  }  
+  GoldeloxStatus ret;
+  while(true) {
+    ret = uDrive.reinit();
+    if(ret == OK) {
+      isUDriveActive = true;
+      break;
+    } else {
+      isUDriveActive = false;
+      log("ERROR ");
+      log_int(ret);
+      log("!\n");
+      delay(100);
+    }
+  }
+  udriveResets = 0;
 
 #ifdef DODEBUG
   //GOLDELOX tests
@@ -162,7 +172,6 @@ void setup() {
     pinMode(LU_INOUT_REDUNDANCY, OUTPUT);
   }
 
-
   log("Resetting and finding ");
   log_int(NUMBER_OF_TEMP_CONTROLLERS);
   log(" iSeries on com1... [");
@@ -175,7 +184,6 @@ void setup() {
         log(":ERR ");
     }
   }
-  
   log("] Done\n");
 
   init_logfiles();
@@ -279,10 +287,30 @@ void loop() {
 
       if(ret1 != OK || ret2 != OK) {
         DEBUG("ERROR WRITING TO GOLDILOX!\n");
+        udriveResets++;
         uDrive.reinit();
-        log("uDRIVE: Had to reset!\n");
+        log("uDRIVE: Had to reset!\nReset count: ");
+        log_int(udriveResets);
+        log("\n");
+        if(udriveResets > UDRIVE_MAX_MISSED_COMMANDS) {
+          //UDrive seems dead. We have no more reason to keep using this microcontroller. Attempt to give command back to other microcontroller.
+          if(isSecondary()) {
+            //We seem to have a dead uDrive, so we're useless.
+            //Bring primary back up (it may be dead) and re-enter monitor mode by issuing a reset.
+            //TODO: this jmp is a hack, it's not really a reset. Beware.
+            asm volatile ("jmp 0x0000");
+          } else {
+            //We're the primary. Enter infinite loop so that the secondary will attempt a reset.
+            //Heartbeat line won't be pulsed until main loop is entered, which won't happen unless the uDrive
+            //is detected in setup().
+            //If the uDrive is really dead, this will cause the secondary to take over eventually.
+            log("uDRIVE is dead. Entering infinite loop.\n");
+            while(true){}
+          }
+        }
       } 
       else {
+        udriveResets=0;
         log("OK!\n");
       }
     }

@@ -62,8 +62,8 @@ void time_setup(boolean wasReset) {
 }
 
 /**
- * Checks the internal EEPROM for a valid time signature if RSTPIN is low.
- * If RSTPIN is high or no valid signature is found, initialize time to 0.
+ * Checks the internal EEPROM for a valid time signature.
+ * If no valid signature is found, initialize time to 0.
  * @return true if a valid time signature was found and loaded.
  */
 boolean check_for_interrupted() {

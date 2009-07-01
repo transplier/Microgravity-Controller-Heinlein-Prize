@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 29 Jun 2009 04:10:32 PM CDT
+EESchema Schematic File Version 2  date Tue 30 Jun 2009 02:45:34 PM CDT
 LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,./Timing_Unit.cache
 EELAYER 24  0
 EELAYER END
@@ -13,6 +13,22 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Notes Line
+	3750 7000 1050 7000
+Wire Notes Line
+	3750 7000 3750 7600
+Wire Notes Line
+	3750 7600 1050 7600
+Wire Notes Line
+	1050 7600 1050 7000
+Wire Notes Line
+	9800 1050 7800 1050
+Wire Notes Line
+	9800 1050 9800 2050
+Wire Notes Line
+	9800 2050 7800 2050
+Wire Notes Line
+	7800 2050 7800 1050
 Wire Wire Line
 	4750 2800 4150 2800
 Wire Wire Line
@@ -29,16 +45,16 @@ Wire Wire Line
 	4500 2450 4500 2300
 Wire Wire Line
 	4500 2300 4300 2300
-Connection ~ 1950 800 
-Connection ~ 2750 800 
-Connection ~ 2750 1200
-Connection ~ 2350 1200
+Connection ~ 8050 1350
+Connection ~ 8850 1350
+Connection ~ 8850 1750
+Connection ~ 8450 1750
 Wire Wire Line
-	2350 1100 2350 1200
+	8450 1650 8450 1750
 Wire Wire Line
-	2750 800  3400 800 
+	8850 1350 9500 1350
 Wire Wire Line
-	5050 7350 5050 7450
+	8300 2700 8300 2800
 Connection ~ 4750 3750
 Wire Wire Line
 	4750 3650 4750 3850
@@ -175,15 +191,15 @@ Wire Wire Line
 Wire Wire Line
 	2050 1850 1650 1850
 Wire Wire Line
-	3250 1200 3250 1250
+	9350 1750 9350 1800
 Wire Wire Line
-	3350 1250 3350 1200
-Connection ~ 3300 800 
+	9450 1800 9450 1750
+Connection ~ 9400 1350
 Wire Wire Line
 	1650 1950 2700 1950
 Connection ~ 2700 1950
 Connection ~ 3600 6300
-Connection ~ 3200 800 
+Connection ~ 9300 1350
 Wire Wire Line
 	4400 2100 4400 4600
 Wire Wire Line
@@ -200,8 +216,8 @@ Wire Wire Line
 	4750 4150 4750 4300
 Connection ~ 4750 4250
 Wire Wire Line
-	3350 1200 1950 1200
-Connection ~ 3250 1200
+	9450 1750 8050 1750
+Connection ~ 9350 1750
 Wire Wire Line
 	4250 2400 4550 2400
 Wire Wire Line
@@ -212,24 +228,50 @@ Wire Wire Line
 	4050 2250 4050 2900
 Wire Wire Line
 	4050 2900 4750 2900
+Wire Notes Line
+	3700 5200 3700 1450
+Wire Notes Line
+	3700 5200 7300 5200
+Wire Notes Line
+	7300 5200 7300 1450
+Wire Notes Line
+	7300 1450 3700 1450
+Wire Notes Line
+	5650 5300 5650 7150
+Wire Notes Line
+	5650 7150 11150 7150
+Wire Notes Line
+	11150 7150 11150 5250
+Wire Notes Line
+	11150 5250 5650 5250
+Wire Notes Line
+	5650 5250 5650 5350
+Text Notes 1150 7000 0    60   ~ 0
+Reset Circuit
+Text Notes 7800 5250 0    60   ~ 0
+Redundancy Takeover Lock
+Text Notes 7800 1050 0    60   ~ 0
+Power regulator
+Text Notes 3700 1450 0    60   ~ 0
+Redundant I/O Selector
 $Comp
 L CAPAPOL C2
 U 1 1 4A411586
-P 1950 1000
-F 0 "C2" H 2000 1100 50  0000 L CNN
-F 1 "0.33uF" H 2000 900 50  0000 L CNN
-F 4 "495-1497-1-ND" H 1950 1000 60  0001 C CNN "Digikey Part"
-	1    1950 1000
+P 8050 1550
+F 0 "C2" H 8100 1650 50  0000 L CNN
+F 1 "0.33uF" H 8100 1450 50  0000 L CNN
+F 4 "495-1497-1-ND" H 8050 1550 60  0001 C CNN "Digikey Part"
+	1    8050 1550
 	1    0    0    -1  
 $EndComp
 $Comp
 L C C1
 U 1 1 4A41122C
-P 2750 1000
-F 0 "C1" H 2800 1100 50  0000 L CNN
-F 1 "0.1uF" H 2800 900 50  0000 L CNN
-F 4 "PCC1828CT-ND" H 2750 1000 60  0001 C CNN "Digikey Part"
-	1    2750 1000
+P 8850 1550
+F 0 "C1" H 8900 1650 50  0000 L CNN
+F 1 "0.1uF" H 8900 1450 50  0000 L CNN
+F 4 "PCC1828CT-ND" H 8850 1550 60  0001 C CNN "Digikey Part"
+	1    8850 1550
 	1    0    0    -1  
 $EndComp
 NoConn ~ 1650 4100
@@ -237,32 +279,32 @@ NoConn ~ 1650 1550
 $Comp
 L 7805 U9
 U 1 1 4A41109B
-P 2350 800
-F 0 "U9" H 2500 560 60  0000 C CNN
-F 1 "L7805ABD2T-TR" H 2355 940 60  0000 C CNN
-F 4 "497-1170-1-ND" H 2350 800 60  0001 C CNN "Digikey Part"
-	1    2350 800 
+P 8450 1350
+F 0 "U9" H 8600 1110 60  0000 C CNN
+F 1 "L7805ABD2T-TR" H 8455 1490 60  0000 C CNN
+F 4 "497-1170-1-ND" H 8450 1350 60  0001 C CNN "Digikey Part"
+	1    8450 1350
 	1    0    0    -1  
 $EndComp
 $Comp
 L GND #PWR040
 U 1 1 4A40CB90
-P 5050 7450
-F 0 "#PWR040" H 5050 7450 30  0001 C CNN
-F 1 "GND" H 5050 7380 30  0001 C CNN
-	1    5050 7450
+P 8300 2800
+F 0 "#PWR040" H 8300 2800 30  0001 C CNN
+F 1 "GND" H 8300 2730 30  0001 C CNN
+	1    8300 2800
 	1    0    0    -1  
 $EndComp
 $Comp
 L 7404 U8
 U 6 1 4A40CB80
-P 5300 7350
-F 0 "U8" H 5400 7550 60  0000 C CNN
-F 1 "MM74HC04M" H 5750 7450 60  0000 C CNN
-	6    5300 7350
+P 8550 2700
+F 0 "U8" H 8650 2900 60  0000 C CNN
+F 1 "MM74HC04M" H 9000 2800 60  0000 C CNN
+	6    8550 2700
 	1    0    0    -1  
 $EndComp
-Text Label 5550 7350 0    40   ~ 0
+Text Label 8800 2700 0    40   ~ 0
 A1_RST
 $Comp
 L GND #PWR041
@@ -309,10 +351,10 @@ NoConn ~ 1650 1450
 $Comp
 L +BATT #PWR043
 U 1 1 4A203740
-P 1950 800
-F 0 "#PWR043" H 1950 750 20  0001 C CNN
-F 1 "+BATT" H 1950 900 30  0000 C CNN
-	1    1950 800 
+P 8050 1350
+F 0 "#PWR043" H 8050 1300 20  0001 C CNN
+F 1 "+BATT" H 8050 1450 30  0000 C CNN
+	1    8050 1350
 	1    0    0    -1  
 $EndComp
 Text Label 1650 1550 0    60   ~ 0
@@ -397,46 +439,46 @@ $EndComp
 $Comp
 L VCC #PWR045
 U 1 1 4A203166
-P 3400 800
-F 0 "#PWR045" H 3400 900 30  0001 C CNN
-F 1 "VCC" H 3400 900 30  0000 C CNN
-	1    3400 800 
+P 9500 1350
+F 0 "#PWR045" H 9500 1450 30  0001 C CNN
+F 1 "VCC" H 9500 1450 30  0000 C CNN
+	1    9500 1350
 	1    0    0    -1  
 $EndComp
 $Comp
 L GND #PWR046
 U 1 1 4A203100
-P 3350 1250
-F 0 "#PWR046" H 3350 1250 30  0001 C CNN
-F 1 "GND" H 3350 1180 30  0001 C CNN
-	1    3350 1250
+P 9450 1800
+F 0 "#PWR046" H 9450 1800 30  0001 C CNN
+F 1 "GND" H 9450 1730 30  0001 C CNN
+	1    9450 1800
 	1    0    0    -1  
 $EndComp
 $Comp
 L VSS #PWR047
 U 1 1 4A2030FC
-P 3250 1250
-F 0 "#PWR047" H 3250 1250 30  0001 C CNN
-F 1 "VSS" H 3250 1180 30  0000 C CNN
-	1    3250 1250
+P 9350 1800
+F 0 "#PWR047" H 9350 1800 30  0001 C CNN
+F 1 "VSS" H 9350 1730 30  0000 C CNN
+	1    9350 1800
 	1    0    0    -1  
 $EndComp
 $Comp
 L VDD #PWR048
 U 1 1 4A2030F3
-P 3300 800
-F 0 "#PWR048" H 3300 900 30  0001 C CNN
-F 1 "VDD" H 3300 910 30  0000 C CNN
-	1    3300 800 
+P 9400 1350
+F 0 "#PWR048" H 9400 1450 30  0001 C CNN
+F 1 "VDD" H 9400 1460 30  0000 C CNN
+	1    9400 1350
 	1    0    0    -1  
 $EndComp
 $Comp
 L +5V #PWR049
 U 1 1 4A2030E5
-P 3200 800
-F 0 "#PWR049" H 3200 890 20  0001 C CNN
-F 1 "+5V" H 3200 890 30  0000 C CNN
-	1    3200 800 
+P 9300 1350
+F 0 "#PWR049" H 9300 1440 20  0001 C CNN
+F 1 "+5V" H 9300 1440 30  0000 C CNN
+	1    9300 1350
 	1    0    0    -1  
 $EndComp
 NoConn ~ 1650 4300
