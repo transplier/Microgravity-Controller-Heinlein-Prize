@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20090216-final) date = Mon 29 Jun 2009 12:10:04 PM CDT
+Cmp-Mod V01 Created by CVpcb (20090216-final) date = Wed 01 Jul 2009 06:09:49 PM CDT
 
 BeginCmp
 TimeStamp = /4A2048D8/4A43814E;
@@ -17,6 +17,76 @@ EndCmp
 BeginCmp
 TimeStamp = /4A2048D8/4A203201;
 Reference = D1;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEC50;
+Reference = D2;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEC43;
+Reference = D3;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEB9B;
+Reference = D4;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEC27;
+Reference = D5;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEB96;
+Reference = D6;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEB93;
+Reference = D7;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEB8F;
+Reference = D8;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEB88;
+Reference = D9;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEBEE;
+Reference = D10;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEBA8;
+Reference = D11;
 ValeurCmp = DIODE;
 IdModule  = SM0603;
 EndCmp
@@ -141,6 +211,76 @@ IdModule  = SM0805;
 EndCmp
 
 BeginCmp
+TimeStamp = /4A4BEC51;
+Reference = R12;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEC44;
+Reference = R13;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEB9C;
+Reference = R14;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEC28;
+Reference = R15;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEB97;
+Reference = R16;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEB94;
+Reference = R17;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEB90;
+Reference = R18;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEB89;
+Reference = R19;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEBEF;
+Reference = R20;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEBA9;
+Reference = R21;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
 TimeStamp = /4A2048D8/4A202F17;
 Reference = U3;
 ValeurCmp = 74HC08DB;
@@ -201,6 +341,13 @@ TimeStamp = /4A2048D8/4A202901;
 Reference = U13;
 ValeurCmp = 74HC4094;
 IdModule  = TSSOP-16;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A4BEA44;
+Reference = U14;
+ValeurCmp = MM74HC04M;
+IdModule  = SO14N;
 EndCmp
 
 EndListe

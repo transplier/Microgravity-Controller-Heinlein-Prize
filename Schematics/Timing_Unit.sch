@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Mon 29 Jun 2009 04:10:32 PM CDT
+EESchema Schematic File Version 2  date Tue 30 Jun 2009 02:45:34 PM CDT
 LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,./Timing_Unit.cache
 EELAYER 24  0
 EELAYER END
@@ -13,6 +13,16 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 3900 1400 0    60   ~ 0
+Main experiment triggering relay
+Text Notes 5050 5250 0    60   ~ 0
+on/off shift registers
+Text Notes 5000 5150 0    60   ~ 0
+Thermostat Power
+Text Notes 650  3850 0    60   ~ 0
+Logger unit.
+Text Notes 650  3750 0    60   ~ 0
+Connector to
 NoConn ~ 1100 3550
 Wire Wire Line
 	1200 3550 1350 3550
