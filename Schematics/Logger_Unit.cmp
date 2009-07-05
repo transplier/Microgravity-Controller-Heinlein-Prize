@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20090216-final) date = Wed 01 Jul 2009 06:09:49 PM CDT
+Cmp-Mod V01 Created by CVpcb (20090216-final) date = Sun 05 Jul 2009 01:01:34 PM CEST
 
 BeginCmp
 TimeStamp = /4A2048D8/4A43814E;
@@ -12,6 +12,76 @@ TimeStamp = /4A2048D8/4A43812D;
 Reference = C2;
 ValeurCmp = 0.33uF;
 IdModule  = SM1206POL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A508778;
+Reference = C3;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A508795;
+Reference = C4;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A50871B;
+Reference = C5;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A508782;
+Reference = C6;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A5087E1;
+Reference = C7;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A5087C2;
+Reference = C8;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A5087BF;
+Reference = C9;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A5087CC;
+Reference = C10;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A5087CF;
+Reference = C11;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A5087D4;
+Reference = C12;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
 EndCmp
 
 BeginCmp

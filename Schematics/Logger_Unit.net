@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  Wed 01 Jul 2009 06:09:49 PM CDT
+# EESchema Netlist Version 1.1 created  Sun 05 Jul 2009 01:01:34 PM CEST
 (
  ( /4A2048D8/4A43814E SM0805 C1 0.1uF
   ( 1 VCC )
@@ -6,6 +6,46 @@
  )
  ( /4A2048D8/4A43812D SM1206POL C2 0.33uF
   ( 1 +12V_trig )
+  ( 2 GND )
+ )
+ ( /4A508778 SM0805 C3 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A508795 SM0805 C4 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A50871B SM0805 C5 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A508782 SM0805 C6 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A2048D8/4A5087E1 SM0805 C7 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A2048D8/4A5087C2 SM0805 C8 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A2048D8/4A5087BF SM0805 C9 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A2048D8/4A5087CC SM0805 C10 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A2048D8/4A5087CF SM0805 C11 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
+ )
+ ( /4A2048D8/4A5087D4 SM0805 C12 0.01uF
+  ( 1 VCC )
   ( 2 GND )
  )
  ( /4A2048D8/4A203201 SM0603 D1 DIODE
@@ -388,6 +428,56 @@ $endlist
 $component C2
  CP*
  SM*
+$endlist
+$component C3
+ SM*
+ C?
+ C1-1
+$endlist
+$component C4
+ SM*
+ C?
+ C1-1
+$endlist
+$component C5
+ SM*
+ C?
+ C1-1
+$endlist
+$component C6
+ SM*
+ C?
+ C1-1
+$endlist
+$component C7
+ SM*
+ C?
+ C1-1
+$endlist
+$component C8
+ SM*
+ C?
+ C1-1
+$endlist
+$component C9
+ SM*
+ C?
+ C1-1
+$endlist
+$component C10
+ SM*
+ C?
+ C1-1
+$endlist
+$component C11
+ SM*
+ C?
+ C1-1
+$endlist
+$component C12
+ SM*
+ C?
+ C1-1
 $endlist
 $component D1
  D?
