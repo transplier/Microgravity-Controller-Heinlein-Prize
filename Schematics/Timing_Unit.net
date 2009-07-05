@@ -1,466 +1,520 @@
-# EESchema Netlist Version 1.1 created  Mon 29 Jun 2009 04:10:30 PM CDT
+# EESchema Netlist Version 1.1 created  Sun 05 Jul 2009 02:39:57 PM CEST
 (
- ( /4A418C9E $noname  U12 74HC4094 {Lib=74HC4094}
-  (    1 /Timing_Unit_Processors/PWR_SR_L )
-  (    2 N-000030 )
-  (    3 /Timing_Unit_Processors/PWR_SR_C )
-  (    4 N-000022 )
-  (    5 N-000017 )
-  (    6 ? )
-  (    7 ? )
-  (    8 VSS )
-  (    9 ? )
-  (   10 ? )
-  (   11 ? )
-  (   12 ? )
-  (   13 ? )
-  (   14 ? )
-  (   15 N-000029 )
-  (   16 VCC )
+ ( /4A2014E2/4A41122C SM0805 C1 0.1uF
+  ( 1 VCC )
+  ( 2 GND )
  )
- ( /4A418C7E $noname  U11 74HC4094 {Lib=74HC4094}
-  (    1 /Timing_Unit_Processors/PWR_SR_L )
-  (    2 /Timing_Unit_Processors/PWR_SR_D )
-  (    3 /Timing_Unit_Processors/PWR_SR_C )
-  (    4 N-000026 )
-  (    5 N-000034 )
-  (    6 N-000025 )
-  (    7 N-000035 )
-  (    8 VSS )
-  (    9 N-000030 )
-  (   10 ? )
-  (   11 N-000037 )
-  (   12 N-000023 )
-  (   13 N-000036 )
-  (   14 N-000024 )
-  (   15 N-000029 )
-  (   16 VCC )
+ ( /4A2014E2/4A411586 SM1206POL C2 0.33uF
+  ( 1 +BATT )
+  ( 2 GND )
  )
- ( /4A411D2D $noname  Q22 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000043 )
-  (    G /Timing_Unit_Processors/EXP_TRIGGER_ON )
-  (    S VSS )
+ ( /4A509CC3 SM0805 C3 0.1uF
+  ( 1 +12V_trig )
+  ( 2 GND )
  )
- ( /4A411D2A $noname  Q21 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000003 )
-  (    G /Timing_Unit_Processors/EXP_TRIGGER_OFF )
-  (    S VSS )
+ ( /4A509C9C SM0805 C4 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
  )
- ( /4A3FCFAC $noname  K1 DATA_C {Lib=CONN_4}
-  (    1 ? )
-  (    2 /Timing_Unit_Processors/RXi )
-  (    3 /Timing_Unit_Processors/TXi )
-  (    4 VSS )
+ ( /4A509C7C SM0805 C5 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
  )
- ( /4A3FC15C $noname  P1 BATT_C {Lib=CONN_4}
-  (    1 VSS )
-  (    2 VSS )
-  (    3 +BATT )
-  (    4 +BATT )
+ ( /4A2014E2/4A509EE5 SM0805 C6 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
  )
- ( /4A3FC134 $noname  P2 EXP_PWR_C {Lib=CONN_4}
-  (    1 VSS )
-  (    2 VSS )
-  (    3 +12V_trig )
-  (    4 +12V_trig )
+ ( /4A2014E2/4A509EF2 SM0805 C7 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
  )
- ( /4A32C3E4 $noname  Q20 MOSFET_P {Lib=MOSFET_P}
-  (    D N-000005 )
-  (    G N-000007 )
-  (    S +12V_trig )
+ ( /4A2014E2/4A509EEA SM0805 C8 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
  )
- ( /4A32C3E3 $noname  R21 20k {Lib=R}
-  (    1 +12V_trig )
-  (    2 N-000007 )
+ ( /4A2014E2/4A509EED SM0805 C9 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
  )
- ( /4A32C3E2 $noname  Q11 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000007 )
-  (    G N-000017 )
-  (    S VSS )
+ ( /4A2014E2/4A509EFA SM0805 C10 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
  )
- ( /4A32C3DF $noname  Q19 MOSFET_P {Lib=MOSFET_P}
-  (    D N-000041 )
-  (    G N-000008 )
-  (    S +12V_trig )
+ ( /4A2014E2/4A509F04 SM0805 C11 0.01uF
+  ( 1 VCC )
+  ( 2 GND )
  )
- ( /4A32C3DE $noname  R20 20k {Lib=R}
-  (    1 +12V_trig )
-  (    2 N-000008 )
+ ( /4A2014E2/4A203201 SM0603 D1 DIODE
+  ( 1 /Timing_1 )
+  ( 2 /Timing_2 )
  )
- ( /4A32C3DD $noname  Q10 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000008 )
-  (    G N-000022 )
-  (    S VSS )
+ ( /4A3FCFAC 4P4C_SMD K1 DATA_C
+  ( 1 ? )
+  ( 2 /Timing_3 )
+  ( 3 /Timing_4 )
+  ( 4 GND )
  )
- ( /4A32C3DA $noname  Q18 MOSFET_P {Lib=MOSFET_P}
-  (    D N-000006 )
-  (    G N-000009 )
-  (    S +12V_trig )
+ ( /4A200BE6 RELAY_BISTABLE K2 RELAY_BISTABLE
+  ( 1 +12V_trig )
+  ( 2 +BATT )
+  ( 3 ? )
+  ( 6 N-000003 )
+  ( 7 +BATT )
+  ( 8 N-000043 )
  )
- ( /4A32C3D9 $noname  R19 20k {Lib=R}
-  (    1 +12V_trig )
-  (    2 N-000009 )
+ ( /4A3FC15C CONN_4_3mm P1 BATT_C
+  ( 1 GND )
+  ( 2 GND )
+  ( 3 +BATT )
+  ( 4 +BATT )
  )
- ( /4A32C3D8 $noname  Q9 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000009 )
-  (    G N-000037 )
-  (    S VSS )
+ ( /4A3FC134 CONN_4_3mm P2 EXP_PWR_C
+  ( 1 GND )
+  ( 2 GND )
+  ( 3 +12V_trig )
+  ( 4 +12V_trig )
  )
- ( /4A32C3D5 $noname  Q17 MOSFET_P {Lib=MOSFET_P}
-  (    D N-000040 )
-  (    G N-000010 )
-  (    S +12V_trig )
+ ( /4A200C35 CONN_2_3mm P3 TS_1
+  ( 1 N-000021 )
+  ( 2 GND )
  )
- ( /4A32C3D4 $noname  R18 20k {Lib=R}
-  (    1 +12V_trig )
-  (    2 N-000010 )
+ ( /4A200C36 CONN_2_3mm P4 TS_2
+  ( 1 N-000038 )
+  ( 2 GND )
  )
- ( /4A32C3D3 $noname  Q8 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000010 )
-  (    G N-000023 )
-  (    S VSS )
+ ( /4A200C2A CONN_2_3mm P5 TS_3
+  ( 1 N-000020 )
+  ( 2 GND )
  )
- ( /4A32C3D0 $noname  Q16 MOSFET_P {Lib=MOSFET_P}
-  (    D N-000018 )
-  (    G N-000011 )
-  (    S +12V_trig )
+ ( /4A200C2B CONN_2_3mm P6 TS_4
+  ( 1 N-000019 )
+  ( 2 GND )
  )
- ( /4A32C3CF $noname  R17 20k {Lib=R}
-  (    1 +12V_trig )
-  (    2 N-000011 )
+ ( /4A200C00 CONN_2_3mm P7 TS_5
+  ( 1 N-000039 )
+  ( 2 GND )
  )
- ( /4A32C3CE $noname  Q7 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000011 )
-  (    G N-000036 )
-  (    S VSS )
+ ( /4A200C24 CONN_2_3mm P8 TS_6
+  ( 1 N-000018 )
+  ( 2 GND )
  )
- ( /4A32C3CB $noname  Q15 MOSFET_P {Lib=MOSFET_P}
-  (    D N-000039 )
-  (    G N-000012 )
-  (    S +12V_trig )
+ ( /4A200C31 CONN_2_3mm P9 TS_7
+  ( 1 N-000040 )
+  ( 2 GND )
  )
- ( /4A32C3CA $noname  R16 20k {Lib=R}
-  (    1 +12V_trig )
-  (    2 N-000012 )
+ ( /4A200C32 CONN_2_3mm P10 TS_8
+  ( 1 N-000006 )
+  ( 2 GND )
  )
- ( /4A32C3C9 $noname  Q6 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000012 )
-  (    G N-000024 )
-  (    S VSS )
+ ( /4A200C2F CONN_2_3mm P11 TS_9
+  ( 1 N-000041 )
+  ( 2 GND )
  )
- ( /4A32C3C6 $noname  Q14 MOSFET_P {Lib=MOSFET_P}
-  (    D N-000019 )
-  (    G N-000013 )
-  (    S +12V_trig )
+ ( /4A200C30 CONN_2_3mm P12 TS_10
+  ( 1 N-000005 )
+  ( 2 GND )
  )
- ( /4A32C3C5 $noname  R15 20k {Lib=R}
-  (    1 +12V_trig )
-  (    2 N-000013 )
+ ( /4A2014E2/4A20362F pin_array_13x2 P13 ARDUINO_1
+  ( 1 ? )
+  ( 2 ? )
+  ( 3 ? )
+  ( 4 ? )
+  ( 5 ? )
+  ( 6 ? )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 ? )
+  ( 10 ? )
+  ( 11 ? )
+  ( 12 /Timing_5 )
+  ( 13 /Timing_6 )
+  ( 14 /Timing_7 )
+  ( 15 /Timing_8 )
+  ( 16 /Timing_9 )
+  ( 17 /Timing_10 )
+  ( 18 /Timing_11 )
+  ( 19 /Timing_3 )
+  ( 20 GND )
+  ( 21 /Timing_12 )
+  ( 22 VCC )
+  ( 23 ? )
+  ( 24 ? )
+  ( 25 ? )
  )
- ( /4A32C3C4 $noname  Q5 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000013 )
-  (    G N-000035 )
-  (    S VSS )
+ ( /4A2014E2/4A20365B pin_array_13x2 P14 ARDUINO_2
+  ( 1 ? )
+  ( 2 ? )
+  ( 3 ? )
+  ( 4 ? )
+  ( 5 ? )
+  ( 6 ? )
+  ( 7 ? )
+  ( 8 /Timing_13 )
+  ( 9 /Timing_14 )
+  ( 10 /Timing_2 )
+  ( 11 /Timing_15 )
+  ( 12 /Timing_5 )
+  ( 13 /Timing_16 )
+  ( 14 /Timing_17 )
+  ( 15 /Timing_18 )
+  ( 16 /Timing_19 )
+  ( 17 /Timing_20 )
+  ( 18 /Timing_21 )
+  ( 19 /Timing_3 )
+  ( 20 GND )
+  ( 21 ? )
+  ( 22 ? )
+  ( 23 ? )
+  ( 24 ? )
+  ( 25 ? )
  )
- ( /4A32C3C1 $noname  Q13 MOSFET_P {Lib=MOSFET_P}
-  (    D N-000020 )
-  (    G N-000014 )
-  (    S +12V_trig )
+ ( /4A29267A SOT223_FET Q1 MOSFET_P
+  ( D N-000021 )
+  ( G N-000016 )
+  ( S +12V_trig )
  )
- ( /4A32C3C0 $noname  R14 20k {Lib=R}
-  (    1 +12V_trig )
-  (    2 N-000014 )
+ ( /4A32C1C4 SOT223_FET Q2 MOSFET_N
+  ( D N-000016 )
+  ( G N-000026 )
+  ( S GND )
  )
- ( /4A32C3BF $noname  Q4 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000014 )
-  (    G N-000025 )
-  (    S VSS )
+ ( /4A32C3B8 SOT223_FET Q3 MOSFET_N
+  ( D N-000015 )
+  ( G N-000034 )
+  ( S GND )
  )
- ( /4A32C3BA $noname  Q12 MOSFET_P {Lib=MOSFET_P}
-  (    D N-000038 )
-  (    G N-000015 )
-  (    S +12V_trig )
+ ( /4A32C3BF SOT223_FET Q4 MOSFET_N
+  ( D N-000014 )
+  ( G N-000025 )
+  ( S GND )
  )
- ( /4A32C3B9 $noname  R13 20k {Lib=R}
-  (    1 +12V_trig )
-  (    2 N-000015 )
+ ( /4A32C3C4 SOT223_FET Q5 MOSFET_N
+  ( D N-000013 )
+  ( G N-000035 )
+  ( S GND )
  )
- ( /4A32C3B8 $noname  Q3 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000015 )
-  (    G N-000034 )
-  (    S VSS )
+ ( /4A32C3C9 SOT223_FET Q6 MOSFET_N
+  ( D N-000012 )
+  ( G N-000024 )
+  ( S GND )
  )
- ( /4A29267A $noname  Q1 MOSFET_P {Lib=MOSFET_P}
-  (    D N-000021 )
-  (    G N-000016 )
-  (    S +12V_trig )
+ ( /4A32C3CE SOT223_FET Q7 MOSFET_N
+  ( D N-000011 )
+  ( G N-000036 )
+  ( S GND )
  )
- ( /4A32C1DC $noname  R12 20k {Lib=R}
-  (    1 +12V_trig )
-  (    2 N-000016 )
+ ( /4A32C3D3 SOT223_FET Q8 MOSFET_N
+  ( D N-000010 )
+  ( G N-000023 )
+  ( S GND )
  )
- ( /4A32C1C4 $noname  Q2 MOSFET_N {Lib=MOSFET_N}
-  (    D N-000016 )
-  (    G N-000026 )
-  (    S VSS )
+ ( /4A32C3D8 SOT223_FET Q9 MOSFET_N
+  ( D N-000009 )
+  ( G N-000037 )
+  ( S GND )
  )
- ( /4A200C36 $noname  P4 TS_2 {Lib=CONN_2}
-  (    1 N-000038 )
-  (    2 VSS )
+ ( /4A32C3DD SOT223_FET Q10 MOSFET_N
+  ( D N-000008 )
+  ( G N-000022 )
+  ( S GND )
  )
- ( /4A200C35 $noname  P3 TS_1 {Lib=CONN_2}
-  (    1 N-000021 )
-  (    2 VSS )
+ ( /4A32C3E2 SOT223_FET Q11 MOSFET_N
+  ( D N-000007 )
+  ( G N-000017 )
+  ( S GND )
  )
- ( /4A200C32 $noname  P10 TS_8 {Lib=CONN_2}
-  (    1 N-000006 )
-  (    2 VSS )
+ ( /4A32C3BA SOT223_FET Q12 MOSFET_P
+  ( D N-000038 )
+  ( G N-000015 )
+  ( S +12V_trig )
  )
- ( /4A200C31 $noname  P9 TS_7 {Lib=CONN_2}
-  (    1 N-000040 )
-  (    2 VSS )
+ ( /4A32C3C1 SOT223_FET Q13 MOSFET_P
+  ( D N-000020 )
+  ( G N-000014 )
+  ( S +12V_trig )
  )
- ( /4A200C30 $noname  P12 TS_10 {Lib=CONN_2}
-  (    1 N-000005 )
-  (    2 VSS )
+ ( /4A32C3C6 SOT223_FET Q14 MOSFET_P
+  ( D N-000019 )
+  ( G N-000013 )
+  ( S +12V_trig )
  )
- ( /4A200C2F $noname  P11 TS_9 {Lib=CONN_2}
-  (    1 N-000041 )
-  (    2 VSS )
+ ( /4A32C3CB SOT223_FET Q15 MOSFET_P
+  ( D N-000039 )
+  ( G N-000012 )
+  ( S +12V_trig )
  )
- ( /4A200C2B $noname  P6 TS_4 {Lib=CONN_2}
-  (    1 N-000019 )
-  (    2 VSS )
+ ( /4A32C3D0 SOT223_FET Q16 MOSFET_P
+  ( D N-000018 )
+  ( G N-000011 )
+  ( S +12V_trig )
  )
- ( /4A200C2A $noname  P5 TS_3 {Lib=CONN_2}
-  (    1 N-000020 )
-  (    2 VSS )
+ ( /4A32C3D5 SOT223_FET Q17 MOSFET_P
+  ( D N-000040 )
+  ( G N-000010 )
+  ( S +12V_trig )
  )
- ( /4A200C24 $noname  P8 TS_6 {Lib=CONN_2}
-  (    1 N-000018 )
-  (    2 VSS )
+ ( /4A32C3DA SOT223_FET Q18 MOSFET_P
+  ( D N-000006 )
+  ( G N-000009 )
+  ( S +12V_trig )
  )
- ( /4A200C00 $noname  P7 TS_5 {Lib=CONN_2}
-  (    1 N-000039 )
-  (    2 VSS )
+ ( /4A32C3DF SOT223_FET Q19 MOSFET_P
+  ( D N-000041 )
+  ( G N-000008 )
+  ( S +12V_trig )
  )
- ( /4A200BE6 $noname  K2 RELAY_BISTABLE {Lib=RELAY_BISTABLE}
-  (    1 +12V_trig )
-  (    2 +BATT )
-  (    3 ? )
-  (    6 N-000003 )
-  (    7 +BATT )
-  (    8 N-000043 )
+ ( /4A32C3E4 SOT223_FET Q20 MOSFET_P
+  ( D N-000005 )
+  ( G N-000007 )
+  ( S +12V_trig )
  )
- ( /4A2014E2/4A411586 $noname  C2 0.33uF {Lib=CAPAPOL}
-  (    1 +BATT )
-  (    2 VSS )
+ ( /4A411D2A SOT223_FET Q21 MOSFET_N
+  ( D N-000003 )
+  ( G /Timing_22 )
+  ( S GND )
  )
- ( /4A2014E2/4A41122C $noname  C1 0.1uF {Lib=C}
-  (    1 VCC )
-  (    2 VSS )
+ ( /4A411D2D SOT223_FET Q22 MOSFET_N
+  ( D N-000043 )
+  ( G /Timing_23 )
+  ( S GND )
  )
- ( /4A2014E2/4A41109B $noname  U9 L7805ABD2T-TR {Lib=7805}
-  (    1 +BATT )
-  (    2 VSS )
-  (    3 VCC )
+ ( /4A2014E2/4A203241 SM0805 R11 20k
+  ( 1 /Timing_2 )
+  ( 2 GND )
  )
- ( /4A2014E2/4A40CB80 $noname  U8 MM74HC04M {Lib=7404}
-  (    1 /Timing_Unit_Processors/~TAKEOVER )
-  (    2 /Timing_Unit_Processors/TAKEOVER )
-  (    3 /Timing_Unit_Processors/CODE_I_3 )
-  (    4 /Timing_Unit_Processors/CODE_O_3 )
-  (    5 /Timing_Unit_Processors/CODE_I_4 )
-  (    6 /Timing_Unit_Processors/CODE_O_4 )
-  (    7 VSS )
-  (    8 /Timing_Unit_Processors/CODE_O_7 )
-  (    9 /Timing_Unit_Processors/CODE_I_7 )
-  (   10 /Timing_Unit_Processors/A1_RST )
-  (   11 N-000083 )
-  (   12 /Timing_Unit_Processors/A1_RST )
-  (   13 VSS )
-  (   14 VCC )
+ ( /4A32C1DC SM0805 R12 20k
+  ( 1 +12V_trig )
+  ( 2 N-000016 )
  )
- ( /4A2014E2/4A201893 $noname  U5 CD40257BMG4 {Lib=40257}
-  (    1 /Timing_Unit_Processors/~TAKEOVER )
-  (    2 /Timing_Unit_Processors/A2_EXP_TRIGGER_ON )
-  (    3 /Timing_Unit_Processors/A1_EXP_TRIGGER_ON )
-  (    4 /Timing_Unit_Processors/EXP_TRIGGER_ON )
-  (    5 /Timing_Unit_Processors/A2_EXP_TRIGGER_OFF )
-  (    6 /Timing_Unit_Processors/A1_EXP_TRIGGER_OFF )
-  (    7 /Timing_Unit_Processors/EXP_TRIGGER_OFF )
-  (    8 VSS )
-  (    9 ? )
-  (   10 VSS )
-  (   11 VSS )
-  (   12 ? )
-  (   13 VSS )
-  (   14 VSS )
-  (   15 VSS )
-  (   16 VCC )
+ ( /4A32C3B9 SM0805 R13 20k
+  ( 1 +12V_trig )
+  ( 2 N-000015 )
  )
- ( /4A2014E2/4A20365B $noname  P14 ARDUINO_2 {Lib=CONN_25}
-  (    1 ? )
-  (    2 ? )
-  (    3 ? )
-  (    4 ? )
-  (    5 ? )
-  (    6 ? )
-  (    7 ? )
-  (    8 /Timing_Unit_Processors/A2_CONTROL_SR_C )
-  (    9 /Timing_Unit_Processors/A2_CONTROL_SR_D )
-  (   10 /Timing_Unit_Processors/A2_TAKEOVER_CHECK )
-  (   11 /Timing_Unit_Processors/A2_RST_REQ )
-  (   12 /Timing_Unit_Processors/A1_HEARTBEAT )
-  (   13 /Timing_Unit_Processors/A2_EXP_TRIGGER_OFF )
-  (   14 /Timing_Unit_Processors/A2_EXP_TRIGGER_ON )
-  (   15 /Timing_Unit_Processors/A2_POWER_SR_L )
-  (   16 /Timing_Unit_Processors/A2_POWER_SR_C )
-  (   17 /Timing_Unit_Processors/A2_POWER_SR_D )
-  (   18 /Timing_Unit_Processors/A2_TXi )
-  (   19 /Timing_Unit_Processors/RXi )
-  (   20 VSS )
-  (   21 ? )
-  (   22 ? )
-  (   23 ? )
-  (   24 ? )
-  (   25 ? )
+ ( /4A32C3C0 SM0805 R14 20k
+  ( 1 +12V_trig )
+  ( 2 N-000014 )
  )
- ( /4A2014E2/4A20362F $noname  P13 ARDUINO_1 {Lib=CONN_25}
-  (    1 ? )
-  (    2 ? )
-  (    3 ? )
-  (    4 ? )
-  (    5 ? )
-  (    6 ? )
-  (    7 ? )
-  (    8 ? )
-  (    9 ? )
-  (   10 ? )
-  (   11 ? )
-  (   12 /Timing_Unit_Processors/A1_HEARTBEAT )
-  (   13 /Timing_Unit_Processors/A1_EXP_TRIGGER_OFF )
-  (   14 /Timing_Unit_Processors/A1_EXP_TRIGGER_ON )
-  (   15 /Timing_Unit_Processors/A1_POWER_SR_L )
-  (   16 /Timing_Unit_Processors/A1_POWER_SR_C )
-  (   17 /Timing_Unit_Processors/A1_POWER_SR_D )
-  (   18 /Timing_Unit_Processors/A1_TXi )
-  (   19 /Timing_Unit_Processors/RXi )
-  (   20 VSS )
-  (   21 /Timing_Unit_Processors/A1_RST )
-  (   22 VCC )
-  (   23 ? )
-  (   24 ? )
-  (   25 ? )
+ ( /4A32C3C5 SM0805 R15 20k
+  ( 1 +12V_trig )
+  ( 2 N-000013 )
  )
- ( /4A2014E2/4A203241 $noname  R11 20k {Lib=R}
-  (    1 /Timing_Unit_Processors/A2_TAKEOVER_CHECK )
-  (    2 VSS )
+ ( /4A32C3CA SM0805 R16 20k
+  ( 1 +12V_trig )
+  ( 2 N-000012 )
  )
- ( /4A2014E2/4A203201 $noname  D1 DIODE {Lib=DIODE}
-  (    1 /Timing_Unit_Processors/~TAKEOVER )
-  (    2 /Timing_Unit_Processors/A2_TAKEOVER_CHECK )
+ ( /4A32C3CF SM0805 R17 20k
+  ( 1 +12V_trig )
+  ( 2 N-000011 )
  )
- ( /4A2014E2/4A2028AF $noname  U7 CD74HC30M {Lib=74LS30}
-  (    1 /Timing_Unit_Processors/CODE_O_0 )
-  (    2 /Timing_Unit_Processors/CODE_O_1 )
-  (    3 /Timing_Unit_Processors/CODE_O_3 )
-  (    4 /Timing_Unit_Processors/CODE_O_4 )
-  (    5 /Timing_Unit_Processors/CODE_O_5 )
-  (    6 /Timing_Unit_Processors/CODE_O_6 )
-  (    7 VSS )
-  (    8 /Timing_Unit_Processors/~TAKEOVER )
-  (   11 /Timing_Unit_Processors/CODE_O_7 )
-  (   12 /Timing_Unit_Processors/CODE_O_8 )
-  (   14 VCC )
+ ( /4A32C3D4 SM0805 R18 20k
+  ( 1 +12V_trig )
+  ( 2 N-000010 )
  )
- ( /4A2014E2/4A202F17 $noname  U3 74HC08DB {Lib=74LS08}
-  (    1 /Timing_Unit_Processors/TAKEOVER )
-  (    2 /Timing_Unit_Processors/A2_RST_REQ )
-  (    3 N-000083 )
-  (    7 VSS )
-  (   14 VCC )
+ ( /4A32C3D9 SM0805 R19 20k
+  ( 1 +12V_trig )
+  ( 2 N-000009 )
  )
- ( /4A2014E2/4A202901 $noname  U10 74HC4094 {Lib=74HC4094}
-  (    1 VCC )
-  (    2 /Timing_Unit_Processors/A2_CONTROL_SR_D )
-  (    3 /Timing_Unit_Processors/A2_CONTROL_SR_C )
-  (    4 /Timing_Unit_Processors/CODE_O_0 )
-  (    5 /Timing_Unit_Processors/CODE_O_1 )
-  (    6 /Timing_Unit_Processors/CODE_I_3 )
-  (    7 /Timing_Unit_Processors/CODE_I_4 )
-  (    8 VSS )
-  (    9 ? )
-  (   10 ? )
-  (   11 /Timing_Unit_Processors/CODE_O_8 )
-  (   12 /Timing_Unit_Processors/CODE_I_7 )
-  (   13 /Timing_Unit_Processors/CODE_O_6 )
-  (   14 /Timing_Unit_Processors/CODE_O_5 )
-  (   15 VCC )
-  (   16 VCC )
+ ( /4A32C3DE SM0805 R20 20k
+  ( 1 +12V_trig )
+  ( 2 N-000008 )
  )
- ( /4A2014E2/4A20187A $noname  U4 CD40257BMG4 {Lib=40257}
-  (    1 /Timing_Unit_Processors/~TAKEOVER )
-  (    2 /Timing_Unit_Processors/A2_TXi )
-  (    3 /Timing_Unit_Processors/A1_TXi )
-  (    4 /Timing_Unit_Processors/TXi )
-  (    5 /Timing_Unit_Processors/A2_POWER_SR_D )
-  (    6 /Timing_Unit_Processors/A1_POWER_SR_D )
-  (    7 /Timing_Unit_Processors/PWR_SR_D )
-  (    8 VSS )
-  (    9 /Timing_Unit_Processors/PWR_SR_L )
-  (   10 /Timing_Unit_Processors/A1_POWER_SR_L )
-  (   11 /Timing_Unit_Processors/A2_POWER_SR_L )
-  (   12 /Timing_Unit_Processors/PWR_SR_C )
-  (   13 /Timing_Unit_Processors/A1_POWER_SR_C )
-  (   14 /Timing_Unit_Processors/A2_POWER_SR_C )
-  (   15 VSS )
-  (   16 VCC )
+ ( /4A32C3E3 SM0805 R21 20k
+  ( 1 +12V_trig )
+  ( 2 N-000007 )
+ )
+ ( /4A2014E2/4A202F17 SSOP14 U3 74HC08DB
+  ( 1 /Timing_24 )
+  ( 2 /Timing_15 )
+  ( 3 N-000084 )
+  ( 7 GND )
+  ( 14 VCC )
+ )
+ ( /4A2014E2/4A20187A SO16N U4 CD40257BMG4
+  ( 1 /Timing_1 )
+  ( 2 /Timing_21 )
+  ( 3 /Timing_11 )
+  ( 4 /Timing_4 )
+  ( 5 /Timing_20 )
+  ( 6 /Timing_10 )
+  ( 7 /Timing_25 )
+  ( 8 GND )
+  ( 9 /Timing_26 )
+  ( 10 /Timing_8 )
+  ( 11 /Timing_18 )
+  ( 12 /Timing_27 )
+  ( 13 /Timing_9 )
+  ( 14 /Timing_19 )
+  ( 15 GND )
+  ( 16 VCC )
+ )
+ ( /4A2014E2/4A201893 SO16N U5 CD40257BMG4
+  ( 1 /Timing_1 )
+  ( 2 /Timing_17 )
+  ( 3 /Timing_7 )
+  ( 4 /Timing_23 )
+  ( 5 /Timing_16 )
+  ( 6 /Timing_6 )
+  ( 7 /Timing_22 )
+  ( 8 GND )
+  ( 9 ? )
+  ( 10 GND )
+  ( 11 GND )
+  ( 12 ? )
+  ( 13 GND )
+  ( 14 GND )
+  ( 15 GND )
+  ( 16 VCC )
+ )
+ ( /4A2014E2/4A2028AF SO14N U7 CD74HC30M
+  ( 1 /Timing_28 )
+  ( 2 /Timing_29 )
+  ( 3 /Timing_30 )
+  ( 4 /Timing_31 )
+  ( 5 /Timing_32 )
+  ( 6 /Timing_33 )
+  ( 7 GND )
+  ( 8 /Timing_1 )
+  ( 11 /Timing_34 )
+  ( 12 /Timing_35 )
+  ( 14 VCC )
+ )
+ ( /4A2014E2/4A40CB80 SO14N U8 MM74HC04M
+  ( 1 /Timing_1 )
+  ( 2 /Timing_24 )
+  ( 3 /Timing_36 )
+  ( 4 /Timing_30 )
+  ( 5 /Timing_37 )
+  ( 6 /Timing_31 )
+  ( 7 GND )
+  ( 8 /Timing_34 )
+  ( 9 /Timing_38 )
+  ( 10 /Timing_12 )
+  ( 11 N-000084 )
+  ( 12 /Timing_12 )
+  ( 13 GND )
+  ( 14 VCC )
+ )
+ ( /4A2014E2/4A41109B d2-pak U9 L7805ABD2T-TR
+  ( 1 +BATT )
+  ( 2 GND )
+  ( 3 VCC )
+ )
+ ( /4A2014E2/4A202901 TSSOP-16 U10 74HC4094
+  ( 1 VCC )
+  ( 2 /Timing_14 )
+  ( 3 /Timing_13 )
+  ( 4 /Timing_28 )
+  ( 5 /Timing_29 )
+  ( 6 /Timing_36 )
+  ( 7 /Timing_37 )
+  ( 8 GND )
+  ( 9 ? )
+  ( 10 ? )
+  ( 11 /Timing_35 )
+  ( 12 /Timing_38 )
+  ( 13 /Timing_33 )
+  ( 14 /Timing_32 )
+  ( 15 VCC )
+  ( 16 VCC )
+ )
+ ( /4A418C7E TSSOP-16 U11 74HC4094
+  ( 1 /Timing_26 )
+  ( 2 /Timing_25 )
+  ( 3 /Timing_27 )
+  ( 4 N-000026 )
+  ( 5 N-000034 )
+  ( 6 N-000025 )
+  ( 7 N-000035 )
+  ( 8 GND )
+  ( 9 N-000030 )
+  ( 10 ? )
+  ( 11 N-000037 )
+  ( 12 N-000023 )
+  ( 13 N-000036 )
+  ( 14 N-000024 )
+  ( 15 N-000029 )
+  ( 16 VCC )
+ )
+ ( /4A418C9E TSSOP-16 U12 74HC4094
+  ( 1 /Timing_26 )
+  ( 2 N-000030 )
+  ( 3 /Timing_27 )
+  ( 4 N-000022 )
+  ( 5 N-000017 )
+  ( 6 ? )
+  ( 7 ? )
+  ( 8 GND )
+  ( 9 ? )
+  ( 10 ? )
+  ( 11 ? )
+  ( 12 ? )
+  ( 13 ? )
+  ( 14 ? )
+  ( 15 N-000029 )
+  ( 16 VCC )
  )
 )
 *
 { Allowed footprints by component:
-$component R21
- R?
- SM0603
- SM0805
+$component C1
+ SM*
+ C?
+ C1-1
 $endlist
-$component R20
- R?
- SM0603
- SM0805
+$component C2
+ CP*
+ SM*
 $endlist
-$component R19
- R?
- SM0603
- SM0805
+$component C3
+ SM*
+ C?
+ C1-1
 $endlist
-$component R18
- R?
- SM0603
- SM0805
+$component C4
+ SM*
+ C?
+ C1-1
 $endlist
-$component R17
- R?
- SM0603
- SM0805
+$component C5
+ SM*
+ C?
+ C1-1
 $endlist
-$component R16
- R?
- SM0603
- SM0805
+$component C6
+ SM*
+ C?
+ C1-1
 $endlist
-$component R15
- R?
- SM0603
- SM0805
+$component C7
+ SM*
+ C?
+ C1-1
 $endlist
-$component R14
- R?
- SM0603
- SM0805
+$component C8
+ SM*
+ C?
+ C1-1
 $endlist
-$component R13
+$component C9
+ SM*
+ C?
+ C1-1
+$endlist
+$component C10
+ SM*
+ C?
+ C1-1
+$endlist
+$component C11
+ SM*
+ C?
+ C1-1
+$endlist
+$component D1
+ D?
+ S*
+$endlist
+$component R11
  R?
  SM0603
  SM0805
@@ -470,357 +524,50 @@ $component R12
  SM0603
  SM0805
 $endlist
-$component C2
- CP*
- SM*
-$endlist
-$component C1
- SM*
- C?
- C1-1
-$endlist
-$component R11
+$component R13
  R?
  SM0603
  SM0805
 $endlist
-$component D1
- D?
- S*
+$component R14
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R15
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R16
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R17
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R18
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R19
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R20
+ R?
+ SM0603
+ SM0805
+$endlist
+$component R21
+ R?
+ SM0603
+ SM0805
 $endlist
 $endfootprintlist
 }
-{ Pin List by Nets
-Net 2 "/Timing Unit Processors/EXP_TRIGGER_ON" "EXP_TRIGGER_ON"
- Q22 G
- U5 4
-Net 3 "" ""
- Q21 D
- K2 6
-Net 4 "+BATT" "+BATT"
- P1 4
- P1 3
- K2 7
- K2 2
- C2 1
- U9 1
-Net 5 "" ""
- Q20 D
- P12 1
-Net 6 "" ""
- Q18 D
- P10 1
-Net 7 "" ""
- Q20 G
- R21 2
- Q11 D
-Net 8 "" ""
- Q19 G
- R20 2
- Q10 D
-Net 9 "" ""
- Q18 G
- R19 2
- Q9 D
-Net 10 "" ""
- Q17 G
- R18 2
- Q8 D
-Net 11 "" ""
- Q16 G
- R17 2
- Q7 D
-Net 12 "" ""
- Q15 G
- R16 2
- Q6 D
-Net 13 "" ""
- Q14 G
- R15 2
- Q5 D
-Net 14 "" ""
- Q13 G
- R14 2
- Q4 D
-Net 15 "" ""
- Q12 G
- R13 2
- Q3 D
-Net 16 "" ""
- Q1 G
- R12 2
- Q2 D
-Net 17 "" ""
- U12 5
- Q11 G
-Net 18 "" ""
- Q16 D
- P8 1
-Net 19 "" ""
- Q14 D
- P6 1
-Net 20 "" ""
- Q13 D
- P5 1
-Net 21 "" ""
- Q1 D
- P3 1
-Net 22 "" ""
- U12 4
- Q10 G
-Net 23 "" ""
- U11 12
- Q8 G
-Net 24 "" ""
- U11 14
- Q6 G
-Net 25 "" ""
- U11 6
- Q4 G
-Net 26 "" ""
- U11 4
- Q2 G
-Net 27 "/Timing Unit Processors/TXi" "TXi"
- K1 3
- U4 4
-Net 28 "/Timing Unit Processors/PWR_SR_C" "PWR_SR_C"
- U12 3
- U11 3
- U4 12
-Net 29 "" ""
- U12 15
- U11 15
-Net 30 "" ""
- U12 2
- U11 9
-Net 31 "/Timing Unit Processors/PWR_SR_L" "PWR_SR_L"
- U12 1
- U11 1
- U4 9
-Net 32 "/Timing Unit Processors/PWR_SR_D" "PWR_SR_D"
- U11 2
- U4 7
-Net 33 "/Timing Unit Processors/RXi" "RXi"
- K1 2
- P14 19
- P13 19
-Net 34 "" ""
- U11 5
- Q3 G
-Net 35 "" ""
- U11 7
- Q5 G
-Net 36 "" ""
- U11 13
- Q7 G
-Net 37 "" ""
- U11 11
- Q9 G
-Net 38 "" ""
- Q12 D
- P4 1
-Net 39 "" ""
- Q15 D
- P7 1
-Net 40 "" ""
- Q17 D
- P9 1
-Net 41 "" ""
- Q19 D
- P11 1
-Net 42 "/Timing Unit Processors/EXP_TRIGGER_OFF" "EXP_TRIGGER_OFF"
- Q21 G
- U5 7
-Net 43 "" ""
- Q22 D
- K2 8
-Net 53 "VSS" "VSS"
- U12 8
- U11 8
- Q22 S
- Q21 S
- K1 4
- P1 2
- P1 1
- P2 2
- P2 1
- Q11 S
- Q10 S
- Q9 S
- Q8 S
- Q7 S
- Q6 S
- Q5 S
- Q4 S
- Q3 S
- Q2 S
- P4 2
- P3 2
- P10 2
- P9 2
- P12 2
- P11 2
- P6 2
- P5 2
- P8 2
- P7 2
- C2 2
- C1 2
- U9 2
- U8 13
- U5 15
- U5 13
- U5 10
- U5 14
- U5 11
- U5 8
- P14 20
- P13 20
- R11 2
- U7 7
- U8 7
- U3 7
- U10 8
- U4 15
- U4 8
-Net 54 "+12V_trig" "+12V_trig"
- P2 4
- P2 3
- Q20 S
- R21 1
- Q19 S
- R20 1
- Q18 S
- R19 1
- Q17 S
- R18 1
- Q16 S
- R17 1
- Q15 S
- R16 1
- Q14 S
- R15 1
- Q13 S
- R14 1
- Q12 S
- R13 1
- Q1 S
- R12 1
- K2 1
-Net 56 "/Timing Unit Processors/A1_POWER_SR_L" "A1_POWER_SR_L"
- P13 15
- U4 10
-Net 57 "/Timing Unit Processors/A2_CONTROL_SR_D" "A2_CONTROL_SR_D"
- P14 9
- U10 2
-Net 58 "/Timing Unit Processors/A2_EXP_TRIGGER_OFF" "A2_EXP_TRIGGER_OFF"
- U5 5
- P14 13
-Net 59 "/Timing Unit Processors/A2_POWER_SR_L" "A2_POWER_SR_L"
- P14 15
- U4 11
-Net 60 "/Timing Unit Processors/A2_POWER_SR_D" "A2_POWER_SR_D"
- P14 17
- U4 5
-Net 61 "/Timing Unit Processors/TAKEOVER" "TAKEOVER"
- U8 2
- U3 1
-Net 62 "/Timing Unit Processors/A1_HEARTBEAT" "A1_HEARTBEAT"
- P14 12
- P13 12
-Net 63 "/Timing Unit Processors/A2_POWER_SR_C" "A2_POWER_SR_C"
- P14 16
- U4 14
-Net 64 "/Timing Unit Processors/A1_EXP_TRIGGER_ON" "A1_EXP_TRIGGER_ON"
- U5 3
- P13 14
-Net 65 "/Timing Unit Processors/A2_EXP_TRIGGER_ON" "A2_EXP_TRIGGER_ON"
- U5 2
- P14 14
-Net 66 "/Timing Unit Processors/A1_POWER_SR_C" "A1_POWER_SR_C"
- P13 16
- U4 13
-Net 67 "/Timing Unit Processors/A1_TXi" "A1_TXi"
- P13 18
- U4 3
-Net 68 "/Timing Unit Processors/A2_TXi" "A2_TXi"
- P14 18
- U4 2
-Net 69 "/Timing Unit Processors/CODE_I_3" "CODE_I_3"
- U8 3
- U10 6
-Net 70 "/Timing Unit Processors/CODE_I_4" "CODE_I_4"
- U8 5
- U10 7
-Net 71 "/Timing Unit Processors/CODE_I_7" "CODE_I_7"
- U8 9
- U10 12
-Net 72 "/Timing Unit Processors/A1_POWER_SR_D" "A1_POWER_SR_D"
- P13 17
- U4 6
-Net 73 "/Timing Unit Processors/A1_EXP_TRIGGER_OFF" "A1_EXP_TRIGGER_OFF"
- U5 6
- P13 13
-Net 74 "/Timing Unit Processors/A2_RST_REQ" "A2_RST_REQ"
- P14 11
- U3 2
-Net 75 "/Timing Unit Processors/A2_TAKEOVER_CHECK" "A2_TAKEOVER_CHECK"
- P14 10
- R11 1
- D1 2
-Net 76 "/Timing Unit Processors/A2_CONTROL_SR_C" "A2_CONTROL_SR_C"
- P14 8
- U10 3
-Net 79 "/Timing Unit Processors/A1_RST" "A1_RST"
- U8 12
- U8 10
- P13 21
-Net 80 "VCC" "VCC"
- U12 16
- U11 16
- C1 1
- U9 3
- U5 16
- P13 22
- U7 14
- U8 14
- U3 14
- U10 16
- U10 15
- U10 1
- U4 16
-Net 83 "" ""
- U8 11
- U3 3
-Net 108 "/Timing Unit Processors/~TAKEOVER" "~TAKEOVER"
- U5 1
- D1 1
- U7 8
- U8 1
- U4 1
-Net 111 "/Timing Unit Processors/CODE_O_7" "CODE_O_7"
- U7 11
- U8 8
-Net 112 "/Timing Unit Processors/CODE_O_4" "CODE_O_4"
- U7 4
- U8 6
-Net 113 "/Timing Unit Processors/CODE_O_3" "CODE_O_3"
- U7 3
- U8 4
-Net 114 "/Timing Unit Processors/CODE_O_8" "CODE_O_8"
- U7 12
- U10 11
-Net 115 "/Timing Unit Processors/CODE_O_6" "CODE_O_6"
- U7 6
- U10 13
-Net 116 "/Timing Unit Processors/CODE_O_5" "CODE_O_5"
- U7 5
- U10 14
-Net 117 "/Timing Unit Processors/CODE_O_1" "CODE_O_1"
- U7 2
- U10 5
-Net 118 "/Timing Unit Processors/CODE_O_0" "CODE_O_0"
- U7 1
- U10 4
-}
-#End

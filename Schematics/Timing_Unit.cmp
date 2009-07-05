@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20090216-final) date = Tue 23 Jun 2009 09:21:03 PM CDT
+Cmp-Mod V01 Created by CVpcb (20090216-final) date = Sun 05 Jul 2009 02:39:57 PM CEST
 
 BeginCmp
 TimeStamp = /4A2014E2/4A41122C;
@@ -12,6 +12,69 @@ TimeStamp = /4A2014E2/4A411586;
 Reference = C2;
 ValeurCmp = 0.33uF;
 IdModule  = SM1206POL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A509CC3;
+Reference = C3;
+ValeurCmp = 0.1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A509C9C;
+Reference = C4;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A509C7C;
+Reference = C5;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A509EE5;
+Reference = C6;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A509EF2;
+Reference = C7;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A509EEA;
+Reference = C8;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A509EED;
+Reference = C9;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A509EFA;
+Reference = C10;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2014E2/4A509F04;
+Reference = C11;
+ValeurCmp = 0.01uF;
+IdModule  = SM0805;
 EndCmp
 
 BeginCmp
@@ -122,14 +185,14 @@ EndCmp
 BeginCmp
 TimeStamp = /4A2014E2/4A20362F;
 Reference = P13;
-ValeurCmp = CONN_25;
+ValeurCmp = ARDUINO_1;
 IdModule  = pin_array_13x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A2014E2/4A20365B;
 Reference = P14;
-ValeurCmp = CONN_25;
+ValeurCmp = ARDUINO_2;
 IdModule  = pin_array_13x2;
 EndCmp
 
