@@ -19,6 +19,11 @@
 #define LOG_FILE_NAME_FMT "temps%02d.log"
 
 /**
+ * Name of redundant logfile.
+ */
+#define REDUNDANT_LOG_FILE_NAME "redun.log"
+
+/**
  * Appended to the logfiles whenever power is switched on.
  */
 #define LOG_FILE_HEADER "Time (msec), Temperature\n"
@@ -42,6 +47,12 @@
  * Delay between querying and logging data provided by the last thermostat and restarting from the first.
  */
 #define SAVE_INTERVAL_MSEC 3000
+
+/**
+ * Character printed on the iSeries line to make the secondary start/stop logging whatever appears on the iSeries line.
+ */
+#define REDUNDANT_LOG_START_CHAR '^'
+#define REDUNDANT_LOG_STOP_CHAR '$'
 
 /**
  * last time we saved state.
@@ -166,6 +177,9 @@ void setup() {
   }
 #endif
 
+  init_logfiles();
+  lastTimeMillis = millis();
+  
   log("Checking redundancy role...");
   if(isSecondary()) {
     log("secondary.\n");
@@ -292,6 +306,17 @@ void loop() {
       ret1 = uDrive.append(filename, timeString, firstnull+1);            //Write timestamp (of form "<timestamp>, ").
       ret2 = uDrive.append(filename, tempReading, sizeof(tempReading));   //Write temperature reading (of form <reading>\n).
 
+      //Get the secondary's attention.
+      com_1.print(REDUNDANT_LOG_START_CHAR);
+      //Send the stuff to log.
+      com_1.print(filename);
+      com_1.print('|');
+      com_1.print((char*)timeString); //TODO check location of nulls for this string...
+      com_1.print('|');
+      com_1.print((char*)tempReading);
+      com_1.print(REDUNDANT_LOG_STOP_CHAR);
+
+
       if(ret1 != OK || ret2 != OK) {
         DEBUG("ERROR WRITING TO GOLDILOX!\n");
         udriveResets++;
@@ -335,6 +360,7 @@ void set_active_thermostat(byte tc_id) {
   DEBUG("Setting active thermostat: ");
   DEBUGF(tc_id, DEC);
   DEBUG("\n");
+  //Load id into SR.
   shiftOut(LU_OUT_SADDR_D, LU_OUT_SADDR_C, MSBFIRST, tc_id);
 }
 

@@ -39,9 +39,23 @@ void doDuringMonitorMode() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-  
+int current_tc_id = -1;
 void do_idle_logging() {
-  //TODO implement
+  //Is something on the buffer?
+  char in;
+  if(com_1.available() > 0) {
+    in = com_1.read();
+    if(in == REDUNDANT_LOG_START_CHAR) {
+        //Capture until REDUNDANT_LOG_STOP_CHAR is received.
+        byte pos=0;
+        byte data[35];
+        while((in=com_1.read()) != REDUNDANT_LOG_STOP_CHAR) {
+          data[pos++] = in;
+        }
+        //Write to log.
+        uDrive.append(REDUNDANT_LOG_FILE_NAME, data, pos);
+    }
+  }
 }
 
 
