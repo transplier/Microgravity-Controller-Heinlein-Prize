@@ -39,7 +39,7 @@
 #define UDRIVE_MAX_MISSED_COMMANDS 10
 
 /**
- * Period at which to write log data.
+ * Delay between querying and logging data provided by the last thermostat and restarting from the first.
  */
 #define SAVE_INTERVAL_MSEC 3000
 
@@ -59,11 +59,14 @@ boolean isUDriveActive = false;
 
 byte udriveResets = 0;
 
+/**
+ * Single, shared iSeries instance (used for all thermostats, assumed to be stateless.
+ */
 iSeries iSeries(&com_1);
 
 /**
  * Contains the total number of commands missed in a row by each
- * iSeries.
+ * iSeries. Reset to zero every time a reply is received.
  */
 byte iSeriesMissedCommandCount[NUMBER_OF_TEMP_CONTROLLERS];
 
@@ -101,6 +104,7 @@ void setup() {
 
   log("Initializing GOLDELOX-DOS UDrive...");
   GoldeloxStatus ret;
+  /* Loop forever until uDrive is up. Without the uDrive, we are nothing. */
   while(true) {
     ret = uDrive.reinit();
     if(ret == OK) {
@@ -210,6 +214,7 @@ void init_logfiles() {
   log("Done\n");
 }
 
+/* Last known state of redundancy input pin */
 boolean redundancy_state = false;
 void loop() {
   byte temp[16];
@@ -223,7 +228,9 @@ void loop() {
       issue_cooldown_command(temp[1]); 
       break;
     default: 
-      log("UNKNOWN COMMAND\n"); 
+      log("UNKNOWN COMMAND: "); 
+      log_int(temp[0]);
+      log("\n");
       break;
     }
   }
