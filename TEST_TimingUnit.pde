@@ -1,5 +1,10 @@
+/* Amount of time to energize the experiment power coils. */
+#define RELAY_ACTUATION_MSEC 50 //Datasheet specifies 30 msec.
+
 menu_item_t tu_menu[] = {
   { '0', "Set Power SR state", &PowerSRStateEditor },
+  { ']', "Experiment power on", &ExpPowerOn },
+  { '[', "Experiment power off", &ExpPowerOff },
   { '!', "All Redundancy Tests", &AllRedundancyTests },
 };
 
@@ -23,7 +28,8 @@ void setup_tc_pins() {
   pinMode(TC_OUT_POWER_SR_C, OUTPUT);
   pinMode(TC_OUT_EXP_TRIGGER_RELAY_ON, OUTPUT);
   pinMode(TC_OUT_EXP_TRIGGER_RELAY_OFF, OUTPUT);
-
+  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_ON, LOW);
+  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_OFF, LOW);
 }
 
 /**
@@ -107,4 +113,25 @@ boolean PowerSRStateEditor() {
       }
     }
   }
+}
+
+/**
+ * Set the state of the experiment power relay.
+ * @param isOn True if the rest of the experiment should be turned on, false otherwise.
+ */
+void set_exp_power_on(boolean isOn) {
+  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_ON, isOn);
+  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_OFF, !isOn);
+  delay(RELAY_ACTUATION_MSEC);
+  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_ON, LOW);
+  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_OFF, LOW);
+}
+
+boolean ExpPowerOn() {
+  setup_tc_pins();
+  set_exp_power_on(true);
+}
+boolean ExpPowerOff() {
+  setup_tc_pins();
+  set_exp_power_on(false);
 }

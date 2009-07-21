@@ -26,7 +26,7 @@ menu_item_t main_menu[] = {
   { 'r', "Redundancy Tests", &EnterRedundancyTestsMenu },
   { 't', "Timing Unit menu", &EnterTimingUnitMenu },
   { '!', "All Tests", &AllTests },
-  { 'p', "All pins as inputs, pullup on", &DoResetPins },
+  { 'p', "All pins as inputs, pullup off", &DoResetPins },
   { 'T', "Toggle hardware type", &ToggleHardwareType },
   { 'L', "Toggle long tests enabled", &ToggleLongTests }
 };
@@ -163,7 +163,7 @@ void do_menu() {
 void reset_pins() {
   for(int x=2; x<13; x++) {
     pinMode(x, INPUT);
-    digitalWrite(x, HIGH);
+    digitalWrite(x, LOW);
   }
 }
 
