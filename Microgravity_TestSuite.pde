@@ -23,10 +23,12 @@ typedef struct {
 
 
 menu_item_t main_menu[] = {
-  { '0', "Redundancy Tests", &EnterRedundancyTestsMenu },
+  { 'r', "Redundancy Tests", &EnterRedundancyTestsMenu },
+  { 't', "Timing Unit menu", &EnterTimingUnitMenu },
   { '!', "All Tests", &AllTests },
-  { 't', "Toggle hardware type", &ToggleHardwareType },
-  { 'l', "Toggle long tests enabled", &ToggleLongTests }
+  { 'p', "All pins as inputs, pullup on", &DoResetPins },
+  { 'T', "Toggle hardware type", &ToggleHardwareType },
+  { 'L', "Toggle long tests enabled", &ToggleLongTests }
 };
 
 menu_item_t* menu;
@@ -53,21 +55,30 @@ void setup() {
   reset_pins();
 }
 
+/*
+ * Block until a char is received from the serial line. Return that char.
+ */
+char read_char() {
+  char in;
+  while( (in = Serial.read()) == -1);
+  return in;
+}
+
 /**
  * Read a single char from the console in a user-friendly way. Backspace works, and
  * keys pressed after the initial character selection overwrite the last selection on-screen.
  */
-char read_char() {
+char read_char_nice() {
   char in, cur;
   cur=0;
   while(true) {
     //Get a char
     while( (in = Serial.read()) == -1);
    
-    /* User pressed backspace. Forget the last key. */
+    /* User pressed backspace. Forget the last key, and overwrite it on the terminal. */
     if( in == '\b' ) {
       cur = 0;
-      write('\b');
+      print("\b \b");
       continue;
     }
     /* User pressed enter after pressing another key. Return. */ 
@@ -119,7 +130,7 @@ void do_menu() {
   print("> ");
   
   /* Read user's input */
-  char in = read_char();
+  char in = read_char_nice();
   
   /* If not on the main menu, see if the user wishes to return to the main menu. */
   if( menu != main_menu && in == '.') {
@@ -157,6 +168,10 @@ void reset_pins() {
 
 void loop() {
   do_menu();
+  //reset_pins();
+}
+
+boolean DoResetPins() {
   reset_pins();
 }
 
