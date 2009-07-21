@@ -311,9 +311,11 @@ void loop() {
       //Send the stuff to log.
       com_1.print(filename);
       com_1.print('|');
-      com_1.print((char*)timeString); //TODO check location of nulls for this string...
+      for(byte x=0; x < firstnull +1; x++)
+        com_1.print((char)timeString[x]); //TODO check location of nulls for this string...
       com_1.print('|');
-      com_1.print((char*)tempReading);
+      for(byte x=0; x < sizeof(tempReading); x++)
+        com_1.print((char)tempReading[x]);
       com_1.print(REDUNDANT_LOG_STOP_CHAR);
 
 

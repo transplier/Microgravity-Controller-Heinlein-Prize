@@ -51,6 +51,11 @@ void do_idle_logging() {
         byte data[35];
         while((in=com_1.read()) != REDUNDANT_LOG_STOP_CHAR) {
           data[pos++] = in;
+          if(pos >= 35) {
+            //Buffer overrun.
+            //TODO: write buffer and keep reading? Warning: doing this opens potential for infinite wait and failure of redundancy code.
+            break;
+          }
         }
         //Write to log.
         uDrive.append(REDUNDANT_LOG_FILE_NAME, data, pos);
