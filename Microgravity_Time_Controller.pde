@@ -1,3 +1,5 @@
+#include "git_info.h"
+
 #include "Pins.h"
 #include "Debug.h"
 #include "EEPROMFormat.h"
@@ -55,6 +57,7 @@ void setup_pins() {
 void setup() {
   Serial.begin(9600);        
   Serial.println("Controller V1.0");
+  Serial.println("Compiled from GIT rev: " GIT_REVISION);
 
   pinMode(LEDPIN, OUTPUT);
 
