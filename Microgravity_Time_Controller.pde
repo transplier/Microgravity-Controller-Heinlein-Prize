@@ -57,7 +57,7 @@ void setup_pins() {
 void setup() {
   Serial.begin(9600);        
   Serial.println("Controller V1.0");
-  Serial.println("Compiled from GIT rev: " GIT_REVISION);
+  Serial.println("Compiled from GIT commit: " GIT_REVISION); 
 
   pinMode(LEDPIN, OUTPUT);
 

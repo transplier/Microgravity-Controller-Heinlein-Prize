@@ -2,6 +2,9 @@
  * @file Main controller class for microgravity experiment.
  * @author Giacomo Ferrari progman32@gmail.com
  */
+ 
+#include "git_info.h"
+ 
 #include <stdio.h>
 
 #include "Pins.h"
@@ -98,6 +101,7 @@ void setup_pins() {
 void setup() {
   Serial.begin(9600);
   Serial.println("Microgravity Logger Module V1.0");
+  Serial.println("Compiled from GIT commit: " GIT_REVISION); 
 
   setup_pins();
 
@@ -176,6 +180,8 @@ void setup() {
     log(" DONE\n");
   }
 #endif
+
+  log("Compiled from GIT commit: " GIT_REVISION); 
 
   init_logfiles();
   lastTimeMillis = millis();
