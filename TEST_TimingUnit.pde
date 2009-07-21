@@ -4,6 +4,11 @@ menu_item_t tu_menu[] = {
 };
 
 boolean EnterTimingUnitMenu() {
+  if( hardware == HARDWARE_LOGGER ) {
+    println("WARNING: HARDWARE TYPE SET TO LOGGER! Automatically changing to timer!");
+    delay(1000);
+    hardware = HARDWARE_TIMER;
+  }
   menu = tu_menu;
   menu_size = sizeof(tu_menu) / sizeof(menu_item_t);
   return true;

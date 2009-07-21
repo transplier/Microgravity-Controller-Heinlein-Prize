@@ -83,6 +83,7 @@ char read_char_nice() {
     }
     /* User pressed enter after pressing another key. Return. */ 
     if( in == '\r' && cur != 0) {
+      write('\r');
       write('\n');
       return cur;
     }
