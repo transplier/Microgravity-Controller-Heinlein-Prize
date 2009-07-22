@@ -42,6 +42,8 @@ inline void println(char what) { Serial.println(what); }
 inline void print(char what) { Serial.print(what); }
 inline void println(int what) { Serial.println(what); }
 inline void print(int what) { Serial.print(what); }
+inline void println(long unsigned int what) { Serial.println(what); }
+inline void print(long unsigned int what) { Serial.print(what); }
 inline void println(int what, int fmt) { Serial.println(what, fmt); }
 inline void print(int what, int fmt) { Serial.print(what, fmt); }
 inline void println(byte what) { Serial.println(what); }
