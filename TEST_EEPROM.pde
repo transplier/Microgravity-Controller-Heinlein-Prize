@@ -1,6 +1,6 @@
 #include "EEPROMFormat.h"
 
-menu_item_t eeprom_menu[] = {
+const menu_item_t eeprom_menu[] = {
   { 'f', "Show/Edit values", &EditEEPROMValues },
 };
 
@@ -50,6 +50,28 @@ void write_time(unsigned long* time) {
   WriteEEPROM(EEPROM_TIME_CHECK, c);
 }
 
+const char EditEEPROMValues_statbyte[] PROGMEM = "\tStatus byte: ";
+const char EditEEPROMValues_timesigis[] PROGMEM = "\t\t(T)ime signature is: ";
+const char EditEEPROMValues_expstat[] PROGMEM = "\t\tExperiment (S)tatus: ";
+const char EditEEPROMValues_redunrolebyte[] PROGMEM = "\tRedundancy r(O)le byte: ";
+const char EditEEPROMValues_interp[] PROGMEM = "\t\tInterpretation: ";
+const char EditEEPROMValues_adsub_second[] PROGMEM = "\t\t+/-: add/subtract 1 second.";
+const char EditEEPROMValues_adsub_minute[] PROGMEM = "\t\tM/m: add/subtract 1 minute.";
+const char EditEEPROMValues_adsub_hour[] PROGMEM = "\t\tH/h: add/subtract 1 hour.";
+const char EditEEPROMValues_zero[] PROGMEM = "\t\tZ: zero.";
+const char EditEEPROMValues_delete[] PROGMEM = "\t\tD: delete.";
+const char EditEEPROMValues_bdchksum[] PROGMEM = "invalid (bad checksum). (Z)ero.";
+const char EditEEPROMValues_miscopts[] PROGMEM = "W: Save and exit\r\nX: Exit without saving\r\nR: Reload from EEPROM";
+const char EditEEPROMValues_selectopt[] PROGMEM = "Select an option:";
+const char EditEEPROMValues_valid[] PROGMEM = "valid.";
+const char EditEEPROMValues_invalid[] PROGMEM = "invalid.";
+const char EditEEPROMValues_trig[] PROGMEM = "triggered.";
+const char EditEEPROMValues_untrig[] PROGMEM = "untriggered.";
+const char EditEEPROMValues_pri[] PROGMEM = "primary.";
+const char EditEEPROMValues_sec[] PROGMEM = "secondary.";
+const char EditEEPROMValues_timesig[] PROGMEM = "\tTime signature: ";
+const char EditEEPROMValues_validT[] PROGMEM = "valid. T=";
+extern const char STR_NOSUCHCOMMAND[] PROGMEM;
 boolean EditEEPROMValues() {
   byte statusByte = GetStatus();
   byte redunRoleByte = ReadEEPROM(EEPROM_IS_PRIMARY);
@@ -61,33 +83,33 @@ boolean EditEEPROMValues() {
 
   while(true) {
     /* Status byte */
-    print("\tStatus byte: ");
+    printPS(EditEEPROMValues_statbyte);
     println((int)statusByte, BIN);
-    print("\t\t(T)ime signature is: ");
+    printPS(EditEEPROMValues_timesigis);
     if(statusByte & EEPROM_STATUS_TIME_VALID)
-      println("valid.");
+      printPSln(EditEEPROMValues_valid);
     else
-      println("invalid.");
-    print("\t\tExperiment (S)tatus: ");
+      printPSln(EditEEPROMValues_invalid);
+    printPS(EditEEPROMValues_expstat);
     if(statusByte & EEPROM_STATUS_TRIGGERED)
-      println("triggered.");
+      printPSln(EditEEPROMValues_trig);
     else
-       println("untriggered.");
+       printPSln(EditEEPROMValues_untrig);
     
     /* Redundancy role */
-    print("\tRedundancy r(O)le byte: ");
+    printPS(EditEEPROMValues_redunrolebyte);
     println(redunRoleByte, HEX);
-    print("\t\tInterpretation: ");
+    printPS(EditEEPROMValues_interp);
     if(isSecdry)
-      println("secondary.");
+      printPSln(EditEEPROMValues_sec);
     else
-      println("primary.");
-    print("\tTime signature: ");
+      printPSln(EditEEPROMValues_pri);
+    printPS(EditEEPROMValues_timesig);
     if(timeChksumOK) {
       hours = time/3600000;
       minutes = (time - hours*3600000)/60000;
       seconds = (time - hours*3600000 - minutes*60000)/1000;
-      print("valid. T=");
+      printPS(EditEEPROMValues_validT);
       print(time);
       print(' ');
       print(hours);
@@ -95,17 +117,18 @@ boolean EditEEPROMValues() {
       print(minutes);
       print('.');
       println(seconds);
-      println("\t\t+/-: add/subtract 1 second.");
-      println("\t\tM/m: add/subtract 1 minute.");
-      println("\t\tH/h: add/subtract 1 hour.");
-      println("\t\tZ: zero.");
-      println("\t\tD: delete.");
+      printPSln(EditEEPROMValues_adsub_second);
+      printPSln(EditEEPROMValues_adsub_minute);
+      printPSln(EditEEPROMValues_adsub_hour);
+      printPSln(EditEEPROMValues_zero);
+      printPSln(EditEEPROMValues_delete);
     } else {
-      println("invalid (bad checksum). (Z)ero.");
+      printPSln(EditEEPROMValues_bdchksum);
     }
-    println("W: Save and exit\r\nX: Exit without saving\r\nR: Reload from EEPROM");
-    println("Select an option:");
-    print("> ");
+    printPSln(EditEEPROMValues_miscopts);
+    printPSln(EditEEPROMValues_selectopt);
+    print('>');
+    print(' ');
     char in = read_char_nice();
     switch(in) {
       case 't': 
@@ -154,7 +177,7 @@ boolean EditEEPROMValues() {
         timeChksumOK = ReadTimeFromEEPROM(&time);
         break;
       default:
-        println("No such command!");
+        printPSln(STR_NOSUCHCOMMAND);
     }
   }
 }

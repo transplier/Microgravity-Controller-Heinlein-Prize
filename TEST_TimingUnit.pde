@@ -1,7 +1,7 @@
 /* Amount of time to energize the experiment power coils. */
 #define RELAY_ACTUATION_MSEC 50 //Datasheet specifies 30 msec.
 
-menu_item_t tu_menu[] = {
+const menu_item_t tu_menu[] = {
   { '0', "Set Power SR state", &PowerSRStateEditor },
   { ']', "Experiment power on", &ExpPowerOn },
   { '[', "Experiment power off", &ExpPowerOff },

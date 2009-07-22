@@ -2,6 +2,9 @@
  * Microgravity test utility.
  */
  
+ 
+#include <avr/pgmspace.h>
+
 #include "git_info.h"
 
 #include "Pins.h"
@@ -17,12 +20,17 @@ boolean longTestsEnabled = false;
 
 typedef struct {
   char menu_key;
+  //prog_char* PROGMEM test_name;
   char* test_name;
   boolean (*func)(void);
 } menu_item_t;
 
 
-menu_item_t main_menu[] = {
+const char STR_FAILED[] PROGMEM = "FAILED.";
+const char STR_OK[] PROGMEM = "OK.";
+const char STR_NOSUCHCOMMAND[] PROGMEM = "No such command!";
+
+const menu_item_t main_menu[] = {
   { 'r', "Redundancy Tests", &EnterRedundancyTestsMenu },
   { 't', "Timing Unit menu", &EnterTimingUnitMenu },
   { 'e', "EEPROM menu", &EnterEEPROMMenu },
@@ -32,7 +40,7 @@ menu_item_t main_menu[] = {
   { 'L', "Toggle long tests enabled", &ToggleLongTests }
 };
 
-menu_item_t* menu;
+const menu_item_t* menu;
 size_t menu_size;
 
 
@@ -49,12 +57,23 @@ inline void print(int what, int fmt) { Serial.print(what, fmt); }
 inline void println(byte what) { Serial.println(what); }
 inline void print(byte what) { Serial.print(what); }
 inline void write(char what) { Serial.write(what); }
+void printPS(const prog_char str[])
+{
+  char c;
+  if(!str) return;
+  while((c = pgm_read_byte(str++)))
+    Serial.print(c,BYTE);
+}
+void printPSln(const prog_char str[])
+{
+  printPS(str);
+  Serial.println();
+}
 
+const char welcomeString[] PROGMEM = "Welcome to the Microgravity Controller tester.\r\n" "Built from GIT commit: " GIT_REVISION;
 void setup() {
   Serial.begin(9600); 
-  println("Welcome to the Microgravity Controller tester.");
-  println("Built from GIT commit: " GIT_REVISION);
-  ReturnToMainMenu();
+  printPSln( welcomeString );  ReturnToMainMenu();
   reset_pins();
 }
 
@@ -112,6 +131,10 @@ char read_char_nice() {
  * After the function completes, show whether the function completed successfully.
  * Special case: if *menu does not point to main_menu, add an option to return to the main menu.
  */
+ 
+const char do_menu_rettomain[] PROGMEM = "\t.: Return to main menu";
+const char do_menu_selectedhardwaretype[] PROGMEM = "Selected hardware type: ";
+const char do_menu_longtests[] PROGMEM = "Long tests: ";
 void do_menu() {
   /* Present the options. */
   println("\n");
@@ -124,15 +147,15 @@ void do_menu() {
   
   /* If not on the main menu, add option to return to the main menu. */
   if( menu != main_menu ) {
-    println("\t.: Return to main menu");
+    printPSln(do_menu_rettomain);
   }
   
   /* Present some status info */
-  print("Selected hardware type: ");
+  printPS(do_menu_selectedhardwaretype);
   if( hardware == HARDWARE_LOGGER) println("logger");
   else println("timer.");
   
-  print("Long tests: ");
+  printPS(do_menu_longtests);
   if( longTestsEnabled ) println("on.");
   else println("off.");
   
@@ -154,15 +177,15 @@ void do_menu() {
       /* Invoke the function */
       boolean r = menu[i].func();
       if( r == false)
-        println("FAILED.");
+        printPSln(STR_FAILED);
       else
-        println("OK.");
+        printPSln(STR_OK);
       return;
     }
   }
   
   /* Bad menu choice. */
-  println("No such command!");
+  printPSln(STR_NOSUCHCOMMAND);
   delay(1000);
 }
 

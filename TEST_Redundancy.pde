@@ -3,10 +3,14 @@
 
 #define REDUNDANCY_UNLOCK_CODE 0b11001101
 
-menu_item_t redundancy_tests[] = {
-  { '0', "Test takeover code circuit", &TestTakeoverCodeCircuit },
+const menu_item_t redundancy_tests[] = {
+  /*{ '0', "Test takeover code circuit", &TestTakeoverCodeCircuit },
   { '1', "Test redundancy pulse circuit", &TestRedundancyPulseCircuit },
-  { '!', "All Automatic Redundancy Tests", &AllAutoRedundancyTests },
+  { 'X', "Write code into takeover code SR", &DoTakeover },
+  { 'x', "Clear code from takeover code SR", &DoTakeoverRelease },
+  { 'R', "Assert reset request pin", &DoResetOn },
+  { 'r', "De-assert reset request pin", &DoResetOff },
+  { '!', "All Automatic Redundancy Tests", &AllAutoRedundancyTests },*/
 };
 
 boolean EnterRedundancyTestsMenu() {
@@ -21,7 +25,47 @@ boolean AllAutoRedundancyTests() {
   return passed;
 }
 
+boolean DoResetOff() {
+  //Avoid doing a pin reset, as that will mess up the code stored in the SR.
+  int pin;
+  if(hardware == HARDWARE_LOGGER) {
+    pin = LU_OUT_RST_REQ;
+  } else {
+    pin = TC_OUT_RST_REQ;
+  }
+  pinMode(pin, OUTPUT);
+  digitalWrite(pin, LOW);
+}
+
+boolean DoResetOn() {
+  //Avoid doing a pin reset, as that will mess up the code stored in the SR.
+  int pin;
+  if(hardware == HARDWARE_LOGGER) {
+    pin = LU_OUT_RST_REQ;
+  } else {
+    pin = TC_OUT_RST_REQ;
+  }
+  pinMode(pin, OUTPUT);
+  digitalWrite(pin, HIGH);
+}
+
+boolean DoTakeoverRelease() {
+  init_hardware_pins();
+  writeToControlSR(0xFF);
+  return !queryHardwareTakeoverEnabled();
+}
+
+boolean DoTakeover() {
+  init_hardware_pins();
+  writeToControlSR(REDUNDANCY_UNLOCK_CODE);
+  return queryHardwareTakeoverEnabled();
+}
+
 void writeToControlSR(byte value) {
+  if( !isSecondary() ) {
+    /*println("WARNING: EEPROM says this is not the secondary unit. Continuing anyways...");*/
+    delay(1000);
+  }
   if(hardware == HARDWARE_LOGGER) {
     shiftOut(LU_OUT_REDUN_SR_D, LU_OUT_REDUN_SR_C, LSBFIRST, value);
   } else {
