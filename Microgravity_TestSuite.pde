@@ -31,7 +31,9 @@ const char STR_NOSUCHCOMMAND[] PROGMEM = "No such command!";
 
 const char MainMenu_redun[] PROGMEM  = "Redundancy Tests";
 const char MainMenu_TUmenu[] PROGMEM = "Timing Unit menu";
+const char MainMenu_LUmenu[] PROGMEM = "Logger Unit menu";
 const char MainMenu_EEPROM[] PROGMEM = "EEPROM menu";
+const char MainMenu_comms[] PROGMEM = "Communications menu";
 const char MainMenu_auto[] PROGMEM = "All Automatic Tests";
 const char MainMenu_pinreset[] PROGMEM = "All pins as inputs, pullup off";
 const char MainMenu_hwtype[] PROGMEM = "Toggle hardware type";
@@ -40,7 +42,9 @@ const char MainMenu_longtest[] PROGMEM = "Toggle long tests enabled";
 const menu_item_t main_menu[] = {
   { 'r', MainMenu_redun, &EnterRedundancyTestsMenu },
   { 't', MainMenu_TUmenu, &EnterTimingUnitMenu },
+  { 't', MainMenu_LUmenu, &ReturnToMainMenu /*TODO*/ },
   { 'e', MainMenu_EEPROM, &EnterEEPROMMenu },
+  { 't', MainMenu_comms, &ReturnToMainMenu /*TODO*/ },
   { '!', MainMenu_auto, &AllAutoTests },
   { 'p', MainMenu_pinreset, &DoResetPins },
   { 'T', MainMenu_hwtype, &ToggleHardwareType },

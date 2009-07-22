@@ -6,10 +6,12 @@
 
 //LOGGER UNIT
 //INPUTS
+#define LU_IN_RXi 0                         //RXi (inter-TC and LU comms)
 #define LU_IN_GDLOX_RX 10                   //uDrive RX
 #define LU_IN_COM1_RX 2                     //COM1 RX (thermostats)
 #define LU_ANALOG_REDUN_TAKEOVER_CHECK 0    //Connected to ~takeover.
 //OUTPUTS
+#define LU_OUT_TXi 1                        //TXi (inter-TC and LU comms)
 #define LU_OUT_GDLOX_TX 11                  //uDrive TX
 #define LU_OUT_GDLOX_RST 12                 //uDrive reset pin
 #define LU_OUT_COM1_TX 3                    //COM1 TX (thermostats)
