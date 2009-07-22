@@ -25,6 +25,7 @@ typedef struct {
 menu_item_t main_menu[] = {
   { 'r', "Redundancy Tests", &EnterRedundancyTestsMenu },
   { 't', "Timing Unit menu", &EnterTimingUnitMenu },
+  { 'e', "EEPROM menu", &EnterEEPROMMenu },
   { '!', "All Tests", &AllTests },
   { 'p', "All pins as inputs, pullup off", &DoResetPins },
   { 'T', "Toggle hardware type", &ToggleHardwareType },
@@ -81,11 +82,17 @@ char read_char_nice() {
       print("\b \b");
       continue;
     }
+    
     /* User pressed enter after pressing another key. Return. */ 
     if( in == '\r' && cur != 0) {
       write('\r');
       write('\n');
       return cur;
+    }
+    
+    /* User pressed enter without making a selection first. Ignore. */
+    if( in == '\r' && cur == 0 ) {
+      continue;
     }
     
     /* User pressed a key (other than enter) after previously pressing another key. Overwrite. */
