@@ -26,7 +26,7 @@ menu_item_t main_menu[] = {
   { 'r', "Redundancy Tests", &EnterRedundancyTestsMenu },
   { 't', "Timing Unit menu", &EnterTimingUnitMenu },
   { 'e', "EEPROM menu", &EnterEEPROMMenu },
-  { '!', "All Tests", &AllTests },
+  { '!', "All Automatic Tests", &AllAutoTests },
   { 'p', "All pins as inputs, pullup off", &DoResetPins },
   { 'T', "Toggle hardware type", &ToggleHardwareType },
   { 'L', "Toggle long tests enabled", &ToggleLongTests }
@@ -176,6 +176,26 @@ void reset_pins() {
   }
 }
 
+void init_hardware_pins() {
+  reset_pins();
+  pinMode(LEDPIN, OUTPUT);
+  digitalWrite(LEDPIN, LOW);
+  if(hardware == HARDWARE_LOGGER) {
+    pinMode(LU_OUT_RST_REQ, OUTPUT);
+    pinMode(LU_OUT_REDUN_SR_D, OUTPUT);
+    pinMode(LU_OUT_REDUN_SR_C, OUTPUT);
+  } else {
+    pinMode(TC_IN_REDUN_TAKEOVER_CHECK, INPUT);
+    pinMode(TC_OUT_RST_REQ, OUTPUT);
+    pinMode(TC_OUT_REDUN_SR_D, OUTPUT);
+    pinMode(TC_OUT_REDUN_SR_C, OUTPUT);
+    pinMode(TC_OUT_EXP_TRIGGER_RELAY_ON, OUTPUT);
+    pinMode(TC_OUT_EXP_TRIGGER_RELAY_OFF, OUTPUT);
+    digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_ON, LOW);
+    digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_OFF, LOW);
+  }
+}
+
 void loop() {
   do_menu();
   //reset_pins();
@@ -205,8 +225,8 @@ boolean ReturnToMainMenu() {
 /**
  * Update me with all tests!
  */
-boolean AllTests() {
+boolean AllAutoTests() {
   boolean passed = true;
-  passed &= AllRedundancyTests();
+  passed &= AllAutoRedundancyTests();
   return passed;
 }

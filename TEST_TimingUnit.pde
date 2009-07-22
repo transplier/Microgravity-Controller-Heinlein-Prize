@@ -5,7 +5,6 @@ menu_item_t tu_menu[] = {
   { '0', "Set Power SR state", &PowerSRStateEditor },
   { ']', "Experiment power on", &ExpPowerOn },
   { '[', "Experiment power off", &ExpPowerOff },
-  { '!', "All Redundancy Tests", &AllRedundancyTests },
 };
 
 boolean EnterTimingUnitMenu() {

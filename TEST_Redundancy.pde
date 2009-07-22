@@ -5,7 +5,8 @@
 
 menu_item_t redundancy_tests[] = {
   { '0', "Test takeover code circuit", &TestTakeoverCodeCircuit },
-  { '!', "All Redundancy Tests", &AllRedundancyTests },
+  { '1', "Test redundancy pulse circuit", &TestRedundancyPulseCircuit },
+  { '!', "All Automatic Redundancy Tests", &AllAutoRedundancyTests },
 };
 
 boolean EnterRedundancyTestsMenu() {
@@ -14,7 +15,7 @@ boolean EnterRedundancyTestsMenu() {
   return true;
 }
 
-boolean AllRedundancyTests() {
+boolean AllAutoRedundancyTests() {
   boolean passed = true;
   passed &= TestTakeoverCodeCircuit();
   return passed;
@@ -36,22 +37,9 @@ boolean queryHardwareTakeoverEnabled() {
   }
 }
 
-void init_redun_pins() {
-  if(hardware == HARDWARE_LOGGER) {
-    pinMode(LU_OUT_RST_REQ, OUTPUT);
-    pinMode(LU_OUT_REDUN_SR_D, OUTPUT);
-    pinMode(LU_OUT_REDUN_SR_C, OUTPUT);
-  } else {
-    pinMode(TC_IN_REDUN_TAKEOVER_CHECK, INPUT);
-    pinMode(TC_OUT_RST_REQ, OUTPUT);
-    pinMode(TC_OUT_REDUN_SR_D, OUTPUT);
-    pinMode(TC_OUT_REDUN_SR_C, OUTPUT);
-  }
-}
-
 boolean TestTakeoverCodeCircuit() {
   println("Redundancy tests..."); 
-  init_redun_pins();
+  init_hardware_pins();
 
   int num_passes = longTestsEnabled ? CODE_TEST_PASSES_LONG : CODE_TEST_PASSES_SHORT;
   print("Unlock code test 0...255, passes: ");
@@ -77,4 +65,45 @@ boolean TestTakeoverCodeCircuit() {
   println("Complete");
   
   return passed;
+}
+
+boolean TestRedundancyPulseCircuit() {
+  init_hardware_pins();
+  int redunPin = (hardware == HARDWARE_LOGGER) ? LU_INOUT_REDUNDANCY : TC_INOUT_REDUNDANCY;
+  print("Role: ");
+  boolean isSec = isSecondary();
+  if(isSec) {
+    pinMode(redunPin, INPUT);
+    println("secondary (monitor pulses).");
+  }
+  else {
+    pinMode(redunPin, OUTPUT);
+    println("primary (send pulses).");
+  }
+  
+  print("Pin: ");
+  println(redunPin);
+  
+  println("Press any key to exit.");
+
+  print("State: ");
+  
+  boolean state = false;
+  while(Serial.read() == -1) {
+    if(isSec) {
+      state = digitalRead(redunPin);
+    } else {
+      state = !state;
+      digitalWrite(redunPin, state);
+    }
+    print((int)state);
+    digitalWrite(LEDPIN, state);
+    delay(isSec ? 50 : 1000);
+    print('\b');
+  }
+
+  pinMode(redunPin, INPUT);
+  digitalWrite(redunPin, LOW);
+  digitalWrite(LEDPIN, LOW);
+  println(" Exiting.");
 }
