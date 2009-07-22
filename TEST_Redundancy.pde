@@ -3,14 +3,21 @@
 
 #define REDUNDANCY_UNLOCK_CODE 0b11001101
 
+const char Redundancy_Menu_a[] PROGMEM = "Test takeover code circuit";
+const char Redundancy_Menu_b[] PROGMEM = "Test redundancy pulse circuit";
+const char Redundancy_Menu_c[] PROGMEM = "Write code into takeover code SR";
+const char Redundancy_Menu_d[] PROGMEM = "Clear code from takeover code SR";
+const char Redundancy_Menu_e[] PROGMEM = "Assert reset request pin";
+const char Redundancy_Menu_f[] PROGMEM = "De-assert reset request pin";
+const char Redundancy_Menu_g[] PROGMEM = "All Automatic Redundancy Tests";
 const menu_item_t redundancy_tests[] = {
-  { '0', "Test takeover code circuit", &TestTakeoverCodeCircuit },
-  { '1', "Test redundancy pulse circuit", &TestRedundancyPulseCircuit },
-  { 'X', "Write code into takeover code SR", &DoTakeover },
-  { 'x', "Clear code from takeover code SR", &DoTakeoverRelease },
-  { 'R', "Assert reset request pin", &DoResetOn },
-  { 'r', "De-assert reset request pin", &DoResetOff },
-  { '!', "All Automatic Redundancy Tests", &AllAutoRedundancyTests },
+  { '0', Redundancy_Menu_a, &TestTakeoverCodeCircuit },
+  { '1', Redundancy_Menu_b, &TestRedundancyPulseCircuit },
+  { 'X', Redundancy_Menu_c, &DoTakeover },
+  { 'x', Redundancy_Menu_d, &DoTakeoverRelease },
+  { 'R', Redundancy_Menu_e, &DoResetOn },
+  { 'r', Redundancy_Menu_f, &DoResetOff },
+  { '!', Redundancy_Menu_g, &AllAutoRedundancyTests },
 };
 
 boolean EnterRedundancyTestsMenu() {

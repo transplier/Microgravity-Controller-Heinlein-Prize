@@ -20,8 +20,7 @@ boolean longTestsEnabled = false;
 
 typedef struct {
   char menu_key;
-  //prog_char* PROGMEM test_name;
-  char* test_name;
+  const char* test_name PROGMEM;
   boolean (*func)(void);
 } menu_item_t;
 
@@ -30,14 +29,22 @@ const char STR_FAILED[] PROGMEM = "FAILED.";
 const char STR_OK[] PROGMEM = "OK.";
 const char STR_NOSUCHCOMMAND[] PROGMEM = "No such command!";
 
+const char MainMenu_redun[] PROGMEM  = "Redundancy Tests";
+const char MainMenu_TUmenu[] PROGMEM = "Timing Unit menu";
+const char MainMenu_EEPROM[] PROGMEM = "EEPROM menu";
+const char MainMenu_auto[] PROGMEM = "All Automatic Tests";
+const char MainMenu_pinreset[] PROGMEM = "All pins as inputs, pullup off";
+const char MainMenu_hwtype[] PROGMEM = "Toggle hardware type";
+const char MainMenu_longtest[] PROGMEM = "Toggle long tests enabled";
+
 const menu_item_t main_menu[] = {
-  { 'r', "Redundancy Tests", &EnterRedundancyTestsMenu },
-  { 't', "Timing Unit menu", &EnterTimingUnitMenu },
-  { 'e', "EEPROM menu", &EnterEEPROMMenu },
-  { '!', "All Automatic Tests", &AllAutoTests },
-  { 'p', "All pins as inputs, pullup off", &DoResetPins },
-  { 'T', "Toggle hardware type", &ToggleHardwareType },
-  { 'L', "Toggle long tests enabled", &ToggleLongTests }
+  { 'r', MainMenu_redun, &EnterRedundancyTestsMenu },
+  { 't', MainMenu_TUmenu, &EnterTimingUnitMenu },
+  { 'e', MainMenu_EEPROM, &EnterEEPROMMenu },
+  { '!', MainMenu_auto, &AllAutoTests },
+  { 'p', MainMenu_pinreset, &DoResetPins },
+  { 'T', MainMenu_hwtype, &ToggleHardwareType },
+  { 'L', MainMenu_longtest, &ToggleLongTests }
 };
 
 const menu_item_t* menu;
@@ -142,7 +149,7 @@ void do_menu() {
     print('\t');
     print(menu[i].menu_key);
     print(": ");
-    println(menu[i].test_name);
+    printPSln(menu[i].test_name);
   }
   
   /* If not on the main menu, add option to return to the main menu. */

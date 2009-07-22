@@ -1,7 +1,8 @@
 #include "EEPROMFormat.h"
 
+const char EEPROM_Menu_edit[] PROGMEM = "Show/Edit values";
 const menu_item_t eeprom_menu[] = {
-  { 'f', "Show/Edit values", &EditEEPROMValues },
+  { 'f', EEPROM_Menu_edit, &EditEEPROMValues },
 };
 
 boolean EnterEEPROMMenu() {

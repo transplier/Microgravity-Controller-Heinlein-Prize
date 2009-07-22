@@ -1,15 +1,19 @@
 /* Amount of time to energize the experiment power coils. */
 #define RELAY_ACTUATION_MSEC 50 //Datasheet specifies 30 msec.
 
+const char TU_Menu_a[] PROGMEM = "Set Power SR state";
+const char TU_Menu_b[] PROGMEM = "Experiment power on";
+const char TU_Menu_c[] PROGMEM = "Experiment power off";
 const menu_item_t tu_menu[] = {
-  { '0', "Set Power SR state", &PowerSRStateEditor },
-  { ']', "Experiment power on", &ExpPowerOn },
-  { '[', "Experiment power off", &ExpPowerOff },
+  { '0', TU_Menu_a, &PowerSRStateEditor },
+  { ']', TU_Menu_b, &ExpPowerOn },
+  { '[', TU_Menu_c, &ExpPowerOff },
 };
 
+const char EnterTimingUnitMenu_hardwarewarn[] PROGMEM = "WARNING: HARDWARE TYPE SET TO LOGGER! Automatically changing to timer!";
 boolean EnterTimingUnitMenu() {
   if( hardware == HARDWARE_LOGGER ) {
-    println("WARNING: HARDWARE TYPE SET TO LOGGER! Automatically changing to timer!");
+    printPSln(EnterTimingUnitMenu_hardwarewarn);
     delay(1000);
     hardware = HARDWARE_TIMER;
   }
@@ -42,6 +46,7 @@ void write_power_sr(byte power_sr_lowbyte, byte power_sr_highbyte) {
   digitalWrite(TC_OUT_POWER_SR_L, HIGH);
 }
 
+const char PowerSRStateEditor_instructions[] PROGMEM = "\t/: All on" "\r\n" "\tz: All off" "\r\n" "\r\n\t0...f to toggle, esc to quit.";
 boolean PowerSRStateEditor() {
   setup_tc_pins();
   byte power_sr_lowbyte = 0; //all off
@@ -54,19 +59,19 @@ boolean PowerSRStateEditor() {
     for(int n = 0; n < 8; n++) {
       print('\t');
       print(n, HEX);
-      print(": ");
+      print(':');
+      print(' ');
       println((power_sr_lowbyte >> n) & 0x01);
     }
     for(int n = 0; n < 8; n++) {
       print('\t');
       print(n+8, HEX);
-      print(": ");
+      print(':');
+      print(' ');
       println((power_sr_highbyte >> n) & 0x01);
     }
     /* Print extra stuff. */
-    println("\t/: All on");
-    println("\tz: All off");
-    println("\n\t0...f to toggle, esc to quit.");
+    printPSln(PowerSRStateEditor_instructions);
     
     /* Wait for a key. */
     char in = read_char();
