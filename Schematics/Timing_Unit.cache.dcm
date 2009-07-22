@@ -1,4 +1,4 @@
-EESchema-DOCLIB  Version 2.0  Sun 05 Jul 2009 03:04:55 PM CEST
+EESchema-DOCLIB  Version 2.0  Wed 22 Jul 2009 09:46:27 AM CDT
 #
 $CMP 40257
 D Binary counter 14 stages (asynchronous)
@@ -57,6 +57,11 @@ $ENDCMP
 $CMP DIODE
 D Diode simple
 K DEV DIODE
+$ENDCMP
+#
+$CMP DPST
+D Interrupteur double
+K switch
 $ENDCMP
 #
 $CMP MOS_N
