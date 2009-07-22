@@ -134,8 +134,10 @@ void set_exp_power_on(boolean isOn) {
 boolean ExpPowerOn() {
   setup_tc_pins();
   set_exp_power_on(true);
+  return true;
 }
 boolean ExpPowerOff() {
   setup_tc_pins();
   set_exp_power_on(false);
+  return true;
 }

@@ -42,6 +42,7 @@ boolean DoResetOff() {
   }
   pinMode(pin, OUTPUT);
   digitalWrite(pin, LOW);
+  return true;
 }
 
 boolean DoResetOn() {
@@ -54,23 +55,43 @@ boolean DoResetOn() {
   }
   pinMode(pin, OUTPUT);
   digitalWrite(pin, HIGH);
+  return true;
 }
 
+const char DoTakeoverRelease_error[] PROGMEM = "WARNING: Takeover check pin reports we're still taking over!";
+const char DoTakeoverRelease_ok[] PROGMEM = "Successfully exited takeover state.";
 boolean DoTakeoverRelease() {
   init_hardware_pins();
   writeToControlSR(0xFF);
-  return !queryHardwareTakeoverEnabled();
+  if(queryHardwareTakeoverEnabled()) {
+    printPSln(DoTakeoverRelease_error);
+    delay(1000);
+    return false;
+  } else {
+    printPSln(DoTakeoverRelease_ok);
+    return true;
+  }
 }
 
+const char DoTakeover_error[] PROGMEM = "WARNING: Takeover check pin reports we've failed to take over!";
+const char DoTakeover_ok[] PROGMEM = "Successfully entered takeover state.";
 boolean DoTakeover() {
   init_hardware_pins();
   writeToControlSR(REDUNDANCY_UNLOCK_CODE);
-  return queryHardwareTakeoverEnabled();
+  if(!queryHardwareTakeoverEnabled()) {
+    printPSln(DoTakeover_error);
+    delay(1000);
+    return false;
+  } else {
+    printPSln(DoTakeover_ok);
+    return true;
+  }
 }
 
+const char writeToControlSR_wrongunit[] PROGMEM = "WARNING: EEPROM says this is not the secondary unit. \r\nContinuing anyways, following status message likely incorrect!";
 void writeToControlSR(byte value) {
   if( !isSecondary() ) {
-    /*println("WARNING: EEPROM says this is not the secondary unit. Continuing anyways...");*/
+    printPSln(writeToControlSR_wrongunit);
     delay(1000);
   }
   if(hardware == HARDWARE_LOGGER) {
@@ -167,4 +188,5 @@ boolean TestRedundancyPulseCircuit() {
   digitalWrite(redunPin, LOW);
   digitalWrite(LEDPIN, LOW);
   printPSln(TestRedundancyPulseCircuit_exiting);
+  return true;
 }
