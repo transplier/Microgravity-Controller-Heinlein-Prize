@@ -4,13 +4,13 @@
 #define REDUNDANCY_UNLOCK_CODE 0b11001101
 
 const menu_item_t redundancy_tests[] = {
-  /*{ '0', "Test takeover code circuit", &TestTakeoverCodeCircuit },
+  { '0', "Test takeover code circuit", &TestTakeoverCodeCircuit },
   { '1', "Test redundancy pulse circuit", &TestRedundancyPulseCircuit },
   { 'X', "Write code into takeover code SR", &DoTakeover },
   { 'x', "Clear code from takeover code SR", &DoTakeoverRelease },
   { 'R', "Assert reset request pin", &DoResetOn },
   { 'r', "De-assert reset request pin", &DoResetOff },
-  { '!', "All Automatic Redundancy Tests", &AllAutoRedundancyTests },*/
+  { '!', "All Automatic Redundancy Tests", &AllAutoRedundancyTests },
 };
 
 boolean EnterRedundancyTestsMenu() {
@@ -81,12 +81,15 @@ boolean queryHardwareTakeoverEnabled() {
   }
 }
 
+const char TestTakeoverCodeCircuit_desc[] PROGMEM = "Unlock code test 0...255, passes: ";
+const char TestTakeoverCodeCircuit_erroronpass[] PROGMEM = "Error on pass ";
+const char TestTakeoverCodeCircuit_arrow[] PROGMEM = " -> ";
+const char TestTakeoverCodeCircuit_complete[] PROGMEM = "complete";
 boolean TestTakeoverCodeCircuit() {
-  println("Redundancy tests..."); 
   init_hardware_pins();
 
   int num_passes = longTestsEnabled ? CODE_TEST_PASSES_LONG : CODE_TEST_PASSES_SHORT;
-  print("Unlock code test 0...255, passes: ");
+  printPS(TestTakeoverCodeCircuit_desc);
   println(num_passes);
   boolean r;
   boolean passed = true;
@@ -97,40 +100,47 @@ boolean TestTakeoverCodeCircuit() {
       //Was redundancy OK?
       if(r != (i == REDUNDANCY_UNLOCK_CODE)) {
         passed = false;
-        print("Error on pass ");
+        printPS(TestTakeoverCodeCircuit_erroronpass);
         print(pass);
-        print(": ");
+        print(':'); print(' ');
         print((int)i, BIN);
-        print(" -> ");
+        printPS(TestTakeoverCodeCircuit_arrow);
         println((int) r);
       }
     }
   }
-  println("Complete");
+  printPSln(TestTakeoverCodeCircuit_complete);
   
   return passed;
 }
 
+const char TestRedundancyPulseCircuit_role[] PROGMEM = "Role: ";
+const char TestRedundancyPulseCircuit_secdesc[] PROGMEM = "secondary (monitor pulses).";
+const char TestRedundancyPulseCircuit_pridesc[] PROGMEM = "primary (send pulses).";
+const char TestRedundancyPulseCircuit_pin[] PROGMEM = "Pin: ";
+const char TestRedundancyPulseCircuit_pressanykey[] PROGMEM = "Press any key to exit.";
+const char TestRedundancyPulseCircuit_state[] PROGMEM = "State: ";
+const char TestRedundancyPulseCircuit_exiting[] PROGMEM = " Exiting.";
 boolean TestRedundancyPulseCircuit() {
   init_hardware_pins();
   int redunPin = (hardware == HARDWARE_LOGGER) ? LU_INOUT_REDUNDANCY : TC_INOUT_REDUNDANCY;
-  print("Role: ");
+  printPS(TestRedundancyPulseCircuit_role);
   boolean isSec = isSecondary();
   if(isSec) {
     pinMode(redunPin, INPUT);
-    println("secondary (monitor pulses).");
+    printPSln(TestRedundancyPulseCircuit_secdesc);
   }
   else {
     pinMode(redunPin, OUTPUT);
-    println("primary (send pulses).");
+    printPSln(TestRedundancyPulseCircuit_pridesc);
   }
   
-  print("Pin: ");
+  printPS(TestRedundancyPulseCircuit_pin);
   println(redunPin);
   
-  println("Press any key to exit.");
+  printPSln(TestRedundancyPulseCircuit_pressanykey);
 
-  print("State: ");
+  printPS(TestRedundancyPulseCircuit_state);
   
   boolean state = false;
   while(Serial.read() == -1) {
@@ -149,5 +159,5 @@ boolean TestRedundancyPulseCircuit() {
   pinMode(redunPin, INPUT);
   digitalWrite(redunPin, LOW);
   digitalWrite(LEDPIN, LOW);
-  println(" Exiting.");
+  printPSln(TestRedundancyPulseCircuit_exiting);
 }
