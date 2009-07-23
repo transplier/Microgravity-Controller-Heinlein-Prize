@@ -42,9 +42,9 @@ const char MainMenu_longtest[] PROGMEM = "Toggle long tests enabled";
 const menu_item_t main_menu[] = {
   { 'r', MainMenu_redun, &EnterRedundancyTestsMenu },
   { 't', MainMenu_TUmenu, &EnterTimingUnitMenu },
-  { 't', MainMenu_LUmenu, &ReturnToMainMenu /*TODO*/ },
+  { 'l', MainMenu_LUmenu, &ReturnToMainMenu /*TODO*/ },
   { 'e', MainMenu_EEPROM, &EnterEEPROMMenu },
-  { 't', MainMenu_comms, &ReturnToMainMenu /*TODO*/ },
+  { 'c', MainMenu_comms, &EnterCommMenu },
   { '!', MainMenu_auto, &AllAutoTests },
   { 'p', MainMenu_pinreset, &DoResetPins },
   { 'T', MainMenu_hwtype, &ToggleHardwareType },
