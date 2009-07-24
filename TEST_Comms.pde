@@ -24,7 +24,9 @@ void printPacket(byte* buf) {
   println(']');
 }
 
-const char bidiCommTest_instructions[] PROGMEM = "Make sure you turn off the debug switch for this test.\r\nWaiting 10 seconds...";
+const char bidiCommTest_instructions[] PROGMEM = "Make sure you turn off the debug switch for this test.";
+const char bidiCommTest_wait[] PROGMEM = "Waiting 10 seconds...";
+const char bidiCommTest_start[] PROGMEM = "Starting.";
 const char bidiCommTest_rxerr[] PROGMEM = "Bad packet received! Sequence number: ";
 boolean bidiCommTest(boolean listenFirst) {
   //Ports the same, intrinsic to SplitComm.
@@ -32,7 +34,11 @@ boolean bidiCommTest(boolean listenFirst) {
   int rxPort = (hardware == HARDWARE_LOGGER) ? LU_OUT_RXi : TC_OUT_RXi;*/
   
   printPSln(bidiCommTest_instructions);
-  delay(10000);
+  if(!listenFirst) {
+    printPSln(bidiCommTest_wait);
+    delay(10000);
+  }
+  printPSln(bidiCommTest_start);
   
   byte buf[SPLIT_COMM_MSG_LENGTH];
   boolean needToListen = listenFirst;
