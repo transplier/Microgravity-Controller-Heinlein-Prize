@@ -23,19 +23,6 @@ boolean EnterTimingUnitMenu() {
 }
 
 /**
- * Initializes the pin directions for the TC.
- */
-void setup_tc_pins() {
-  pinMode(TC_OUT_POWER_SR_L, OUTPUT);
-  pinMode(TC_OUT_POWER_SR_D, OUTPUT);
-  pinMode(TC_OUT_POWER_SR_C, OUTPUT);
-  pinMode(TC_OUT_EXP_TRIGGER_RELAY_ON, OUTPUT);
-  pinMode(TC_OUT_EXP_TRIGGER_RELAY_OFF, OUTPUT);
-  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_ON, LOW);
-  digitalWrite(TC_OUT_EXP_TRIGGER_RELAY_OFF, LOW);
-}
-
-/**
  * Writes the contents of power_sr_lowbyte and power_sr_highbyte to the
  * power status shift register.
  */
@@ -48,7 +35,7 @@ void write_power_sr(byte power_sr_lowbyte, byte power_sr_highbyte) {
 
 const char PowerSRStateEditor_instructions[] PROGMEM = "\t/: All on" "\r\n" "\tz: All off" "\r\n" "\r\n\t0...f to toggle, esc to quit.";
 boolean PowerSRStateEditor() {
-  setup_tc_pins();
+  init_hardware_pins();
   byte power_sr_lowbyte = 0; //all off
   byte power_sr_highbyte = 0; //all off
   while(true) {
@@ -132,12 +119,12 @@ void set_exp_power_on(boolean isOn) {
 }
 
 boolean ExpPowerOn() {
-  setup_tc_pins();
+  init_hardware_pins();
   set_exp_power_on(true);
   return true;
 }
 boolean ExpPowerOff() {
-  setup_tc_pins();
+  init_hardware_pins();
   set_exp_power_on(false);
   return true;
 }

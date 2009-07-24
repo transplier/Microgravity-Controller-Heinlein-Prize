@@ -42,7 +42,7 @@ const char MainMenu_longtest[] PROGMEM = "Toggle long tests enabled";
 const menu_item_t main_menu[] = {
   { 'r', MainMenu_redun, &EnterRedundancyTestsMenu },
   { 't', MainMenu_TUmenu, &EnterTimingUnitMenu },
-  { 'l', MainMenu_LUmenu, &ReturnToMainMenu /*TODO*/ },
+  { 'l', MainMenu_LUmenu, &EnterLoggerUnitMenu },
   { 'e', MainMenu_EEPROM, &EnterEEPROMMenu },
   { 'c', MainMenu_comms, &EnterCommMenu },
   { '!', MainMenu_auto, &AllAutoTests },
@@ -215,10 +215,18 @@ void init_hardware_pins() {
   pinMode(LEDPIN, OUTPUT);
   digitalWrite(LEDPIN, LOW);
   if(hardware == HARDWARE_LOGGER) {
-    pinMode(LU_OUT_RST_REQ, OUTPUT);
+    pinMode(LU_OUT_GDLOX_TX, OUTPUT);
+    pinMode(LU_OUT_GDLOX_RST, OUTPUT);
+    pinMode(LU_OUT_COM1_TX, OUTPUT);
+    pinMode(LU_OUT_SADDR_D, OUTPUT);
+    pinMode(LU_OUT_SADDR_C, OUTPUT);
     pinMode(LU_OUT_REDUN_SR_D, OUTPUT);
     pinMode(LU_OUT_REDUN_SR_C, OUTPUT);
+    pinMode(LU_OUT_RST_REQ, OUTPUT);
   } else {
+    pinMode(TC_OUT_POWER_SR_D, OUTPUT);
+    pinMode(TC_OUT_POWER_SR_C, OUTPUT);
+    pinMode(TC_OUT_POWER_SR_L, OUTPUT);
     pinMode(TC_IN_REDUN_TAKEOVER_CHECK, INPUT);
     pinMode(TC_OUT_RST_REQ, OUTPUT);
     pinMode(TC_OUT_REDUN_SR_D, OUTPUT);
