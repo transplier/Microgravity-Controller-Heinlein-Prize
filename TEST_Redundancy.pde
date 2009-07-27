@@ -28,7 +28,8 @@ boolean EnterRedundancyTestsMenu() {
 
 boolean AllAutoRedundancyTests() {
   boolean passed = true;
-  passed &= TestTakeoverCodeCircuit();
+  if(isSecondary())
+    passed &= TestTakeoverCodeCircuit();
   return passed;
 }
 

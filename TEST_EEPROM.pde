@@ -2,7 +2,7 @@
 
 const char EEPROM_Menu_edit[] PROGMEM = "Show/Edit values";
 const menu_item_t eeprom_menu[] = {
-  { 'f', EEPROM_Menu_edit, &EditEEPROMValues },
+  { '0', EEPROM_Menu_edit, &EditEEPROMValues },
 };
 
 boolean EnterEEPROMMenu() {
@@ -62,7 +62,7 @@ const char EditEEPROMValues_adsub_hour[] PROGMEM = "\t\tH/h: add/subtract 1 hour
 const char EditEEPROMValues_zero[] PROGMEM = "\t\tZ: zero.";
 const char EditEEPROMValues_delete[] PROGMEM = "\t\tD: delete.";
 const char EditEEPROMValues_bdchksum[] PROGMEM = "invalid (bad checksum). (Z)ero.";
-const char EditEEPROMValues_miscopts[] PROGMEM = "W: Save and exit\r\nX: Exit without saving\r\nR: Reload from EEPROM";
+const char EditEEPROMValues_miscopts[] PROGMEM = "w: Save and exit\r\nx: Exit without saving\r\nr: Reload from EEPROM";
 const char EditEEPROMValues_selectopt[] PROGMEM = "Select an option:";
 const char EditEEPROMValues_valid[] PROGMEM = "valid.";
 const char EditEEPROMValues_invalid[] PROGMEM = "invalid.";
@@ -86,17 +86,18 @@ boolean EditEEPROMValues() {
     /* Status byte */
     printPS(EditEEPROMValues_statbyte);
     println((int)statusByte, BIN);
-    printPS(EditEEPROMValues_timesigis);
-    if(statusByte & EEPROM_STATUS_TIME_VALID)
-      printPSln(EditEEPROMValues_valid);
-    else
-      printPSln(EditEEPROMValues_invalid);
-    printPS(EditEEPROMValues_expstat);
-    if(statusByte & EEPROM_STATUS_TRIGGERED)
-      printPSln(EditEEPROMValues_trig);
-    else
-       printPSln(EditEEPROMValues_untrig);
-    
+    if(hardware == HARDWARE_TIMER) {
+      printPS(EditEEPROMValues_timesigis);
+      if(statusByte & EEPROM_STATUS_TIME_VALID)
+        printPSln(EditEEPROMValues_valid);
+      else
+        printPSln(EditEEPROMValues_invalid);
+      printPS(EditEEPROMValues_expstat);
+      if(statusByte & EEPROM_STATUS_TRIGGERED)
+        printPSln(EditEEPROMValues_trig);
+      else
+         printPSln(EditEEPROMValues_untrig);
+    }
     /* Redundancy role */
     printPS(EditEEPROMValues_redunrolebyte);
     println(redunRoleByte, HEX);
@@ -105,26 +106,28 @@ boolean EditEEPROMValues() {
       printPSln(EditEEPROMValues_sec);
     else
       printPSln(EditEEPROMValues_pri);
-    printPS(EditEEPROMValues_timesig);
-    if(timeChksumOK) {
-      hours = time/3600000;
-      minutes = (time - hours*3600000)/60000;
-      seconds = (time - hours*3600000 - minutes*60000)/1000;
-      printPS(EditEEPROMValues_validT);
-      print(time);
-      print(' ');
-      print(hours);
-      print(':');
-      print(minutes);
-      print('.');
-      println(seconds);
-      printPSln(EditEEPROMValues_adsub_second);
-      printPSln(EditEEPROMValues_adsub_minute);
-      printPSln(EditEEPROMValues_adsub_hour);
-      printPSln(EditEEPROMValues_zero);
-      printPSln(EditEEPROMValues_delete);
-    } else {
-      printPSln(EditEEPROMValues_bdchksum);
+    if(hardware == HARDWARE_TIMER) {
+      printPS(EditEEPROMValues_timesig);
+      if(timeChksumOK) {
+        hours = time/3600000;
+        minutes = (time - hours*3600000)/60000;
+        seconds = (time - hours*3600000 - minutes*60000)/1000;
+        printPS(EditEEPROMValues_validT);
+        print(time);
+        print(' ');
+        print(hours);
+        print(':');
+        print(minutes);
+        print('.');
+        println(seconds);
+        printPSln(EditEEPROMValues_adsub_second);
+        printPSln(EditEEPROMValues_adsub_minute);
+        printPSln(EditEEPROMValues_adsub_hour);
+        printPSln(EditEEPROMValues_zero);
+        printPSln(EditEEPROMValues_delete);
+      } else {
+        printPSln(EditEEPROMValues_bdchksum);
+      }
     }
     printPSln(EditEEPROMValues_miscopts);
     printPSln(EditEEPROMValues_selectopt);
@@ -158,15 +161,17 @@ boolean EditEEPROMValues() {
       case 'w':
         WriteStatus(statusByte);
         WriteEEPROM(EEPROM_IS_PRIMARY, redunRoleByte);
-        if(timeChksumOK)
-          write_time(&time);
-        else {
-          //trash time.
-          WriteEEPROM(EEPROM_TIME_1, 0);
-          WriteEEPROM(EEPROM_TIME_2, 0);
-          WriteEEPROM(EEPROM_TIME_3, 0);
-          WriteEEPROM(EEPROM_TIME_4, 0);
-          WriteEEPROM(EEPROM_TIME_CHECK, 0b10101);
+        if(hardware == HARDWARE_TIMER) {
+          if(timeChksumOK)
+            write_time(&time);
+          else {
+            //trash time.
+            WriteEEPROM(EEPROM_TIME_1, 0);
+            WriteEEPROM(EEPROM_TIME_2, 0);
+            WriteEEPROM(EEPROM_TIME_3, 0);
+            WriteEEPROM(EEPROM_TIME_4, 0);
+            WriteEEPROM(EEPROM_TIME_CHECK, 0b10101);
+          }
         }
         return true;
       case 'x':
@@ -175,7 +180,8 @@ boolean EditEEPROMValues() {
         statusByte = GetStatus();
         redunRoleByte = ReadEEPROM(EEPROM_IS_PRIMARY);
         isSecdry = isSecondary();
-        timeChksumOK = ReadTimeFromEEPROM(&time);
+        if(hardware == HARDWARE_TIMER)
+          timeChksumOK = ReadTimeFromEEPROM(&time);
         break;
       default:
         printPSln(STR_NOSUCHCOMMAND);
