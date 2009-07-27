@@ -14,30 +14,30 @@ boolean iSeries::IssueCommand(const char* cmd, byte reply[], byte replyLength) {
 }
 
 boolean iSeries::IssueCommand(const char* cmd, byte reply[], byte replyLength, int timeoutMillis) {
+   //Pre-drain buffer of any junk. May be redundant if we have been using another serial device
+   //(NewSoftSerial clears the buffer on device switch), but let's be safe.
+   while(mpCom->available()) mpCom->read();
    //Get the device's attention.
    mpCom->print(ISERIES_RECOG_CHAR);
    //Send the command
    mpCom->print(cmd);
    //End the command
    mpCom->print("\r\n");
-   
-   
-   //BEGIN HACK//////////////////////////////////////////
-   //TODO: DON'T DO THIS! THIS IS A HACK TO MAKE THE SERIAL LIBRARIES WORK!
-   //I don't really get why this delay must be here, but it stays for now.
-   delay(timeoutMillis);
-   if(mpCom->available() >= replyLength) {
-     for(byte x=0; x<replyLength; x++) {
-       reply[x]=mpCom->read();
+   //Wait for the appropriate number of chars, respecting the timeout.
+   unsigned long startTime = millis();
+   while(mpCom->available() < replyLength) {
+     if( (millis()-startTime) >=timeoutMillis ) {
+       //Timed out!
+       return false;
      }
-     //Drain buffer.
-     while(mpCom->available()) mpCom->read();
-     return true;
-   } else {
-     //something went wrong...
-     return false;
    }
-   //END HACK////////////////////////////////////////////
+   //Read in the chars.
+   for(byte x=0; x<replyLength; x++) {
+     reply[x]=mpCom->read();
+   }
+   //Drain buffer.
+   while(mpCom->available()) mpCom->read();
+   return true;
 }
 
 boolean iSeries::FindAndReset() {
