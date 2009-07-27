@@ -3,8 +3,10 @@
 #define NUMBER_OF_TEMP_CONTROLLERS 5
 
 const char LU_Menu_a[] PROGMEM = "Thermostat monitor";
+const char LU_Menu_b[] PROGMEM = "Thermostat serial console";
 const menu_item_t lu_menu[] = {
   { '0', LU_Menu_a, &ThermostatMonitor },
+  { '1', LU_Menu_b, &ThermostatSerialConsole },
 };
 
 const char EnterLoggerUnitMenu_hardwarewarn[] PROGMEM = "WARNING: HARDWARE TYPE SET TO TIMER! Automatically changing to logger!";
@@ -17,6 +19,58 @@ boolean EnterLoggerUnitMenu() {
   menu = lu_menu;
   menu_size = sizeof(lu_menu) / sizeof(menu_item_t);
   return true;
+}
+const char ThermostatSerialConsole_instructions[] PROGMEM = "Press [ / ] to switch thermostat, ` to toggle echo, and ESC to quit.";
+const char ThermostatSerialConsole_status[] PROGMEM = "Current thermostat: ";
+const char ThermostatSerialConsole_echostatus[] PROGMEM = "Echo: ";
+boolean ThermostatSerialConsole() {
+  init_hardware_pins();
+  init_comms();
+  printPSln(ThermostatSerialConsole_instructions);
+  
+  byte in;
+  byte currTS = 0;
+  boolean echo = true;
+  printPS(ThermostatSerialConsole_status);
+  println(currTS, DEC);
+  printPS(ThermostatSerialConsole_echostatus);
+  println(echo, DEC);
+  com_1.print('\r');
+  com_1.print('\n');
+  while(true) {
+    if(Serial.available()) {
+      in=Serial.read();
+      switch(in) {
+        case 0x1B /*escape*/: Serial.println(); return true;
+        case '`':
+          echo = !echo;
+          printPS(ThermostatSerialConsole_echostatus);
+          println(echo, DEC);
+        break;
+        case ']': if(currTS<NUMBER_OF_TEMP_CONTROLLERS-1) currTS+=2; else continue; /*no break!*/
+        case '[':
+          if(currTS!=0) 
+            currTS--; 
+          else
+            continue;
+          printPS(ThermostatSerialConsole_status);
+          println(currTS, DEC);
+          set_active_thermostat(currTS);
+        break;
+        default: 
+          if(echo) { 
+            Serial.print(in, BYTE);
+            if(in=='\r') Serial.println();
+          }
+          com_1.print(in, BYTE);
+        break;
+      }
+    }
+    while(com_1.available()) {
+      in=com_1.read();
+      Serial.write(in);
+    }
+  }
 }
 
 const char ThermostatMonitor_number[] PROGMEM = "Number of thermostats: ";
