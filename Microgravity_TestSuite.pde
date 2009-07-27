@@ -270,5 +270,7 @@ boolean ReturnToMainMenu() {
 boolean AllAutoTests() {
   boolean passed = true;
   passed &= AllAutoRedundancyTests();
+  if(hardware == HARDWARE_LOGGER)
+    passed &= AllAutoLUTests();
   return passed;
 }

@@ -4,9 +4,14 @@
 
 const char LU_Menu_a[] PROGMEM = "Thermostat monitor";
 const char LU_Menu_b[] PROGMEM = "Thermostat serial console";
+const char LU_Menu_c[] PROGMEM = "uDrive-DOS tests";
+const char LU_Menu_d[] PROGMEM = "All Automatic LU tests";
+
 const menu_item_t lu_menu[] = {
   { '0', LU_Menu_a, &ThermostatMonitor },
   { '1', LU_Menu_b, &ThermostatSerialConsole },
+  { '2', LU_Menu_c, &GoldeloxTests },
+  { '3', LU_Menu_d, &AllAutoLUTests },
 };
 
 const char EnterLoggerUnitMenu_hardwarewarn[] PROGMEM = "WARNING: HARDWARE TYPE SET TO TIMER! Automatically changing to logger!";
@@ -20,6 +25,11 @@ boolean EnterLoggerUnitMenu() {
   menu_size = sizeof(lu_menu) / sizeof(menu_item_t);
   return true;
 }
+
+boolean AllAutoLUTests() {
+  return GoldeloxTests();
+}
+
 const char ThermostatSerialConsole_instructions[] PROGMEM = "Press [ / ] to switch thermostat, ` to toggle echo, and ESC to quit.";
 const char ThermostatSerialConsole_status[] PROGMEM = "Current thermostat: ";
 const char ThermostatSerialConsole_echostatus[] PROGMEM = "Echo: ";
@@ -71,6 +81,86 @@ boolean ThermostatSerialConsole() {
       Serial.write(in);
     }
   }
+}
+
+const char GoldeloxTests_init[] PROGMEM = "Initializing GOLDELOX-DOS UDrive...";
+const char GoldeloxTests_ok[] PROGMEM = "OK";
+const char GoldeloxTests_error[] PROGMEM = "ERROR ";
+const char GoldeloxTests_files[] PROGMEM = "Files on card: ";
+const char GoldeloxTests_filetests[] PROGMEM = "File tests: ";
+const char GoldeloxTests_filecreateerror[] PROGMEM = "[ERROR COULDNT CREATE FILE] ";
+const char GoldeloxTests_fileeraseerror[] PROGMEM = "[ERROR COULDNT ERASE FILE] ";
+const char GoldeloxTests_fileeraseerror2[] PROGMEM = "[ERROR ERASED NONEXISTENT FILE] ";
+const char GoldeloxTests_done[] PROGMEM = "DONE!";
+
+boolean GoldeloxTests() {
+  init_hardware_pins();
+  init_comms();
+  Goldelox uDrive(&com_2, LU_OUT_GDLOX_RST);
+  printPS(GoldeloxTests_init);
+  GoldeloxStatus ret;
+  ret = uDrive.reinit();
+  if(ret == OK) {
+    printPSln(GoldeloxTests_ok);
+  } else {
+    printPS(GoldeloxTests_error);
+    println(ret, DEC);
+    return false;
+  }
+
+  //GOLDELOX tests
+  //List dir
+  byte temp[255];
+  byte c, i=0;
+  uDrive.ls(temp, sizeof(temp));
+  printPSln(GoldeloxTests_files);
+  //Print, converting \n to \r\n.
+  while( temp[i] != '\0' ) {
+    if(temp[i] == '\n') Serial.write('\r');
+    if(temp[i] == '\r') Serial.write('\n');
+    Serial.write(temp[i++]);
+  }
+  print((char*)temp);
+  printPS(GoldeloxTests_filetests);
+  //Write data
+  byte abc[3] = {
+    'a', 'b', 'c'  };
+  ret = uDrive.append("temp", abc, sizeof(abc));
+  if(ret == OK) {
+    printPS(GoldeloxTests_ok);
+    print(' ');
+  } 
+  else {
+    printPS(GoldeloxTests_filecreateerror);
+    println(ret, DEC);
+    return false;
+  }
+  //TODO: Verify contents
+
+  //Erase
+  ret = uDrive.del("temp");
+  if(ret == OK) {
+    printPS(GoldeloxTests_ok);
+    print(' ');
+  } 
+  else {
+    printPS(GoldeloxTests_fileeraseerror);
+    println(ret, DEC);
+    return false;
+  }
+
+  ret = uDrive.del("temp");
+  if(ret == ERROR) {
+    printPS(GoldeloxTests_ok);
+    print(' ');
+  } 
+  else if (ret == OK){
+    printPS(GoldeloxTests_fileeraseerror2);
+    println(ret, DEC);
+    return false;
+  }
+  printPSln(GoldeloxTests_done);
+  return true;
 }
 
 const char ThermostatMonitor_number[] PROGMEM = "Number of thermostats: ";

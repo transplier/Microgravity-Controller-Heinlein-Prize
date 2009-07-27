@@ -135,52 +135,6 @@ void setup() {
   }
   udriveResets = 0;
 
-#ifdef DODEBUG
-  //GOLDELOX tests
-  if(isUDriveActive) {
-    //List dir
-    byte temp[255];
-    uDrive.ls(temp, sizeof(temp));
-    log("Files on card: \n");
-    log((char*)temp);
-    log("Sample file tests: ");
-    //Write data
-    byte abc[3] = {
-      'a', 'b', 'c'  };
-    ret = uDrive.append("temp", abc, sizeof(abc));
-    if(ret == OK) {
-      log("[OK!] ");
-    } 
-    else {
-      log("[ERROR COULDNT CREATE FILE] ");
-      log_int(ret);
-      log("!\n");
-    }
-
-    //TODO: Verify contents
-
-    //Erase
-    ret = uDrive.del("temp");
-    if(ret == OK) {
-      log("[OK!] ");
-    } 
-    else {
-      log("[ERROR ");
-      log_int(ret);
-      log(" COULDNT CREATE FILE] ");
-    }
-
-    ret = uDrive.del("temp");
-    if(ret == ERROR) {
-      log("[OK!]");
-    } 
-    else if (ret == OK){
-      log("[ERROR DELETED NONEXISTENT FILE] ");
-    }
-    log(" DONE\n");
-  }
-#endif
-
   log("Compiled from GIT commit: " GIT_REVISION); 
 
   init_logfiles();
