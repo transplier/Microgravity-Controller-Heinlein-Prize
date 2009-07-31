@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 22 Jul 2009 09:46:26 AM CDT
+EESchema Schematic File Version 2  date Fri 31 Jul 2009 06:06:45 PM CDT
 LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,./Timing_Unit.cache
 EELAYER 24  0
 EELAYER END
@@ -262,6 +262,7 @@ U 1 1 4A67260B
 P 3000 1050
 F 0 "SW1" H 3000 1150 70  0000 C CNN
 F 1 "DEBUG" H 3000 950 70  0000 C CNN
+F 4 "401-2002-1-ND" H 3000 1050 60  0001 C CNN "Digi-Key Part"
 	1    3000 1050
 	1    0    0    -1  
 $EndComp

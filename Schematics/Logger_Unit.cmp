@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20090216-final) date = Sun 05 Jul 2009 02:49:58 PM CEST
+Cmp-Mod V01 Created by CVpcb (20090216-final) date = Fri 31 Jul 2009 06:06:00 PM CDT
 
 BeginCmp
 TimeStamp = /4A2048D8/4A43814E;
@@ -348,6 +348,13 @@ TimeStamp = /4A4BEBA9;
 Reference = R21;
 ValeurCmp = 33k;
 IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2048D8/4A672599;
+Reference = SW1;
+ValeurCmp = DEBUG;
+IdModule  = DPDT_SMD;
 EndCmp
 
 BeginCmp
