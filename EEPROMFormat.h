@@ -10,6 +10,11 @@
 
 #define EEPROM_SIZE_BYTES 340
 
+/* Place where 2nd copy of data is written. */
+#define EEPROM_2ND_COPY_START 340
+/* Place where 3d copy of data is written. */
+#define EEPROM_3D_COPY_START 640
+
 #define EEPROM_STATUS 0                //Location of status byte
 #define EEPROM_STATUS_RESET_VALUE 0x00 //Reset status byte to this if we're reset (with RSTPIN low).
 
