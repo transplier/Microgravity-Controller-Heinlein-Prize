@@ -1,14 +1,87 @@
 #include "EEPROMFormat.h"
 
 const char EEPROM_Menu_edit[] PROGMEM = "Show/Edit values";
+const char EEPROM_Menu_rwtest[] PROGMEM = "Read-Write test";
 const menu_item_t eeprom_menu[] = {
   { '0', EEPROM_Menu_edit, &EditEEPROMValues },
+  { '1', EEPROM_Menu_rwtest, &EEPROMRWTest },
 };
 
 boolean EnterEEPROMMenu() {
   menu = eeprom_menu;
   menu_size = sizeof(eeprom_menu) / sizeof(menu_item_t);
   return true;
+}
+
+boolean TestEEPROMLocation(int addr) {
+  int orig;
+  if(longTestsEnabled) {
+    for(orig = 0; orig <= 255; orig++) {
+      WriteEEPROM(addr, orig);
+      if(ReadEEPROM(addr) != orig) return false;
+    }
+    for(orig = 255; orig >= 0; orig--) {
+      WriteEEPROM(addr, orig);
+      if(ReadEEPROM(addr) != orig) return false;
+    }
+  } else {
+     WriteEEPROM(addr, 0x00);
+     if(ReadEEPROM(addr) != orig) return false;
+     WriteEEPROM(addr, 0x11);
+     if(ReadEEPROM(addr) != 0x11) return false;
+     WriteEEPROM(addr, 0x42);
+     if(ReadEEPROM(addr) != 0x42) return false;
+     WriteEEPROM(addr, 0xF0);
+     if(ReadEEPROM(addr) != 0xF0) return false;
+     WriteEEPROM(addr, 0x0F);
+     if(ReadEEPROM(addr) != 0x0F) return false;
+     WriteEEPROM(addr, 0xFF);
+     if(ReadEEPROM(addr) != 0xFF) return false;
+     WriteEEPROM(addr, 0x00);
+     if(ReadEEPROM(addr) != 0x00) return false;
+  }
+  return true;
+}
+
+const char EEPROMRWTest_save[] PROGMEM = "Saving old values...";
+const char EEPROMRWTest_restore[] PROGMEM = "Restoring old values...";
+const char EEPROMRWTest_begin[] PROGMEM = "Beginning EEPROM test.";
+boolean EEPROMRWTest() {
+  /* Save old values */
+  printPS(EEPROMRWTest_save);
+  byte eeprom_status = ReadEEPROM(EEPROM_STATUS);
+  byte eeprom_time_1 = ReadEEPROM(EEPROM_TIME_1);
+  byte eeprom_time_2 = ReadEEPROM(EEPROM_TIME_2);
+  byte eeprom_time_3 = ReadEEPROM(EEPROM_TIME_3);
+  byte eeprom_time_4 = ReadEEPROM(EEPROM_TIME_4);
+  byte eeprom_time_check = ReadEEPROM(EEPROM_TIME_CHECK);
+  printPSln(STR_OK);
+  
+  printPSln(EEPROMRWTest_begin);
+  
+  boolean isOK = true;
+  boolean lastOK;
+  for(int addr = 0; addr < EEPROM_SIZE_BYTES; addr++) {
+    if(addr % 50 == 0) Serial.println();
+    lastOK = TestEEPROMLocation(addr);
+    isOK &= lastOK;
+    if(lastOK) print('.'); else print('X');
+  }
+  
+  Serial.println();
+  
+  /* Restore old values */
+  printPS(EEPROMRWTest_restore);
+  WriteEEPROM(EEPROM_STATUS, eeprom_status);
+  WriteEEPROM(EEPROM_TIME_1, eeprom_time_1);
+  WriteEEPROM(EEPROM_TIME_2, eeprom_time_2);
+  WriteEEPROM(EEPROM_TIME_3, eeprom_time_3);
+  WriteEEPROM(EEPROM_TIME_4, eeprom_time_4);
+  WriteEEPROM(EEPROM_TIME_CHECK, eeprom_time_check);
+  printPSln(STR_OK);
+
+  
+  return isOK;
 }
 
 /**

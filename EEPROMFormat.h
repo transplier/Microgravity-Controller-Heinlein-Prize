@@ -8,6 +8,8 @@
 #define EEPROMFORMAT_H
 #include <WProgram.h>
 
+#define EEPROM_SIZE_BYTES 340
+
 #define EEPROM_STATUS 0                //Location of status byte
 #define EEPROM_STATUS_RESET_VALUE 0x00 //Reset status byte to this if we're reset (with RSTPIN low).
 
