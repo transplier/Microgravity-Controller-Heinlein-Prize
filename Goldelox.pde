@@ -38,8 +38,11 @@ GoldeloxStatus Goldelox::reinit() {
   if(!issueCommand("U", 1, 1)) return TIMED_OUT; //Timed out!
   
   //Read (garbage) until the device sends an ACK.
-  //TODO: timeout gracefully instead of infini-looping if device does something funny.
-  while((b1 = mpGdlox->read()) != GDLOX_ACK);
+  //timeout gracefully instead of infini-looping if device sends garbage only (or pin is left floating).
+  unsigned long time = millis();
+  while((b1 = mpGdlox->read()) != GDLOX_ACK) {
+    if(millis() - time >= GDLOX_CMD_DELAY) return TIMED_OUT;
+  }
   
   if(b1 == GDLOX_ACK){
     //Found device! Ask for info.
