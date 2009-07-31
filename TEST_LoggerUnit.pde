@@ -11,7 +11,7 @@ const menu_item_t lu_menu[] = {
   { '0', LU_Menu_a, &ThermostatMonitor },
   { '1', LU_Menu_b, &ThermostatSerialConsole },
   { '2', LU_Menu_c, &GoldeloxTests },
-  { '3', LU_Menu_d, &AllAutoLUTests },
+  { 'a', LU_Menu_d, &AllAutoLUTests },
 };
 
 const char EnterLoggerUnitMenu_hardwarewarn[] PROGMEM = "WARNING: HARDWARE TYPE SET TO TIMER! Automatically changing to logger!";

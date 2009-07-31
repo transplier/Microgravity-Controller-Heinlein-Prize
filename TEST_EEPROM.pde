@@ -2,11 +2,16 @@
 
 const char EEPROM_Menu_edit[] PROGMEM = "Show/Edit values";
 const char EEPROM_Menu_rwtest[] PROGMEM = "Read-Write test";
+const char EEPROM_Menu_allauto[] PROGMEM = "All Automatic EEPROM tests";
 const menu_item_t eeprom_menu[] = {
   { '0', EEPROM_Menu_edit, &EditEEPROMValues },
   { '1', EEPROM_Menu_rwtest, &EEPROMRWTest },
+  { 'a', EEPROM_Menu_allauto, &AllAutoEEPROMTests },
 };
 
+boolean AllAutoEEPROMTests() {
+  return EEPROMRWTest();
+}
 boolean EnterEEPROMMenu() {
   menu = eeprom_menu;
   menu_size = sizeof(eeprom_menu) / sizeof(menu_item_t);
@@ -62,13 +67,19 @@ boolean EEPROMRWTest() {
   boolean isOK = true;
   boolean lastOK;
   for(int addr = 0; addr < EEPROM_SIZE_BYTES; addr++) {
-    if(addr % 50 == 0) Serial.println();
     lastOK = TestEEPROMLocation(addr);
     isOK &= lastOK;
     if(lastOK) print('.'); else print('X');
+     if(addr % 50 == 49) { 
+      print(' ');
+      print(((int)addr*100)/EEPROM_SIZE_BYTES);
+      println('%');
+      }
   }
   
-  Serial.println();
+  print(' ');
+  print(100);
+  println('%');
   
   /* Restore old values */
   printPS(EEPROMRWTest_restore);

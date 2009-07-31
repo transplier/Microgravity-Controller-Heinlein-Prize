@@ -45,7 +45,7 @@ const menu_item_t main_menu[] = {
   { 'l', MainMenu_LUmenu, &EnterLoggerUnitMenu },
   { 'e', MainMenu_EEPROM, &EnterEEPROMMenu },
   { 'c', MainMenu_comms, &EnterCommMenu },
-  { '!', MainMenu_auto, &AllAutoTests },
+  { 'a', MainMenu_auto, &AllAutoTests },
   { 'p', MainMenu_pinreset, &DoResetPins },
   { 'T', MainMenu_hwtype, &ToggleHardwareType },
   { 'L', MainMenu_longtest, &ToggleLongTests }
@@ -272,5 +272,6 @@ boolean AllAutoTests() {
   passed &= AllAutoRedundancyTests();
   if(hardware == HARDWARE_LOGGER)
     passed &= AllAutoLUTests();
+  passed &= AllAutoEEPROMTests();
   return passed;
 }

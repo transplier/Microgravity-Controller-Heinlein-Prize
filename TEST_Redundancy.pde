@@ -17,7 +17,7 @@ const menu_item_t redundancy_tests[] = {
   { 'x', Redundancy_Menu_d, &DoTakeoverRelease },
   { 'R', Redundancy_Menu_e, &DoResetOn },
   { 'r', Redundancy_Menu_f, &DoResetOff },
-  { '!', Redundancy_Menu_g, &AllAutoRedundancyTests },
+  { 'a', Redundancy_Menu_g, &AllAutoRedundancyTests },
 };
 
 boolean EnterRedundancyTestsMenu() {
@@ -136,6 +136,11 @@ boolean TestTakeoverCodeCircuit() {
         printPS(TestTakeoverCodeCircuit_arrow);
         println((int) r);
       }
+    }
+    if(pass % 10 == 9) { 
+      print(' ');
+      print(((int)pass*100)/num_passes);
+      println('%');
     }
   }
   printPSln(TestTakeoverCodeCircuit_complete);
