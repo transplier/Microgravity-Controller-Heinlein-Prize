@@ -1,4 +1,4 @@
-EESchema-LIBRARY Version  Fri 31 Jul 2009 06:06:04 PM CDT
+EESchema-LIBRARY Version  Fri 07 Aug 2009 04:32:16 PM CDT
 #
 #
 # +12V_trig
@@ -7,8 +7,8 @@ DEF +12V_trig #PWR 0 0 N Y 1 F P
 F0 "#PWR" 0 -50 20 H I C CNN
 F1 "+12V_trig" 0 100 30 H V C CNN
 DRAW
-P 3 0 1 0  0 0  0 40  0 40 N
 C 0 60 20 0 1 0 N
+P 3 0 1 0  0 0  0 40  0 40 N
 X +12V_trig 1 0 0 0 U 20 30 0 0 W N
 ENDDRAW
 ENDDEF

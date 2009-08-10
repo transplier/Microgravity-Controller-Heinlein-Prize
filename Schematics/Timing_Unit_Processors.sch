@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 31 Jul 2009 06:06:45 PM CDT
+EESchema Schematic File Version 2  date Wed 05 Aug 2009 04:06:44 PM CDT
 LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,./Timing_Unit.cache
 EELAYER 24  0
 EELAYER END
@@ -290,6 +290,7 @@ U 1 1 4A509F04
 P 9450 5600
 F 0 "C11" H 9500 5700 50  0000 L CNN
 F 1 "0.01uF" H 9500 5500 50  0000 L CNN
+F 4 "PCC2446CT-ND" H 9450 5600 60  0001 C CNN "Digi-Key Part"
 	1    9450 5600
 	1    0    0    -1  
 $EndComp
@@ -317,6 +318,7 @@ U 1 1 4A509EFA
 P 8950 5600
 F 0 "C10" H 9000 5700 50  0000 L CNN
 F 1 "0.01uF" H 9000 5500 50  0000 L CNN
+F 4 "PCC2446CT-ND" H 8950 5600 60  0001 C CNN "Digi-Key Part"
 	1    8950 5600
 	1    0    0    -1  
 $EndComp
@@ -344,6 +346,7 @@ U 1 1 4A509EF2
 P 6050 6350
 F 0 "C7" H 6100 6450 50  0000 L CNN
 F 1 "0.01uF" H 6100 6250 50  0000 L CNN
+F 4 "PCC2446CT-ND" H 6050 6350 60  0001 C CNN "Digi-Key Part"
 	1    6050 6350
 	1    0    0    -1  
 $EndComp
@@ -371,6 +374,7 @@ U 1 1 4A509EED
 P 6150 4250
 F 0 "C9" H 6200 4350 50  0000 L CNN
 F 1 "0.01uF" H 6200 4150 50  0000 L CNN
+F 4 "PCC2446CT-ND" H 6150 4250 60  0001 C CNN "Digi-Key Part"
 	1    6150 4250
 	1    0    0    -1  
 $EndComp
@@ -398,6 +402,7 @@ U 1 1 4A509EEA
 P 6150 2850
 F 0 "C8" H 6200 2950 50  0000 L CNN
 F 1 "0.01uF" H 6200 2750 50  0000 L CNN
+F 4 "PCC2446CT-ND" H 6150 2850 60  0001 C CNN "Digi-Key Part"
 	1    6150 2850
 	1    0    0    -1  
 $EndComp
@@ -425,6 +430,7 @@ U 1 1 4A509EE5
 P 850 7250
 F 0 "C6" H 900 7350 50  0000 L CNN
 F 1 "0.01uF" H 900 7150 50  0000 L CNN
+F 4 "PCC2446CT-ND" H 850 7250 60  0001 C CNN "Digi-Key Part"
 	1    850  7250
 	1    0    0    -1  
 $EndComp
@@ -483,6 +489,7 @@ U 6 1 4A40CB80
 P 8550 2700
 F 0 "U8" H 8650 2900 60  0000 C CNN
 F 1 "MM74HC04M" H 9000 2800 60  0000 C CNN
+F 4 "MM74HC04M" H 8550 2700 60  0001 C CNN "Digi-Key Part"
 	6    8550 2700
 	1    0    0    -1  
 $EndComp
@@ -503,6 +510,7 @@ U 1 1 4A201893
 P 5400 4000
 F 0 "U5" H 5150 4650 60  0000 C CNN
 F 1 "CD40257BMG4" H 5600 4650 60  0000 C CNN
+F 4 "CD40257BMG4 NOT STOCKED!!" H 5400 4000 60  0001 C CNN "Digi-Key Part"
 	1    5400 4000
 	1    0    0    -1  
 $EndComp
@@ -559,6 +567,7 @@ U 1 1 4A20365B
 P 1300 5100
 F 0 "P14" V 1250 5100 60  0000 C CNN
 F 1 "ARDUINO_2" V 1350 5100 60  0000 C CNN
+F 4 "MSH26ECT-ND" H 1300 5100 60  0001 C CNN "Digi-Key Part"
 	1    1300 5100
 	-1   0    0    1   
 $EndComp
@@ -729,6 +738,7 @@ U 1 1 4A2028AF
 P 8650 6100
 F 0 "U7" H 8650 6200 60  0000 C CNN
 F 1 "CD74HC30M" H 8650 6000 60  0000 C CNN
+F 4 "296-9197-5-ND" H 8650 6100 60  0001 C CNN "Digi-Key Part"
 	1    8650 6100
 	1    0    0    -1  
 $EndComp
@@ -758,6 +768,7 @@ U 1 1 4A202F73
 P 9250 6800
 F 0 "U8" H 9350 7000 60  0000 C CNN
 F 1 "MM74HC04M" H 9350 6500 60  0000 C CNN
+F 4 "MM74HC04M" H 9250 6800 60  0001 C CNN "Digi-Key Part"
 	1    9250 6800
 	1    0    0    -1  
 $EndComp
@@ -769,6 +780,7 @@ U 1 1 4A202F17
 P 2100 7350
 F 0 "U3" H 2100 7400 60  0000 C CNN
 F 1 "74HC08DB" H 2100 7300 60  0000 C CNN
+F 4 "568-2595-5-ND" H 2100 7350 60  0001 C CNN "Digi-Key Part"
 	1    2100 7350
 	1    0    0    -1  
 $EndComp
@@ -988,6 +1000,7 @@ U 1 1 4A20187A
 P 5400 2650
 F 0 "U4" H 5150 3300 60  0000 C CNN
 F 1 "CD40257BMG4" H 5600 3300 60  0000 C CNN
+F 4 "CD40257BMG4 NOT STOCKED!!" H 5400 2650 60  0001 C CNN "Digi-Key Part"
 	1    5400 2650
 	1    0    0    -1  
 $EndComp

@@ -1,4 +1,4 @@
-EESchema-DOCLIB  Version 2.0  Date: Mon 29 Jun 2009 02:52:41 PM CDT
+EESchema-DOCLIB  Version 2.0  Date: Fri 07 Aug 2009 11:28:12 AM CDT
 #
 $CMP 40257
 D Binary counter 14 stages (asynchronous)
@@ -55,6 +55,11 @@ D Symbole general de connecteur
 K CONN
 $ENDCMP
 #
+$CMP CONN_5
+D Symbole general de connecteur
+K CONN
+$ENDCMP
+#
 $CMP CP
 D Condensateur polarise
 $ENDCMP
@@ -62,6 +67,11 @@ $ENDCMP
 $CMP DIODE
 D Diode simple
 K DEV DIODE
+$ENDCMP
+#
+$CMP DPST
+D Interrupteur double
+K switch
 $ENDCMP
 #
 $CMP HEF4067

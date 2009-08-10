@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20090216-final) date = Fri 31 Jul 2009 06:06:00 PM CDT
+Cmp-Mod V01 Created by CVpcb (20090216-final) date = Fri 07 Aug 2009 12:14:37 PM CDT
 
 BeginCmp
 TimeStamp = /4A2048D8/4A43814E;
@@ -162,6 +162,20 @@ IdModule  = SM0603;
 EndCmp
 
 BeginCmp
+TimeStamp = /4A7C6096;
+Reference = D12;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A7C6026;
+Reference = D13;
+ValeurCmp = DIODE;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
 TimeStamp = /4A205318;
 Reference = K1;
 ValeurCmp = DATA_C;
@@ -274,6 +288,20 @@ IdModule  = CONN_2_3mm;
 EndCmp
 
 BeginCmp
+TimeStamp = /4A7C6051;
+Reference = P26;
+ValeurCmp = AUX_1;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A7C6052;
+Reference = P27;
+ValeurCmp = AUX_2;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
 TimeStamp = /4A2048D8/4A203241;
 Reference = R11;
 ValeurCmp = 20k;
@@ -351,10 +379,31 @@ IdModule  = SM0805;
 EndCmp
 
 BeginCmp
+TimeStamp = /4A7C6097;
+Reference = R22;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A7C6027;
+Reference = R23;
+ValeurCmp = 33k;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
 TimeStamp = /4A2048D8/4A672599;
 Reference = SW1;
 ValeurCmp = DEBUG;
 IdModule  = DPDT_SMD;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A2052CA;
+Reference = U1;
+ValeurCmp = 74HC4094;
+IdModule  = TSSOP-16;
 EndCmp
 
 BeginCmp
@@ -381,7 +430,7 @@ EndCmp
 BeginCmp
 TimeStamp = /4A2048D8/4A2028AF;
 Reference = U7;
-ValeurCmp = 74HC30M;
+ValeurCmp = CD74HC30M;
 IdModule  = SO14N;
 EndCmp
 
