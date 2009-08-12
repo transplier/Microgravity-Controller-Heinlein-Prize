@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20090216-final) date = Fri 07 Aug 2009 12:14:37 PM CDT
+Cmp-Mod V01 Created by CVpcb (20090216-final) date = Wed 12 Aug 2009 17:06:51 CDT
 
 BeginCmp
 TimeStamp = /4A2048D8/4A43814E;
@@ -200,84 +200,84 @@ BeginCmp
 TimeStamp = /4A2048D8/4A20362F;
 Reference = P13;
 ValeurCmp = ARDUINO_1;
-IdModule  = pin_array_13x2;
+IdModule  = TYCO_5-87589-9;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A2048D8/4A20365B;
 Reference = P14;
 ValeurCmp = ARDUINO_2;
-IdModule  = pin_array_13x2;
+IdModule  = TYCO_5-87589-9;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A205681;
 Reference = P15;
 ValeurCmp = TC_1;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A20568F;
 Reference = P16;
 ValeurCmp = TC_2;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A205692;
 Reference = P17;
 ValeurCmp = TC_3;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A205693;
 Reference = P18;
 ValeurCmp = TC_4;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A205697;
 Reference = P19;
 ValeurCmp = TC_5;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A205698;
 Reference = P20;
 ValeurCmp = TC_6;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A205699;
 Reference = P21;
 ValeurCmp = TC_7;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A20569A;
 Reference = P22;
 ValeurCmp = TC_8;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A20569B;
 Reference = P23;
 ValeurCmp = TC_9;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A20569C;
 Reference = P24;
 ValeurCmp = TC_10;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
@@ -291,14 +291,14 @@ BeginCmp
 TimeStamp = /4A7C6051;
 Reference = P26;
 ValeurCmp = AUX_1;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A7C6052;
 Reference = P27;
 ValeurCmp = AUX_2;
-IdModule  = PIN_ARRAY_3X1;
+IdModule  = TYCO_640454-3;
 EndCmp
 
 BeginCmp
