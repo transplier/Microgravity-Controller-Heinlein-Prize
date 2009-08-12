@@ -33,6 +33,7 @@ const char MainMenu_redun[] PROGMEM  = "Redundancy Tests";
 const char MainMenu_TUmenu[] PROGMEM = "Timing Unit menu";
 const char MainMenu_LUmenu[] PROGMEM = "Logger Unit menu";
 const char MainMenu_EEPROM[] PROGMEM = "EEPROM menu";
+const char MainMenu_triggering[] PROGMEM = "Triggering tests";
 const char MainMenu_comms[] PROGMEM = "Communications menu";
 const char MainMenu_auto[] PROGMEM = "All Automatic Tests";
 const char MainMenu_pinreset[] PROGMEM = "All pins as inputs, pullup off";
@@ -44,6 +45,7 @@ const menu_item_t main_menu[] = {
   { 't', MainMenu_TUmenu, &EnterTimingUnitMenu },
   { 'l', MainMenu_LUmenu, &EnterLoggerUnitMenu },
   { 'e', MainMenu_EEPROM, &EnterEEPROMMenu },
+  { 'g', MainMenu_triggering, &EnterTriggeringMenu },
   { 'c', MainMenu_comms, &EnterCommMenu },
   { 'a', MainMenu_auto, &AllAutoTests },
   { 'p', MainMenu_pinreset, &DoResetPins },
