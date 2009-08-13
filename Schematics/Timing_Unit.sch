@@ -1,11 +1,11 @@
-EESchema Schematic File Version 2  date Wed 05 Aug 2009 04:06:44 PM CDT
+EESchema Schematic File Version 2  date Wed 12 Aug 2009 19:44:51 CDT
 LIBS:power,device,transistors,conn,linear,regul,74xx,cmos4000,adc-dac,memory,xilinx,special,microcontrollers,dsp,microchip,analog_switches,motorola,texas,intel,audio,interface,digital-audio,philips,display,cypress,siliconi,opto,atmel,contrib,valves,./Timing_Unit.cache
 EELAYER 24  0
 EELAYER END
 $Descr A4 11700 8267
 Sheet 1 2
 Title ""
-Date "22 jul 2009"
+Date "12 aug 2009"
 Rev ""
 Comp ""
 Comment1 ""
@@ -13,6 +13,12 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	5900 4750 6100 4750
+Wire Wire Line
+	5900 4550 6100 4550
+Wire Wire Line
+	5900 4350 6100 4350
 Connection ~ 1200 1350
 Wire Wire Line
 	1400 1350 1000 1350
@@ -339,6 +345,21 @@ Wire Wire Line
 Wire Wire Line
 	1400 1650 1550 1650
 Connection ~ 1200 1550
+Wire Wire Line
+	6100 4250 5900 4250
+Wire Wire Line
+	6100 4450 5900 4450
+Wire Wire Line
+	6100 4650 5900 4650
+$Comp
+L CONN_6 P15
+U 1 1 4A8353CA
+P 6450 4500
+F 0 "P15" V 6400 4500 60  0000 C CNN
+F 1 "AUX_OUT" V 6500 4500 60  0000 C CNN
+	1    6450 4500
+	1    0    0    -1  
+$EndComp
 $Comp
 L C C3
 U 1 1 4A509CC3
@@ -1086,12 +1107,6 @@ F 1 "+BATT" H 5000 2100 30  0000 C CNN
 	1    5000 2000
 	1    0    0    -1  
 $EndComp
-NoConn ~ 5900 4250
-NoConn ~ 5900 4350
-NoConn ~ 5900 4450
-NoConn ~ 5900 4550
-NoConn ~ 5900 4650
-NoConn ~ 5900 4750
 $Comp
 L VSS #PWR038
 U 1 1 4A2033DB
@@ -1168,7 +1183,7 @@ U 1 1 4A200C36
 P 9350 2650
 F 0 "P4" V 9300 2650 40  0000 C CNN
 F 1 "TS_2" V 9400 2650 40  0000 C CNN
-F 4 "A33212CT-ND" H 9350 2650 60  0001 C CNN "Digi-Key Part"
+F 4 "WM4164-ND" H 9350 2650 60  0001 C CNN "Digi-Key Part"
 	1    9350 2650
 	1    0    0    -1  
 $EndComp
@@ -1178,7 +1193,7 @@ U 1 1 4A200C35
 P 9350 2300
 F 0 "P3" V 9300 2300 40  0000 C CNN
 F 1 "TS_1" V 9400 2300 40  0000 C CNN
-F 4 "A33212CT-ND" H 9350 2300 60  0001 C CNN "Digikey Part"
+F 4 "WM4164-ND" H 9350 2300 60  0001 C CNN "Digikey Part"
 F 5 "A30258-ND" H 9350 2300 60  0001 C CNN "Digikey Part 2"
 F 6 "A30309-ND" H 9350 2300 60  0001 C CNN "Digikey Part 3"
 	1    9350 2300
@@ -1190,7 +1205,7 @@ U 1 1 4A200C32
 P 9350 4750
 F 0 "P10" V 9300 4750 40  0000 C CNN
 F 1 "TS_8" V 9400 4750 40  0000 C CNN
-F 4 "A33212CT-ND" H 9350 4750 60  0001 C CNN "Digi-Key Part"
+F 4 "WM4164-ND" H 9350 4750 60  0001 C CNN "Digi-Key Part"
 	1    9350 4750
 	1    0    0    -1  
 $EndComp
@@ -1200,7 +1215,7 @@ U 1 1 4A200C31
 P 9350 4400
 F 0 "P9" V 9300 4400 40  0000 C CNN
 F 1 "TS_7" V 9400 4400 40  0000 C CNN
-F 4 "A33212CT-ND" H 9350 4400 60  0001 C CNN "Digi-Key Part"
+F 4 "WM4164-ND" H 9350 4400 60  0001 C CNN "Digi-Key Part"
 	1    9350 4400
 	1    0    0    -1  
 $EndComp
@@ -1210,7 +1225,7 @@ U 1 1 4A200C30
 P 9350 5450
 F 0 "P12" V 9300 5450 40  0000 C CNN
 F 1 "TS_10" V 9400 5450 40  0000 C CNN
-F 4 "A33212CT-ND" H 9350 5450 60  0001 C CNN "Digi-Key Part"
+F 4 "WM4164-ND" H 9350 5450 60  0001 C CNN "Digi-Key Part"
 	1    9350 5450
 	1    0    0    -1  
 $EndComp
@@ -1220,7 +1235,7 @@ U 1 1 4A200C2F
 P 9350 5100
 F 0 "P11" V 9300 5100 40  0000 C CNN
 F 1 "TS_9" V 9400 5100 40  0000 C CNN
-F 4 "A33212CT-ND" H 9350 5100 60  0001 C CNN "Digi-Key Part"
+F 4 "WM4164-ND" H 9350 5100 60  0001 C CNN "Digi-Key Part"
 	1    9350 5100
 	1    0    0    -1  
 $EndComp
@@ -1230,7 +1245,7 @@ U 1 1 4A200C2B
 P 9350 3350
 F 0 "P6" V 9300 3350 40  0000 C CNN
 F 1 "TS_4" V 9400 3350 40  0000 C CNN
-F 4 "A33212CT-ND" H 9350 3350 60  0001 C CNN "Digi-Key Part"
+F 4 "WM4164-ND" H 9350 3350 60  0001 C CNN "Digi-Key Part"
 	1    9350 3350
 	1    0    0    -1  
 $EndComp
@@ -1240,7 +1255,7 @@ U 1 1 4A200C2A
 P 9350 3000
 F 0 "P5" V 9300 3000 40  0000 C CNN
 F 1 "TS_3" V 9400 3000 40  0000 C CNN
-F 4 "A33212CT-ND" H 9350 3000 60  0001 C CNN "Digi-Key Part"
+F 4 "WM4164-ND" H 9350 3000 60  0001 C CNN "Digi-Key Part"
 	1    9350 3000
 	1    0    0    -1  
 $EndComp
@@ -1250,7 +1265,7 @@ U 1 1 4A200C24
 P 9350 4050
 F 0 "P8" V 9300 4050 40  0000 C CNN
 F 1 "TS_6" V 9400 4050 40  0000 C CNN
-F 4 "A33212CT-ND" H 9350 4050 60  0001 C CNN "Digi-Key Part"
+F 4 "WM4164-ND" H 9350 4050 60  0001 C CNN "Digi-Key Part"
 	1    9350 4050
 	1    0    0    -1  
 $EndComp
@@ -1260,7 +1275,7 @@ U 1 1 4A200C00
 P 9350 3700
 F 0 "P7" V 9300 3700 40  0000 C CNN
 F 1 "TS_5" V 9400 3700 40  0000 C CNN
-F 4 "A33212CT-ND" H 9350 3700 60  0001 C CNN "Digi-Key Part"
+F 4 "WM4164-ND" H 9350 3700 60  0001 C CNN "Digi-Key Part"
 	1    9350 3700
 	1    0    0    -1  
 $EndComp

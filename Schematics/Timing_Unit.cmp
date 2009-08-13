@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CVpcb (20090216-final) date = Fri 31 Jul 2009 06:06:43 PM CDT
+Cmp-Mod V01 Created by CVpcb (20090216-final) date = Wed 12 Aug 2009 19:05:10 CDT
 
 BeginCmp
 TimeStamp = /4A2014E2/4A41122C;
@@ -116,84 +116,91 @@ BeginCmp
 TimeStamp = /4A200C35;
 Reference = P3;
 ValeurCmp = TS_1;
-IdModule  = CONN_2_3mm;
+IdModule  = MOLEX_70555-0001;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A200C36;
 Reference = P4;
 ValeurCmp = TS_2;
-IdModule  = CONN_2_3mm;
+IdModule  = MOLEX_70555-0001;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A200C2A;
 Reference = P5;
 ValeurCmp = TS_3;
-IdModule  = CONN_2_3mm;
+IdModule  = MOLEX_70555-0001;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A200C2B;
 Reference = P6;
 ValeurCmp = TS_4;
-IdModule  = CONN_2_3mm;
+IdModule  = MOLEX_70555-0001;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A200C00;
 Reference = P7;
 ValeurCmp = TS_5;
-IdModule  = CONN_2_3mm;
+IdModule  = MOLEX_70555-0001;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A200C24;
 Reference = P8;
 ValeurCmp = TS_6;
-IdModule  = CONN_2_3mm;
+IdModule  = MOLEX_70555-0001;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A200C31;
 Reference = P9;
 ValeurCmp = TS_7;
-IdModule  = CONN_2_3mm;
+IdModule  = MOLEX_70555-0001;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A200C32;
 Reference = P10;
 ValeurCmp = TS_8;
-IdModule  = CONN_2_3mm;
+IdModule  = MOLEX_70555-0001;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A200C2F;
 Reference = P11;
 ValeurCmp = TS_9;
-IdModule  = CONN_2_3mm;
+IdModule  = MOLEX_70555-0001;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A200C30;
 Reference = P12;
 ValeurCmp = TS_10;
-IdModule  = CONN_2_3mm;
+IdModule  = MOLEX_70555-0001;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A2014E2/4A20362F;
 Reference = P13;
 ValeurCmp = ARDUINO_1;
-IdModule  = pin_array_13x2;
+IdModule  = TYCO_5-87589-9;
 EndCmp
 
 BeginCmp
 TimeStamp = /4A2014E2/4A20365B;
 Reference = P14;
 ValeurCmp = ARDUINO_2;
-IdModule  = pin_array_13x2;
+IdModule  = TYCO_5-87589-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /4A8353CA;
+Reference = P15;
+ValeurCmp = AUX_OUT;
+IdModule  = pin_array_3x2;
 EndCmp
 
 BeginCmp
