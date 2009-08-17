@@ -19,14 +19,21 @@ void bargraph(int input) {
   for(byte x=0; x< input; x++) {
     print('#');  
   }
-  for(byte x=input; x<= 73; x++) {
-    print(' ');  
-  }
   /* Clear rest of line */
   write(0x1B);
   write('[');
   write('K');
+
+  cursorRight(73-input);
+
   println(orig);
+}
+
+inline void cursorRight(byte howmuch) {
+  write(0x1B);
+  write('[');
+  Serial.print(howmuch, DEC);
+  write('C');
 }
 
 /* input is from -512 to 512 */
@@ -34,32 +41,23 @@ void bargraph_centerline(signed int input) {
   int orig=input;
   input /= 14;
   
-  
   if(input < 0) {
-    for(byte x=0; x< (36+input); x++) {
-      print(' ');  
-    }
+    cursorRight(36+input);
     for(byte x=0; x< -input; x++) {
       print('#');  
     }
   } else {
-    for(byte x=0; x< 36; x++) {
-      print(' ');  
-    }
+    cursorRight(36);
   }
   print('|');
   if(input > 0) {
     for(byte x=0; x< input; x++) {
       print('#');  
     }
-    for(byte x=0; x< (36-input); x++) {
-      print(' ');  
-    }
+    cursorRight(36-input);
 
   } else {
-    for(byte x=0; x< 36; x++) {
-      print(' ');  
-    }
+    cursorRight(36);
   }
   /* Clear rest of line */
   write(0x1B);
@@ -107,5 +105,6 @@ boolean AccelReadings() {
     bargraph((int)sqrt((double)(accel[2]*accel[2] + accel[1]*accel[1] + accel[0]*accel[0])));
     delay(10);
   }
+  return true;
 }
 
