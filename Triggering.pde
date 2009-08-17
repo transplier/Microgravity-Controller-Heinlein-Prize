@@ -3,7 +3,7 @@
 #define MOVING_AVERAGE_SIZE 100 //number of points in the moving average
 #define POINT_AVERAGE_COUNT 10  //number of readings that are averaged into a point in the moving average.
                                 //I believe that the limit here is 64, otherwise we may overflow. See TODO in loop.
-#define MOVING_AVERAGE_DELAY_MSEC 100 //time interval between moving average points
+#define MOVING_AVERAGE_DELAY_MSEC 1000 //time interval between moving average points
 
 #define POINT_AVERAGE_DELAY_MSEC MOVING_AVERAGE_DELAY_MSEC / POINT_AVERAGE_COUNT
 
@@ -19,8 +19,8 @@ boolean MovingAverageTrigger() {
   //Allocate the ring buffer.
   unsigned short readings[MOVING_AVERAGE_SIZE*3];
   
-  //Allocate the average calculation output array
-  unsigned short average[3];
+  //Allocate the median calculation output short
+  unsigned short median;
   
   //Start out with an empty buffer.
   memset(readings, 0, sizeof(readings));  
@@ -38,12 +38,19 @@ boolean MovingAverageTrigger() {
       //TODO this may overflow...
       AccumAccelerometerReading(current_point);
       delay(POINT_AVERAGE_DELAY_MSEC);
+      /*Serial.print('(');
+      Serial.print(current_point[0]);
+      Serial.print(',');
+      Serial.print(current_point[1]);  
+      Serial.print(',');
+      Serial.print(current_point[2]);
+      Serial.print(')');*/
     }
     //Compute the average
     current_point[0] /= POINT_AVERAGE_COUNT;
     current_point[1] /= POINT_AVERAGE_COUNT;
     current_point[2] /= POINT_AVERAGE_COUNT;
-    
+        
     //Advance/wrap the pointer
     current_point = &current_point[3];
     if((int)current_point >= ((int)readings + sizeof(readings))) {
@@ -54,35 +61,51 @@ boolean MovingAverageTrigger() {
       num_points_filled=MOVING_AVERAGE_SIZE-1;
     
     
-    //Calculate the moving average
-    MovingAverage(readings, num_points_filled, average);
-    Serial.print("X:");
-    Serial.println(average[0]);
-    Serial.print("Y:");
-    Serial.println(average[1]);  
-    Serial.print("Z:");
-    Serial.println(average[2]);
+    //Calculate the median
+    median = torben(readings, num_points_filled*3);
+    Serial.print("\r\nAVG:");
+    Serial.println(median);
   }
 }
 
-/* Computes the average of the first num groups of three in buffer. Outputs to dest. */
-inline void MovingAverage(unsigned short* buffer, size_t num, unsigned short* dest) {
-  /* We must compute the average in blocks of <64, otherwise we may overflow the short (readings are 0-1024). */
-  unsigned short acc[3];
-  uint8_t num_done=0;
-  memset(acc, 0, sizeof(acc));
-  for(unsigned short i=0; i<num; i++) {
-    acc[0]+=buffer[i];
-    acc[1]+=buffer[i+1];
-    acc[2]+=buffer[i+2];
-    num_done++;
-    /* Done with block? If so, add to destination and prepare for next block. */
-    if(num_done >= 64) {
-      dest[0]+=acc[0]/num_done; 
-      dest[1]+=acc[1]/num_done;
-      dest[2]+=acc[2]/num_done;
-      num_done=0;
-      memset(acc, 0, sizeof(acc));
+
+/*
+ * The following code is public domain.
+ * Algorithm by Torben Mogensen, implementation by N. Devillard.
+ * This code in public domain.
+ * Calculate median.
+ */
+
+unsigned short torben(unsigned short m[], int n)
+{
+    int         i, less, greater, equal;
+    unsigned short  min, max, guess, maxltguess, mingtguess;
+
+    min = max = m[0] ;
+    for (i=1 ; i<n ; i++) {
+        if (m[i]<min) min=m[i];
+        if (m[i]>max) max=m[i];
     }
-  }
+
+    while (1) {
+        guess = (min+max)/2;
+        less = 0; greater = 0; equal = 0;
+        maxltguess = min ;
+        mingtguess = max ;
+        for (i=0; i<n; i++) {
+            if (m[i]<guess) {
+                less++;
+                if (m[i]>maxltguess) maxltguess = m[i] ;
+            } else if (m[i]>guess) {
+                greater++;
+                if (m[i]<mingtguess) mingtguess = m[i] ;
+            } else equal++;
+        }
+        if (less <= (n+1)/2 && greater <= (n+1)/2) break ; 
+        else if (less>greater) max = maxltguess ;
+        else min = mingtguess;
+    }
+    if (less >= (n+1)/2) return maxltguess;
+    else if (less+equal >= (n+1)/2) return guess;
+    else return mingtguess;
 }

@@ -1,8 +1,10 @@
 #include <math.h>
 
 const char Triggering_Menu_acceltest[] PROGMEM = "Show accelerometer readings";
+const char Triggering_Menu_triggertest[] PROGMEM = "Run triggering code";
 const menu_item_t triggering_menu[] = {
   { '0', Triggering_Menu_acceltest, &AccelReadings },
+  { '1', Triggering_Menu_triggertest, &MovingAverageTrigger /* in Triggering.pde */ },
 };
 
 boolean EnterTriggeringMenu() {
@@ -40,6 +42,10 @@ inline void cursorRight(byte howmuch) {
 void bargraph_centerline(signed int input) {
   int orig=input;
   input /= 14;
+  /* clear line */
+  write(0x1B);
+  write('[');
+  write('K');
   
   if(input < 0) {
     cursorRight(36+input);
@@ -54,15 +60,12 @@ void bargraph_centerline(signed int input) {
     for(byte x=0; x< input; x++) {
       print('#');  
     }
+
     cursorRight(36-input);
 
   } else {
     cursorRight(36);
   }
-  /* Clear rest of line */
-  write(0x1B);
-  write('[');
-  write('K');
   println(orig);
 }
 
