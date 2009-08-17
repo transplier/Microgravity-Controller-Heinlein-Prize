@@ -87,25 +87,24 @@ boolean AccelReadings() {
   print('M');
   println(':');
   
-  signed int accel_x, accel_y, accel_z;
+  unsigned short accel[3];
   while(Serial.read() != 0x1B) {   
-    accel_x = analogRead(0);
-    accel_y = analogRead(1);
-    accel_z = analogRead(2);
-    accel_x+=(accel_x/2);
-    accel_y+=(accel_y/2);
-    accel_z+=(accel_z/2);
-    accel_x -= 512;
-    accel_y -= 512;
-    accel_z -= 512;
+    memset(accel, 0, sizeof(accel));
+    AccumAccelerometerReading(accel);
+    accel[0]+=(accel[0]/2);
+    accel[1]+=(accel[1]/2);
+    accel[2]+=(accel[2]/2);
+    accel[0] -= 512;
+    accel[1] -= 512;
+    accel[2] -= 512;
     moveCursor(3, 3);
-    bargraph_centerline(accel_x);
+    bargraph_centerline(accel[0]);
     moveCursor(4, 3);
-    bargraph_centerline(accel_y);
+    bargraph_centerline(accel[1]);
     moveCursor(5, 3);
-    bargraph_centerline(accel_z);
+    bargraph_centerline(accel[2]);
     moveCursor(6, 3);
-    bargraph((int)sqrt((double)(accel_z*accel_z + accel_y*accel_y + accel_x*accel_x)));
+    bargraph((int)sqrt((double)(accel[2]*accel[2] + accel[1]*accel[1] + accel[0]*accel[0])));
     delay(10);
   }
 }

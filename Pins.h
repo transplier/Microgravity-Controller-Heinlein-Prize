@@ -28,6 +28,9 @@
 #define TC_IN_RXi 0                         //RXi (inter-TC and LU comms)
 #define TC_IN_REDUN_TAKEOVER_CHECK 9        //Connected to ~takeover.
 #define TC_IN_RSTPIN 12                     //Experiment reset switch. Active low.
+#define TC_ANALOG_ACCEL_X 0                 //Analog port connected to X channel of accelerometer.
+#define TC_ANALOG_ACCEL_Y 1                 //Analog port connected to Y channel of accelerometer.
+#define TC_ANALOG_ACCEL_Z 2                 //Analog port connected to Z channel of accelerometer.
 //OUTPUTS
 #define TC_OUT_TXi 1                        //TXi (inter-TC and LU comms)
 #define TC_OUT_POWER_SR_D 2                 //Power status SR data.
