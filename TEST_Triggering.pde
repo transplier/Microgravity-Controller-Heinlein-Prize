@@ -91,7 +91,7 @@ boolean AccelReadings() {
   unsigned short accel[3];
   while(Serial.read() != 0x1B) {   
     memset(accel, 0, sizeof(accel));
-    AccumAccelerometerReading(accel);
+    AccumAccelerometerReading(&accel[0], &accel[1], &accel[2]);
     accel[0]+=(accel[0]/2);
     accel[1]+=(accel[1]/2);
     accel[2]+=(accel[2]/2);
