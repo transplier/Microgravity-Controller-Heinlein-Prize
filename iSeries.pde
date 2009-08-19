@@ -32,7 +32,7 @@ boolean iSeries::IssueCommand(const char* cmd, byte reply[], byte replyLength, i
      }
    }
    //Read in the chars.
-   for(byte x=0; x<replyLength; x++) {
+   for(uint8_t x=0; x<replyLength; x++) {
      reply[x]=mpCom->read();
    }
    //Drain buffer.
@@ -53,7 +53,7 @@ boolean iSeries::GetReadingString(byte* buffer) {
   boolean rv = IssueCommand("X01", resp, 8, 1000);
   if(rv && resp[0]=='X' && resp[1]=='0' && resp[2]=='1') {
     //All OK
-    for(int x=3;x<8;x++)
+    for(uint8_t x=3;x<8;x++)
       buffer[x-3] = resp[x];
     return true;
   } else {

@@ -34,7 +34,8 @@
 #define LOG_FILE_HEADER "Time (msec), Temperature\n"
 
 /**
- * Number of temperature controllers (addresses assumed to start from zero and end at this value minus one.
+ * Number of temperature controllers (addresses assumed to start from zero and end at this value minus one).
+ * ALSO CHANGE VALUE IN Microgravity_Time_Controller.pde!
  */
 #define NUMBER_OF_TEMP_CONTROLLERS 1
 
@@ -62,7 +63,7 @@
 /**
  * last time we saved state.
  */
-unsigned long lastTimeMillis;
+unsigned long lastTimeMillis[3];
 
 /* Last known state of redundancy input pin */
 boolean redundancy_state = false;
@@ -78,7 +79,7 @@ Goldelox uDrive(&com_2, LU_OUT_GDLOX_RST);
  */
 boolean isUDriveActive = false;
 
-byte udriveResets = 0;
+uint8_t udriveResets = 0;
 
 /**
  * Single, shared iSeries instance (used for all thermostats, assumed to be stateless.
@@ -163,7 +164,7 @@ void setup() {
   logPS(setup_version_msg); 
 
   init_logfiles();
-  lastTimeMillis = millis();
+  redunMemW(lastTimeMillis, millis());
   
   logPS(setup_redunrole_check_msg);
   if(isSecondary()) {
@@ -178,7 +179,7 @@ void setup() {
   logPS(setup_iseries_reset_msg_a);
   log_int(NUMBER_OF_TEMP_CONTROLLERS);
   logPS(setup_iseries_reset_msg_b);
-  for(byte id=0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
+  for(uint8_t id=0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
     set_active_thermostat(id);
     log_int(id);
     if(iSeries.FindAndReset()) {
@@ -189,7 +190,7 @@ void setup() {
   }
   logPS(setup_iseries_reset_msg_done);
 
-  lastTimeMillis = millis();
+  redunMemW(lastTimeMillis, millis());
 
 }
 
@@ -203,7 +204,7 @@ void init_logfiles() {
   char header[100];
   logPS(init_logfiles_init_msg);
   strcpy(header, LOG_FILE_HEADER);
-  for(byte id = 0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
+  for(uint8_t id = 0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
     snprintf(filename, sizeof(filename), LOG_FILE_NAME_FMT, id);
     log(filename);
     logln();
@@ -245,11 +246,11 @@ void loop() {
   byte timeString[12];
 
   //Is it time to write the log entries?
-  if(currentTime - lastTimeMillis >= SAVE_INTERVAL_MSEC) {
-    lastTimeMillis = currentTime;
+  if(currentTime - redunMemR(lastTimeMillis) >= SAVE_INTERVAL_MSEC) {
+    redunMemW(lastTimeMillis, currentTime);
 
     //Loop through all temperature controllers, logging their temperature data to their respective log files.
-    for(byte id = 0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
+    for(uint8_t id = 0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
       //Activate the temp controller we're interested in.
       set_active_thermostat(id);
 
@@ -300,10 +301,10 @@ void loop() {
       //Send the stuff to log.
       com_1.print(filename);
       com_1.print('|');
-      for(byte x=0; x < firstnull +1; x++)
+      for(uint8_t x=0; x < firstnull +1; x++)
         com_1.print((char)timeString[x]); //TODO check location of nulls for this string...
       com_1.print('|');
-      for(byte x=0; x < sizeof(tempReading); x++)
+      for(uint8_t x=0; x < sizeof(tempReading); x++)
         com_1.print((char)tempReading[x]);
       com_1.print(REDUNDANT_LOG_STOP_CHAR);
 
@@ -362,7 +363,7 @@ const char string_request_to[] PROGMEM  = " request to ";
  * Sends a standby command to a thermostat.
  */
 const char issue_cooldown_command_cooldown[] PROGMEM  = "Cooldown";
-void issue_cooldown_command(byte tc_id) {
+void issue_cooldown_command(uint8_t tc_id) {
   logPS(issue_cooldown_command_cooldown);
   logPS(string_request_to);
   log_int(tc_id);
@@ -376,7 +377,7 @@ void issue_cooldown_command(byte tc_id) {
  * Sends a reset thermostat request to the time controller.
  */
 const char issue_reset_command_reset[] PROGMEM  = "Reset";
-void issue_reset_command(byte tc_id) {
+void issue_reset_command(uint8_t tc_id) {
   logPS(issue_reset_command_reset);
   logPS(string_request_to);
   log_int(tc_id);

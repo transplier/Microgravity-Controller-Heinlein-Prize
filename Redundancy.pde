@@ -49,13 +49,14 @@ void enterMonitorMode() {
   lockRedundancy();
   
   /* last relative time we saw a change in the primary's heartbeat line. */
-  long lastSawChange = millis();
+  unsigned long lastSawChange[3];
+  redunMemW(lastSawChange, millis());
   
   /* ... and the last known state of the heartbeat line. */
   boolean lastPinState = getHeartbeatState();
 
   /* Number of times we've tried to reset the primary unit without success. */
-  byte resetCount = 0;
+  uint8_t resetCount = 0;
     
   while(1) {
     doDuringMonitorMode();
@@ -68,9 +69,9 @@ void enterMonitorMode() {
         resetCount = 0;
       }
       
-      lastSawChange = millis();
+      redunMemW(lastSawChange, millis());
       
-    } else if( (millis() - lastSawChange) > REDUNDANCY_TIMEOUT ) {
+    } else if( (millis() - redunMemR(lastSawChange)) > REDUNDANCY_TIMEOUT ) {
       //Oh no! We have no pulse!
       
       //Have we tried the paddles (reset) too many times?
@@ -78,7 +79,7 @@ void enterMonitorMode() {
         //He's dead, doctor.
         log("PRIMARY FAIL, TAKEOVER INITIATED...\n");
         log("TIME OF DEATH (min): ");
-        log_int(lastSawChange/60000l);
+        log_int(redunMemR(lastSawChange)/60000l);
         log(" :(\n");
         setupForTakeover();
         log("EXECUTING MAIN PROGRAM.\n");
@@ -86,7 +87,7 @@ void enterMonitorMode() {
       } else {
         //Administer a reset.
         resetCount++;
-        lastSawChange = millis(); //cause another delay interval.
+        redunMemW(lastSawChange, millis()); //cause another delay interval.
         log("PRIMARY TIMEOUT, RESETTING\nRESET COUNT:");
         log_int(resetCount);
         log("\n");
@@ -98,7 +99,7 @@ void enterMonitorMode() {
 }
 
 void unlockRedundancy() {
-  byte attempts = 0;
+  uint8_t attempts = 0;
   log("GETTING CONTROL...");
   do {
     writeToControlSR(REDUNDANCY_UNLOCK_CODE);
@@ -113,7 +114,7 @@ void unlockRedundancy() {
 }
 
 void lockRedundancy() {
-  byte attempts = 0;
+  uint8_t attempts = 0;
   log("RELEASING CONTROL...");
   do {
     writeToControlSR(0);
