@@ -2,6 +2,8 @@
  * @file Main controller class for microgravity experiment.
  * @author Giacomo Ferrari progman32@gmail.com
  */
+
+#include <avr/pgmspace.h>
  
 #include "git_info.h"
  
@@ -62,6 +64,11 @@
  */
 unsigned long lastTimeMillis;
 
+/* Last known state of redundancy input pin */
+boolean redundancy_state = false;
+
+char* debug_logfile = "DEBUG.LOG";
+
 extern NewSoftSerial com_1;
 extern NewSoftSerial com_2;
 
@@ -84,6 +91,10 @@ iSeries iSeries(&com_1);
  */
 byte iSeriesMissedCommandCount[NUMBER_OF_TEMP_CONTROLLERS];
 
+const char string_ok[] PROGMEM  = "OK!";
+const char string_error[] PROGMEM  = "ERROR";
+const char string_done[] PROGMEM  = "Done.";
+
 void setup_pins() {
   pinMode(LEDPIN, OUTPUT);
   pinMode(LU_IN_COM1_RX, INPUT);
@@ -98,10 +109,23 @@ void setup_pins() {
   pinMode(LU_OUT_REDUN_SR_C, OUTPUT);
 }
 
+const char setup_version_msg [] PROGMEM  = "Microgravity Logger Module V1.0\r\n";
+const char setup_git_rev[] PROGMEM  = "Compiled from GIT commit: " GIT_REVISION "\r\n";
+const char setup_sport_init_msg[] PROGMEM  = "\r\nInitializing serial ports...";
+const char setup_gdlox_init_msg[] PROGMEM  = "Initializing GOLDELOX-DOS UDrive...";
+const char setup_redunrole_check_msg[] PROGMEM  = "Checking redundancy role...";
+const char setup_primary[] PROGMEM  = "primary";
+const char setup_secondary[] PROGMEM  = "secondary";
+const char setup_iseries_reset_msg_a[] PROGMEM  = "Resetting and finding ";
+const char setup_iseries_reset_msg_b[] PROGMEM  = " iSeries on com1... [";
+const char setup_iseries_reset_msg_done[] PROGMEM  = "] Done\r\n";
+const char setup_iseries_reset_msg_err[] PROGMEM  = ":ERR ";
+const char setup_iseries_reset_msg_ok[] PROGMEM  = ": OK ";
+
 void setup() {
   Serial.begin(9600);
-  Serial.println("Microgravity Logger Module V1.0");
-  Serial.println("Compiled from GIT commit: " GIT_REVISION); 
+  debugPS(setup_version_msg);
+  debugPS(setup_git_rev);
 
   setup_pins();
 
@@ -113,11 +137,11 @@ void setup() {
     lockRedundancy();
   }
   
-  DEBUG("Initializing serial ports...");
+  debugPS(setup_sport_init_msg);
   init_comms();
-  DEBUG("OK!\n");
+  debugPSln(string_ok);
 
-  log("Initializing GOLDELOX-DOS UDrive...");
+  debugPS(setup_gdlox_init_msg);
   GoldeloxStatus ret;
   /* Loop forever until uDrive is up. Without the uDrive, we are nothing. */
   while(true) {
@@ -127,44 +151,43 @@ void setup() {
       break;
     } else {
       isUDriveActive = false;
-      log("ERROR ");
+      logPS(string_error);
+      logPS(" ");
       log_int(ret);
-      log("!\n");
+      log("!\r\n");
       delay(100);
     }
   }
   udriveResets = 0;
 
-  log("Compiled from GIT commit: " GIT_REVISION); 
+  logPS(setup_version_msg); 
 
   init_logfiles();
   lastTimeMillis = millis();
   
-  log("Checking redundancy role...");
+  logPS(setup_redunrole_check_msg);
   if(isSecondary()) {
-    log("secondary.\n");
+    logPSln(setup_secondary);
     pinMode(LU_INOUT_REDUNDANCY, INPUT);
     enterMonitorMode();
   } else {
-    log("primary.\n");
+    logPSln(setup_primary);
     pinMode(LU_INOUT_REDUNDANCY, OUTPUT);
   }
 
-  log("Resetting and finding ");
+  logPS(setup_iseries_reset_msg_a);
   log_int(NUMBER_OF_TEMP_CONTROLLERS);
-  log(" iSeries on com1... [");
+  logPS(setup_iseries_reset_msg_b);
   for(byte id=0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
     set_active_thermostat(id);
     log_int(id);
     if(iSeries.FindAndReset()) {
-        log(": OK ");
+        logPS(setup_iseries_reset_msg_ok);
     } else {
-        log(":ERR ");
+        logPS(setup_iseries_reset_msg_err);
     }
   }
-  log("] Done\n");
-
-  init_logfiles();
+  logPS(setup_iseries_reset_msg_done);
 
   lastTimeMillis = millis();
 
@@ -174,22 +197,28 @@ void setup() {
  * Writes the header (LOG_FILE_HEADER) to the top of NUMBER_OF_TEMP_CONTROLLERS
  * log files. Names are formatted according to LOG_FILE_NAME_FMT.
  */
+const char init_logfiles_init_msg[] PROGMEM  = "Initializing logfiles...\r\n";
 void init_logfiles() {
   char filename[12];
   char header[100];
-  log("Initializing logfiles...\n");
+  logPS(init_logfiles_init_msg);
   strcpy(header, LOG_FILE_HEADER);
   for(byte id = 0; id<NUMBER_OF_TEMP_CONTROLLERS; id++) {
     snprintf(filename, sizeof(filename), LOG_FILE_NAME_FMT, id);
     log(filename);
-    log("\n");
+    logln();
     uDrive.append(filename, (byte*)header, strlen(header));
   }
-  log("Done\n");
+  logPSln(string_done);
 }
 
-/* Last known state of redundancy input pin */
-boolean redundancy_state = false;
+const char loop_unknown_cmd[] PROGMEM  = "UNKNOWN COMMAND: ";
+const char loop_iseries[] PROGMEM  = "iSERIES ";
+const char loop_iseries_missed_cmd[] PROGMEM  = ": NO REPY! MISSED COMMANDS: ";
+const char loop_iseries_back[] PROGMEM  = ": Back!\r\n";
+const char loop_gdlox_write_err[] PROGMEM  = "ERROR WRITING TO GOLDILOX!\r\n";
+const char loop_gdlox_rst_cnt[] PROGMEM  = "uDRIVE: Had to reset!\r\nReset count: ";
+const char loop_gdlox_is_dead[] PROGMEM  = "uDRIVE is dead. Entering infinite loop.\r\n";
 void loop() {
   byte temp[16];
 
@@ -202,9 +231,9 @@ void loop() {
       issue_cooldown_command(temp[1]); 
       break;
     default: 
-      log("UNKNOWN COMMAND: "); 
+      logPS(loop_unknown_cmd); 
       log_int(temp[0]);
-      log("\n");
+      logln();
       break;
     }
   }
@@ -235,11 +264,11 @@ void loop() {
       
       //Did the iSeries fail to reply?
       if(!isOK) {
-        log("iSERIES ");
+        logPS(loop_iseries);
         log_int(id);
-        log(": NO REPY! MISSED COMMANDS: ");
+        logPS(loop_iseries_missed_cmd);
         log_int(iSeriesMissedCommandCount[id]);
-        log("\n");
+        logln();
         iSeriesMissedCommandCount[id]++;
         
         //Did we miss too many commands?
@@ -249,9 +278,9 @@ void loop() {
         }
       } else {
         if(iSeriesMissedCommandCount[id] > 0) {
-          log("iSERIES ");
+          logPS(loop_iseries);
           log_int(id);
-          log(": Back!\n");
+          logPS(loop_iseries_back);
         }
         iSeriesMissedCommandCount[id] = 0;
       }
@@ -280,12 +309,12 @@ void loop() {
 
 
       if(ret1 != OK || ret2 != OK) {
-        DEBUG("ERROR WRITING TO GOLDILOX!\n");
+        debugPS(loop_gdlox_write_err);
         udriveResets++;
         uDrive.reinit();
-        log("uDRIVE: Had to reset!\nReset count: ");
+        logPS(loop_gdlox_rst_cnt);
         log_int(udriveResets);
-        log("\n");
+        logln();
         if(udriveResets > UDRIVE_MAX_MISSED_COMMANDS) {
           //UDrive seems dead. We have no more reason to keep using this microcontroller. Attempt to give command back to other microcontroller.
           if(isSecondary()) {
@@ -298,7 +327,7 @@ void loop() {
             //Heartbeat line won't be pulsed until main loop is entered, which won't happen unless the uDrive
             //is detected in setup().
             //If the uDrive is really dead, this will cause the secondary to take over eventually.
-            log("uDRIVE is dead. Entering infinite loop.\n");
+            logPS(loop_gdlox_is_dead);
             while(true){}
           }
         }
@@ -318,21 +347,26 @@ void loop() {
 /**
  * Selects the active thermostat by writing tc_id into the serial port selector SR.
  */
+const char set_active_thermostat_statmsg[] PROGMEM  = "Setting active thermostat: ";
 void set_active_thermostat(byte tc_id) {
-  DEBUG("Setting active thermostat: ");
+  debugPS(set_active_thermostat_statmsg);
   DEBUGF(tc_id, DEC);
-  DEBUG("\n");
+  DEBUGF('\n', BYTE);
   //Load id into SR.
   shiftOut(LU_OUT_SADDR_D, LU_OUT_SADDR_C, MSBFIRST, tc_id);
 }
 
+const char string_request_to[] PROGMEM  = " request to ";
+
 /**
  * Sends a standby command to a thermostat.
  */
+const char issue_cooldown_command_cooldown[] PROGMEM  = "Cooldown";
 void issue_cooldown_command(byte tc_id) {
-  log("Cooldown request to ");
+  logPS(issue_cooldown_command_cooldown);
+  logPS(string_request_to);
   log_int(tc_id);
-  log("\n");
+  logln();
   set_active_thermostat(tc_id);
   byte reply[3];
   iSeries.IssueCommand("D03", reply, 3);
@@ -341,10 +375,12 @@ void issue_cooldown_command(byte tc_id) {
 /**
  * Sends a reset thermostat request to the time controller.
  */
+const char issue_reset_command_reset[] PROGMEM  = "Reset";
 void issue_reset_command(byte tc_id) {
-  log("Reset request to ");
+  logPS(issue_reset_command_reset);
+  logPS(string_request_to);
   log_int(tc_id);
-  log("\n");
+  logln();
   byte msg_buffer[8];
   msg_buffer[0] = SPLIT_COMM_COMMAND_RESET;
   msg_buffer[1] = tc_id;
@@ -354,8 +390,9 @@ void issue_reset_command(byte tc_id) {
 /*
  * Hook that will be called when the experiment is triggered.
  */
+const char exp_triggered_msg[] PROGMEM  = "EXPERIMENT TRIGGERED\r\n";
 void exp_triggered() {
-  log("EXPERIMENT TRIGGERED");
+  logPS(exp_triggered_msg);
 }
 
 /*
@@ -364,9 +401,17 @@ void exp_triggered() {
  */
 void log(char* x) {
   DEBUG(x);
-	if(isUDriveActive) {
-	  uDrive.append("DEBUG.LOG", (byte*)x, strlen(x));
-	}
+  if(isUDriveActive) {
+    uDrive.append(debug_logfile, (byte*)x, strlen(x));
+  }
+}
+
+/*
+ * Logs a newline to the debug console, and, if
+ * the uDrive is active, DEBUG.LOG.
+ */
+void logln() {
+  log("\r\n");
 }
 
 /*
@@ -378,7 +423,32 @@ void log_int(int x) {
   DEBUGF(x, DEC);
   if(isUDriveActive) {
     snprintf(log_temp, sizeof(log_temp), "%d", x);
-    uDrive.append("DEBUG.LOG", (byte*)log_temp, strlen(log_temp));
+    uDrive.append(debug_logfile, (byte*)log_temp, strlen(log_temp));
   }
+}
+
+
+/*
+ * Logs a string  stored in program memory to the debug console, and, if
+ * the uDrive is active, DEBUG.LOG.
+ */
+void logPS(const prog_char str[])
+{
+  char c[50];
+  if(!str) return;
+  strlcpy_P(c, str, sizeof(c));
+  log(c);
+}
+/*
+ * Logs a string  stored in program memory to the debug console, and, if
+ * the uDrive is active, DEBUG.LOG.
+ */
+void logPSln(const prog_char str[])
+{
+  char c[50];
+  if(!str) return;
+  strlcpy_P(c, str, sizeof(c));
+  log(c);
+  logln();
 }
 
