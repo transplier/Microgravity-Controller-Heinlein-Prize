@@ -20,6 +20,10 @@
 /* Amount of time to energize the experiment power coils. */
 #define RELAY_ACTUATION_MSEC 50 //Datasheet specifies 30 msec.
 
+const char string_ok[] PROGMEM  = "OK!";
+const char string_error[] PROGMEM  = "ERROR";
+const char string_done[] PROGMEM  = "Done.";
+
 /**
  * Holds the last (since power on, not experiment start) time we wrote
  * down the experiment time to non-volatile memory.
@@ -54,11 +58,18 @@ void setup_pins() {
 
 }
 
+const char setup_version_msg [] PROGMEM  = "Microgravity Time Controller V1.0\r\n";
+const char setup_git_rev[] PROGMEM  = "Compiled from GIT commit: " GIT_REVISION "\r\n";
+const char setup_redunrole_check_msg[] PROGMEM  = "\r\nChecking redundancy role...";
+const char setup_primary[] PROGMEM  = "primary";
+const char setup_secondary[] PROGMEM  = "secondary";
+const char setup_current_time[] PROGMEM  = "Current time is: ";
+const char setup_waitfortrigger[] PROGMEM  = "WAITING FOR TRIGGER...";
 void setup() {
-  Serial.begin(9600);        
-  Serial.println("Controller V1.0");
-  Serial.println("Compiled from GIT commit: " GIT_REVISION); 
-
+  Serial.begin(9600);    
+  debugPS(setup_version_msg);
+  debugPS(setup_git_rev);
+  
   pinMode(LEDPIN, OUTPUT);
 
   /* Must setup these pins before enterMonitorMode(), so that CheckForReset works properly. */
@@ -79,17 +90,17 @@ void setup() {
   /* Initialize the periodic experiment state saving code */
   timeWroteTime = get_time();
   
-  DEBUG("Current time is: ");
+  debugPS(setup_current_time);
   DEBUGF(timeWroteTime, DEC);
   
   /* Enter monitor mode if we're the secondary unit. */
-  DEBUG("Checking redundancy role...");
+  debugPS(setup_redunrole_check_msg);
   if(isSecondary()) {
-    DEBUG("secondary.\n");
+    debugPSln(setup_secondary);
     pinMode(TC_INOUT_REDUNDANCY, INPUT);
     enterMonitorMode();
   } else {
-    DEBUG("primary.\n");
+    debugPSln(setup_primary);
     pinMode(TC_INOUT_REDUNDANCY, OUTPUT);
   }
 
@@ -107,9 +118,9 @@ void setup() {
      wait for the trigger. Otherwise, continue on.
    */
   if(!(GetStatus() & EEPROM_STATUS_TRIGGERED)) {
-    DEBUG("WAITING FOR TRIGGER...");
+    debugPS(setup_waitfortrigger);
     wait_for_trigger();
-    DEBUG("OK\n");
+    debugPSln(string_ok);
     WriteStatus(GetStatus() | EEPROM_STATUS_TRIGGERED);
   }
   
@@ -117,6 +128,7 @@ void setup() {
   set_exp_power_on(true);
 }
 
+const char loop_unknown_cmd[] PROGMEM  = "UNKNOWN COMMAND\r\n";
 void loop() {
 
   /* Execute the most recent time event (even if it's already run before). */
@@ -141,7 +153,7 @@ void loop() {
       reset_tc(incomingCommand[1]);
       break;
     default: 
-      DEBUG("UNKNOWN COMMAND\n"); 
+      debugPS(loop_unknown_cmd); 
       break;
     }
   }
@@ -169,6 +181,7 @@ void set_exp_power_on(boolean isOn) {
  * @data1 The first byte of data in the time event.
  * @data2 The second byte of data in the time event.
  */
+const char execute_event_executing_type[] PROGMEM  = "Trying to execute event of type: ";
 void execute_event(byte command, byte data1, byte data2) {
   switch(command) {
     case TIME_EVENT_COMMAND_SR_UPDATE:
@@ -181,10 +194,10 @@ void execute_event(byte command, byte data1, byte data2) {
       set_exp_power_on(false);
     break;
     default:
-    DEBUG("Trying to execute event of type: ");
+    debugPS(execute_event_executing_type);
       DEBUGF(command, HEX);
       DEBUG("\n");
-      DEBUG("Invalid command.\n");
+      DEBUG(loop_unknown_cmd);
   }
 }
 
@@ -255,10 +268,11 @@ boolean isResetRequested() {
 /**
  * Erases experiment state, and resets status byte to EEPROM_STATUS_RESET_VALUE.
  */
+const char resetEEPROM_resetting[] PROGMEM  = "Resetting EEPROM...";
 void resetEEPROM() {
-  DEBUG("Resetting...");
+  debugPS(resetEEPROM_resetting);
   WriteStatus(EEPROM_STATUS_RESET_VALUE);
-  DEBUG("Done.");
+  debugPSln(string_done);
 }
 
 /**
