@@ -20,20 +20,32 @@
 /* Amount of time to energize the experiment power coils. */
 #define RELAY_ACTUATION_MSEC 50 //Datasheet specifies 30 msec.
 
+/**
+ * Number of temperature controllers (addresses assumed to start from zero and end at this value minus one).
+ * ALSO CHANGE VALUE IN Microgravity_LOGGER_UNIT.pde!
+ */
+#define NUMBER_OF_TEMP_CONTROLLERS 1
+
 const char string_ok[] PROGMEM  = "OK!";
 const char string_error[] PROGMEM  = "ERROR";
 const char string_done[] PROGMEM  = "Done.";
+
+
+//IMPORTANT NOTE//
+/* You'll notice many variables that look like they should be scalars
+ * (such as timeWroteTime) are in fact arrays. This is because we do
+ * 3-way redundancy with them. See the functions in MemoryRedundancy.pde. */
 
 /**
  * Holds the last (since power on, not experiment start) time we wrote
  * down the experiment time to non-volatile memory.
  */
-unsigned long timeWroteTime;
+unsigned long timeWroteTime[3];
 
 /**
  * The current value believed to be in the power SR.
  */
-byte power_sr_highbyte, power_sr_lowbyte;
+byte power_sr_highbyte[3], power_sr_lowbyte[3];
 
 /**
  * True if the experiment was interrupted by power loss and subsequently
@@ -88,10 +100,10 @@ void setup() {
   time_setup(wasReset);
   
   /* Initialize the periodic experiment state saving code */
-  timeWroteTime = get_time();
+  redunMemW(timeWroteTime, get_time());
   
   debugPS(setup_current_time);
-  DEBUGF(timeWroteTime, DEC);
+  DEBUGF(redunMemR(timeWroteTime), DEC);
   
   /* Enter monitor mode if we're the secondary unit. */
   debugPS(setup_redunrole_check_msg);
@@ -137,10 +149,10 @@ void loop() {
   delay(10);
   
   /* If it's time we wrote the time down in non-volatile memory, do it. */
-  if((millis() - timeWroteTime) > SAVE_INTERVAL_MSEC) {
+  if((millis() - redunMemR(timeWroteTime)) > SAVE_INTERVAL_MSEC) {
     digitalWrite(LEDPIN, HIGH);
     write_time();
-    timeWroteTime=millis();
+    redunMemW(timeWroteTime,millis());
     delay(10);
     digitalWrite(LEDPIN, LOW);
   }
@@ -207,8 +219,8 @@ void execute_event(byte command, byte data1, byte data2) {
  * values.
  */
 void update_power_sr(byte lowbyte, byte highbyte) {
-  power_sr_lowbyte = lowbyte;
-  power_sr_highbyte = highbyte;
+  redunMemW(power_sr_lowbyte, lowbyte);
+  redunMemW(power_sr_highbyte, highbyte);
   write_power_sr();
 }
 
@@ -218,8 +230,8 @@ void update_power_sr(byte lowbyte, byte highbyte) {
  */
 void write_power_sr() {
   digitalWrite(TC_OUT_POWER_SR_L, LOW);
-  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, MSBFIRST, power_sr_highbyte);
-  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, MSBFIRST, power_sr_lowbyte);
+  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, MSBFIRST, redunMemR(power_sr_highbyte));
+  shiftOut(TC_OUT_POWER_SR_D, TC_OUT_POWER_SR_C, MSBFIRST, redunMemR(power_sr_lowbyte));
   digitalWrite(TC_OUT_POWER_SR_L, HIGH);
 }
 
@@ -228,21 +240,23 @@ void write_power_sr() {
  * same as the data in power_sr_lowbyte and power_sr_highbyte.
  * @param tc_id the thermostat's ID.
  */
-void reset_tc(byte tc_id) {
+void reset_tc(uint8_t tc_id) {
+  if(tc_id>=NUMBER_OF_TEMP_CONTROLLERS) { return; }
+  
   /* Create a mask with a zero at the (tc_id % 8)'th position. */
   byte mask = ~(1 << (tc_id % 8));
   byte oldValue;
   
   if(tc_id >= 8) {
-    oldValue = power_sr_highbyte;
-    update_power_sr(power_sr_lowbyte, power_sr_highbyte & mask);
+    oldValue = redunMemR(power_sr_highbyte);
+    update_power_sr(redunMemR(power_sr_lowbyte), redunMemR(power_sr_highbyte) & mask);
     delay(TC_RESET_TIME_MSEC);
-    update_power_sr(power_sr_lowbyte, oldValue);
+    update_power_sr(redunMemR(power_sr_lowbyte), oldValue);
   } else {
-    oldValue = power_sr_lowbyte;
-    update_power_sr(power_sr_lowbyte & mask, power_sr_highbyte);
+    oldValue = redunMemR(power_sr_lowbyte);
+    update_power_sr(redunMemR(power_sr_lowbyte) & mask, redunMemR(power_sr_highbyte));
     delay(TC_RESET_TIME_MSEC);
-    update_power_sr(oldValue, power_sr_highbyte);
+    update_power_sr(oldValue, redunMemR(power_sr_highbyte));
   }
 }
 
@@ -252,6 +266,8 @@ void reset_tc(byte tc_id) {
  * @param tc_id the thermostat's id.
  */
 void send_cooldown_request(byte tc_id) {
+  if(tc_id>=NUMBER_OF_TEMP_CONTROLLERS) { return; }
+  
   byte msg_buffer[8];
   msg_buffer[0] = SPLIT_COMM_COMMAND_COOLDOWN;
   msg_buffer[1] = tc_id;

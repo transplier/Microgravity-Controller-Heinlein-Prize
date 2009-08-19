@@ -7,7 +7,8 @@
  * @return true if a command was received, false otherwise.
  */
 boolean checkForCommand(byte* buffer) {
-  long start_time = millis();
+  unsigned long start_time[3];
+  redunMemW(start_time, millis());
   
   //Read garbage until we find the attention character.
   while(Serial.available()) {
@@ -15,7 +16,7 @@ boolean checkForCommand(byte* buffer) {
       
       while(Serial.available() < SPLIT_COMM_MSG_LENGTH+1) {
          //Busy wait, with timeout.
-        if(millis() - start_time >= SPLIT_COMM_TIMEOUT_MSEC) {
+        if(millis() - redunMemR(start_time) >= SPLIT_COMM_TIMEOUT_MSEC) {
           //We waited too long for full packet, give up.
           return false;
         } 
@@ -30,7 +31,7 @@ boolean checkForCommand(byte* buffer) {
       return checksum == localChecksum;
       
     } else { //Got garbage. 
-      if(millis() - start_time >= SPLIT_COMM_TIMEOUT_MSEC) {
+      if(millis() - redunMemR(start_time) >= SPLIT_COMM_TIMEOUT_MSEC) {
           //We waited too long start of packet, give up.
           return false;
       } 
